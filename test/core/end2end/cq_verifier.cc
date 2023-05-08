@@ -196,8 +196,15 @@ namespace {
 std::string ExpectationString(const Expectation& e) {
   std::string out;
   if (is_probably_integer(e.tag)) {
+#if defined(__CHERI_PURE_CAPABILITY__)
+    // XXX-AM: Teach abseil about this
+    out = absl::StrFormat(
+        "tag(%" PRIdMAX ") ",
+        static_cast<intmax_t>(reinterpret_cast<intptr_t>(e.tag)));
+#else
     out = absl::StrFormat("tag(%" PRIdPTR ") ",
                           reinterpret_cast<intptr_t>(e.tag));
+#endif
   } else {
     out = absl::StrFormat("%p ", e.tag);
   }
