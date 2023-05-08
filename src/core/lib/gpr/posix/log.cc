@@ -92,9 +92,17 @@ void gpr_default_log(gpr_log_func_args* args) {
     strcpy(time_buffer, "error:strftime");
   }
 
+#if defined(__CHERI_PURE_CAPABILITY__)
+  // XXX-AM: Need to teach abseil about this
+  std::string prefix = absl::StrFormat(
+      "%s%s.%09d %7" PRIuMAX " %s:%d]", gpr_log_severity_string(args->severity),
+      time_buffer, (int)(now.tv_nsec), static_cast<uintmax_t>(sys_gettid()),
+      display_file, args->line);
+#else
   std::string prefix = absl::StrFormat(
       "%s%s.%09d %7" PRIdPTR " %s:%d]", gpr_log_severity_string(args->severity),
       time_buffer, (int)(now.tv_nsec), sys_gettid(), display_file, args->line);
+#endif
 
   absl::optional<std::string> stack_trace =
       gpr_should_log_stacktrace(args->severity)
