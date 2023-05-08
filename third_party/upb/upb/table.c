@@ -53,7 +53,7 @@ static const double MIN_DENSITY = 0.1;
 
 static bool is_pow2(uint64_t v) { return v == 0 || (v & (v - 1)) == 0; }
 
-static upb_value _upb_value_val(uint64_t val) {
+static upb_value _upb_value_val(uintptr_t val) {
   upb_value ret;
   _upb_value_setval(&ret, val);
   return ret;

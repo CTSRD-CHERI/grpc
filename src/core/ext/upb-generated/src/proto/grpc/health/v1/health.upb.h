@@ -68,14 +68,14 @@ UPB_INLINE char* grpc_health_v1_HealthCheckRequest_serialize_ex(const grpc_healt
   return upb_Encode(msg, &grpc_health_v1_HealthCheckRequest_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_health_v1_HealthCheckRequest_clear_service(const grpc_health_v1_HealthCheckRequest* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_health_v1_HealthCheckRequest_service(const grpc_health_v1_HealthCheckRequest* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void grpc_health_v1_HealthCheckRequest_set_service(grpc_health_v1_HealthCheckRequest *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 /* grpc.health.v1.HealthCheckResponse */
@@ -110,14 +110,14 @@ UPB_INLINE char* grpc_health_v1_HealthCheckResponse_serialize_ex(const grpc_heal
   return upb_Encode(msg, &grpc_health_v1_HealthCheckResponse_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_health_v1_HealthCheckResponse_clear_status(const grpc_health_v1_HealthCheckResponse* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = 0;
 }
 UPB_INLINE int32_t grpc_health_v1_HealthCheckResponse_status(const grpc_health_v1_HealthCheckResponse* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 
 UPB_INLINE void grpc_health_v1_HealthCheckResponse_set_status(grpc_health_v1_HealthCheckResponse *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = value;
 }
 
 extern const upb_MiniTable_File src_proto_grpc_health_v1_health_proto_upb_file_layout;

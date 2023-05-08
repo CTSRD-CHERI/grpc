@@ -70,62 +70,62 @@ typedef enum {
   envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET = 0
 } envoy_config_core_v3_SubstitutionFormatString_format_oneofcases;
 UPB_INLINE envoy_config_core_v3_SubstitutionFormatString_format_oneofcases envoy_config_core_v3_SubstitutionFormatString_format_case(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return (envoy_config_core_v3_SubstitutionFormatString_format_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return (envoy_config_core_v3_SubstitutionFormatString_format_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 UPB_INLINE bool envoy_config_core_v3_SubstitutionFormatString_has_text_format(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(4, 4)) == 1;
+  return _upb_getoneofcase(msg, UPB_SIZE(4, 4, 4)) == 1;
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_clear_text_format(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(4, 4), envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8, 16), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(4, 4, 4), envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET);
 }
 UPB_INLINE upb_StringView envoy_config_core_v3_SubstitutionFormatString_text_format(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8), UPB_SIZE(4, 4), 1, upb_StringView_FromString(""));
+  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8, 16), UPB_SIZE(4, 4, 4), 1, upb_StringView_FromString(""));
 }
 UPB_INLINE bool envoy_config_core_v3_SubstitutionFormatString_has_json_format(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(4, 4)) == 2;
+  return _upb_getoneofcase(msg, UPB_SIZE(4, 4, 4)) == 2;
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_clear_json_format(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  UPB_WRITE_ONEOF(msg, struct google_protobuf_Struct*, UPB_SIZE(8, 8), 0, UPB_SIZE(4, 4), envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET);
+  UPB_WRITE_ONEOF(msg, struct google_protobuf_Struct*, UPB_SIZE(8, 8, 16), 0, UPB_SIZE(4, 4, 4), envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET);
 }
 UPB_INLINE const struct google_protobuf_Struct* envoy_config_core_v3_SubstitutionFormatString_json_format(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return UPB_READ_ONEOF(msg, const struct google_protobuf_Struct*, UPB_SIZE(8, 8), UPB_SIZE(4, 4), 2, NULL);
+  return UPB_READ_ONEOF(msg, const struct google_protobuf_Struct*, UPB_SIZE(8, 8, 16), UPB_SIZE(4, 4, 4), 2, NULL);
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_clear_omit_empty_values(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool) = 0;
 }
 UPB_INLINE bool envoy_config_core_v3_SubstitutionFormatString_omit_empty_values(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool);
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_clear_content_type(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_core_v3_SubstitutionFormatString_content_type(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView);
 }
 UPB_INLINE bool envoy_config_core_v3_SubstitutionFormatString_has_text_format_source(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(4, 4)) == 5;
+  return _upb_getoneofcase(msg, UPB_SIZE(4, 4, 4)) == 5;
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_clear_text_format_source(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  UPB_WRITE_ONEOF(msg, struct envoy_config_core_v3_DataSource*, UPB_SIZE(8, 8), 0, UPB_SIZE(4, 4), envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET);
+  UPB_WRITE_ONEOF(msg, struct envoy_config_core_v3_DataSource*, UPB_SIZE(8, 8, 16), 0, UPB_SIZE(4, 4, 4), envoy_config_core_v3_SubstitutionFormatString_format_NOT_SET);
 }
 UPB_INLINE const struct envoy_config_core_v3_DataSource* envoy_config_core_v3_SubstitutionFormatString_text_format_source(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return UPB_READ_ONEOF(msg, const struct envoy_config_core_v3_DataSource*, UPB_SIZE(8, 8), UPB_SIZE(4, 4), 5, NULL);
+  return UPB_READ_ONEOF(msg, const struct envoy_config_core_v3_DataSource*, UPB_SIZE(8, 8, 16), UPB_SIZE(4, 4, 4), 5, NULL);
 }
 UPB_INLINE bool envoy_config_core_v3_SubstitutionFormatString_has_formatters(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(24, 40));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(24, 40, 80));
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_clear_formatters(const envoy_config_core_v3_SubstitutionFormatString* msg) {
-  _upb_array_detach(msg, UPB_SIZE(24, 40));
+  _upb_array_detach(msg, UPB_SIZE(24, 40, 80));
 }
 UPB_INLINE const struct envoy_config_core_v3_TypedExtensionConfig* const* envoy_config_core_v3_SubstitutionFormatString_formatters(const envoy_config_core_v3_SubstitutionFormatString* msg, size_t* len) {
-  return (const struct envoy_config_core_v3_TypedExtensionConfig* const*)_upb_array_accessor(msg, UPB_SIZE(24, 40), len);
+  return (const struct envoy_config_core_v3_TypedExtensionConfig* const*)_upb_array_accessor(msg, UPB_SIZE(24, 40, 80), len);
 }
 
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_set_text_format(envoy_config_core_v3_SubstitutionFormatString *msg, upb_StringView value) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8), value, UPB_SIZE(4, 4), 1);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8, 16), value, UPB_SIZE(4, 4, 4), 1);
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_set_json_format(envoy_config_core_v3_SubstitutionFormatString *msg, struct google_protobuf_Struct* value) {
-  UPB_WRITE_ONEOF(msg, struct google_protobuf_Struct*, UPB_SIZE(8, 8), value, UPB_SIZE(4, 4), 2);
+  UPB_WRITE_ONEOF(msg, struct google_protobuf_Struct*, UPB_SIZE(8, 8, 16), value, UPB_SIZE(4, 4, 4), 2);
 }
 UPB_INLINE struct google_protobuf_Struct* envoy_config_core_v3_SubstitutionFormatString_mutable_json_format(envoy_config_core_v3_SubstitutionFormatString* msg, upb_Arena* arena) {
   struct google_protobuf_Struct* sub = (struct google_protobuf_Struct*)envoy_config_core_v3_SubstitutionFormatString_json_format(msg);
@@ -137,13 +137,13 @@ UPB_INLINE struct google_protobuf_Struct* envoy_config_core_v3_SubstitutionForma
   return sub;
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_set_omit_empty_values(envoy_config_core_v3_SubstitutionFormatString *msg, bool value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool) = value;
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_set_content_type(envoy_config_core_v3_SubstitutionFormatString *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_core_v3_SubstitutionFormatString_set_text_format_source(envoy_config_core_v3_SubstitutionFormatString *msg, struct envoy_config_core_v3_DataSource* value) {
-  UPB_WRITE_ONEOF(msg, struct envoy_config_core_v3_DataSource*, UPB_SIZE(8, 8), value, UPB_SIZE(4, 4), 5);
+  UPB_WRITE_ONEOF(msg, struct envoy_config_core_v3_DataSource*, UPB_SIZE(8, 8, 16), value, UPB_SIZE(4, 4, 4), 5);
 }
 UPB_INLINE struct envoy_config_core_v3_DataSource* envoy_config_core_v3_SubstitutionFormatString_mutable_text_format_source(envoy_config_core_v3_SubstitutionFormatString* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_DataSource* sub = (struct envoy_config_core_v3_DataSource*)envoy_config_core_v3_SubstitutionFormatString_text_format_source(msg);
@@ -155,14 +155,14 @@ UPB_INLINE struct envoy_config_core_v3_DataSource* envoy_config_core_v3_Substitu
   return sub;
 }
 UPB_INLINE struct envoy_config_core_v3_TypedExtensionConfig** envoy_config_core_v3_SubstitutionFormatString_mutable_formatters(envoy_config_core_v3_SubstitutionFormatString* msg, size_t* len) {
-  return (struct envoy_config_core_v3_TypedExtensionConfig**)_upb_array_mutable_accessor(msg, UPB_SIZE(24, 40), len);
+  return (struct envoy_config_core_v3_TypedExtensionConfig**)_upb_array_mutable_accessor(msg, UPB_SIZE(24, 40, 80), len);
 }
 UPB_INLINE struct envoy_config_core_v3_TypedExtensionConfig** envoy_config_core_v3_SubstitutionFormatString_resize_formatters(envoy_config_core_v3_SubstitutionFormatString* msg, size_t len, upb_Arena* arena) {
-  return (struct envoy_config_core_v3_TypedExtensionConfig**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(24, 40), len, UPB_SIZE(2, 3), arena);
+  return (struct envoy_config_core_v3_TypedExtensionConfig**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(24, 40, 80), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct envoy_config_core_v3_TypedExtensionConfig* envoy_config_core_v3_SubstitutionFormatString_add_formatters(envoy_config_core_v3_SubstitutionFormatString* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_TypedExtensionConfig* sub = (struct envoy_config_core_v3_TypedExtensionConfig*)_upb_Message_New(&envoy_config_core_v3_TypedExtensionConfig_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(24, 40), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(24, 40, 80), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }

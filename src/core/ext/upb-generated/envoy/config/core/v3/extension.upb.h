@@ -60,27 +60,27 @@ UPB_INLINE char* envoy_config_core_v3_TypedExtensionConfig_serialize_ex(const en
   return upb_Encode(msg, &envoy_config_core_v3_TypedExtensionConfig_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_config_core_v3_TypedExtensionConfig_clear_name(const envoy_config_core_v3_TypedExtensionConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_core_v3_TypedExtensionConfig_name(const envoy_config_core_v3_TypedExtensionConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 UPB_INLINE bool envoy_config_core_v3_TypedExtensionConfig_has_typed_config(const envoy_config_core_v3_TypedExtensionConfig* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_core_v3_TypedExtensionConfig_clear_typed_config(const envoy_config_core_v3_TypedExtensionConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_Any* envoy_config_core_v3_TypedExtensionConfig_typed_config(const envoy_config_core_v3_TypedExtensionConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const struct google_protobuf_Any*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const struct google_protobuf_Any*);
 }
 
 UPB_INLINE void envoy_config_core_v3_TypedExtensionConfig_set_name(envoy_config_core_v3_TypedExtensionConfig *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_core_v3_TypedExtensionConfig_set_typed_config(envoy_config_core_v3_TypedExtensionConfig *msg, struct google_protobuf_Any* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), struct google_protobuf_Any*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), struct google_protobuf_Any*) = value;
 }
 UPB_INLINE struct google_protobuf_Any* envoy_config_core_v3_TypedExtensionConfig_mutable_typed_config(envoy_config_core_v3_TypedExtensionConfig* msg, upb_Arena* arena) {
   struct google_protobuf_Any* sub = (struct google_protobuf_Any*)envoy_config_core_v3_TypedExtensionConfig_typed_config(msg);

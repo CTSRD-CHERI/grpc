@@ -57,11 +57,21 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#if UINTPTR_MAX == 0xffffffff
+#if defined(UPB_CHERI_SUPPORT)
+#if __SIZEOF_POINTER__ == 4
+#define UPB_SIZE(size32, size64, size_cheri) size32
+#elif defined(__CHERI_PURE_CAPABILITY__)
+#define UPB_SIZE(size32, size64, size_cheri) size_cheri
+#else
+#define UPB_SIZE(size32, size64, size_cheri) size64
+#endif
+#else /* !__CHERI_PURE_CAPABILITY__ */
+#if __SIZEOF_LONG__ == 4
 #define UPB_SIZE(size32, size64) size32
 #else
 #define UPB_SIZE(size32, size64) size64
 #endif
+#endif /* !__CHERI_PURE_CAPABILITY__ */
 
 /* If we always read/write as a consistent type to each address, this shouldn't
  * violate aliasing.
@@ -88,8 +98,16 @@
 #define UPB_INLINE static
 #endif
 
+#if __has_builtin(__builtin_align_up)
+#define UPB_ALIGN_UP(size, align) __builtin_align_up(size, align)
+#else
 #define UPB_ALIGN_UP(size, align) (((size) + (align) - 1) / (align) * (align))
+#endif
+#if __has_builtin(__builtin_align_down)
+#define UPB_ALIGN_DOWN(size, align) __builtin_align_down(size, align)
+#else
 #define UPB_ALIGN_DOWN(size, align) ((size) / (align) * (align))
+#endif
 #define UPB_ALIGN_MALLOC(size) UPB_ALIGN_UP(size, 16)
 #define UPB_ALIGN_OF(type) offsetof (struct { char c; type member; }, member)
 

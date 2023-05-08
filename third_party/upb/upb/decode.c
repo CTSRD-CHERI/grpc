@@ -39,25 +39,32 @@
 
 /* Maps descriptor type -> elem_size_lg2.  */
 static const uint8_t desctype_to_elem_size_lg2[] = {
-    -1,             /* invalid descriptor type */
-    3,              /* DOUBLE */
-    2,              /* FLOAT */
-    3,              /* INT64 */
-    3,              /* UINT64 */
-    2,              /* INT32 */
-    3,              /* FIXED64 */
-    2,              /* FIXED32 */
-    0,              /* BOOL */
+    -1, /* invalid descriptor type */
+    3,  /* DOUBLE */
+    2,  /* FLOAT */
+    3,  /* INT64 */
+    3,  /* UINT64 */
+    2,  /* INT32 */
+    3,  /* FIXED64 */
+    2,  /* FIXED32 */
+    0,  /* BOOL */
+#if defined(UPB_CHERI_SUPPORT)
+    UPB_SIZE(3, 4, 5), /* STRING */
+    UPB_SIZE(2, 3, 4), /* GROUP */
+    UPB_SIZE(2, 3, 4), /* MESSAGE */
+    UPB_SIZE(3, 4, 5), /* BYTES */
+#else
     UPB_SIZE(3, 4), /* STRING */
     UPB_SIZE(2, 3), /* GROUP */
     UPB_SIZE(2, 3), /* MESSAGE */
     UPB_SIZE(3, 4), /* BYTES */
-    2,              /* UINT32 */
-    2,              /* ENUM */
-    2,              /* SFIXED32 */
-    3,              /* SFIXED64 */
-    2,              /* SINT32 */
-    3,              /* SINT64 */
+#endif
+    2, /* UINT32 */
+    2, /* ENUM */
+    2, /* SFIXED32 */
+    3, /* SFIXED64 */
+    2, /* SINT32 */
+    3, /* SINT64 */
 };
 
 /* Maps descriptor type -> upb map size.  */

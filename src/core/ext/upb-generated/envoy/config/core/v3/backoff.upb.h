@@ -63,24 +63,24 @@ UPB_INLINE bool envoy_config_core_v3_BackoffStrategy_has_base_interval(const env
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_core_v3_BackoffStrategy_clear_base_interval(const envoy_config_core_v3_BackoffStrategy* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_Duration* envoy_config_core_v3_BackoffStrategy_base_interval(const envoy_config_core_v3_BackoffStrategy* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct google_protobuf_Duration*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct google_protobuf_Duration*);
 }
 UPB_INLINE bool envoy_config_core_v3_BackoffStrategy_has_max_interval(const envoy_config_core_v3_BackoffStrategy* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void envoy_config_core_v3_BackoffStrategy_clear_max_interval(const envoy_config_core_v3_BackoffStrategy* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_Duration* envoy_config_core_v3_BackoffStrategy_max_interval(const envoy_config_core_v3_BackoffStrategy* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const struct google_protobuf_Duration*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const struct google_protobuf_Duration*);
 }
 
 UPB_INLINE void envoy_config_core_v3_BackoffStrategy_set_base_interval(envoy_config_core_v3_BackoffStrategy *msg, struct google_protobuf_Duration* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct google_protobuf_Duration*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct google_protobuf_Duration*) = value;
 }
 UPB_INLINE struct google_protobuf_Duration* envoy_config_core_v3_BackoffStrategy_mutable_base_interval(envoy_config_core_v3_BackoffStrategy* msg, upb_Arena* arena) {
   struct google_protobuf_Duration* sub = (struct google_protobuf_Duration*)envoy_config_core_v3_BackoffStrategy_base_interval(msg);
@@ -93,7 +93,7 @@ UPB_INLINE struct google_protobuf_Duration* envoy_config_core_v3_BackoffStrategy
 }
 UPB_INLINE void envoy_config_core_v3_BackoffStrategy_set_max_interval(envoy_config_core_v3_BackoffStrategy *msg, struct google_protobuf_Duration* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), struct google_protobuf_Duration*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), struct google_protobuf_Duration*) = value;
 }
 UPB_INLINE struct google_protobuf_Duration* envoy_config_core_v3_BackoffStrategy_mutable_max_interval(envoy_config_core_v3_BackoffStrategy* msg, upb_Arena* arena) {
   struct google_protobuf_Duration* sub = (struct google_protobuf_Duration*)envoy_config_core_v3_BackoffStrategy_max_interval(msg);

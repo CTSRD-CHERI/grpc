@@ -31,14 +31,14 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_RBAC_submsgs[1] = {
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_RBAC__fields[2] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), kUpb_NoSub, 5, kUpb_FieldMode_Scalar | (kUpb_FieldRep_4Byte << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Map | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), kUpb_NoSub, 5, kUpb_FieldMode_Scalar | (kUpb_FieldRep_4Byte << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Map | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_RBAC_msginit = {
   &envoy_config_rbac_v3_RBAC_submsgs[0],
   &envoy_config_rbac_v3_RBAC__fields[0],
-  UPB_SIZE(8, 24), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(8, 24, 32), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_RBAC_PoliciesEntry_submsgs[1] = {
@@ -46,14 +46,14 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_RBAC_PoliciesEntry_submsgs[1
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_RBAC_PoliciesEntry__fields[2] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), kUpb_NoSub, 12, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(8, 16), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), kUpb_NoSub, 12, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(8, 16, 32), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_RBAC_PoliciesEntry_msginit = {
   &envoy_config_rbac_v3_RBAC_PoliciesEntry_submsgs[0],
   &envoy_config_rbac_v3_RBAC_PoliciesEntry__fields[0],
-  UPB_SIZE(16, 32), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(16, 32, 64), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_Policy_submsgs[4] = {
@@ -64,16 +64,16 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_Policy_submsgs[4] = {
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_Policy__fields[4] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(8, 16), UPB_SIZE(0, 0), 1, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {3, UPB_SIZE(12, 24), UPB_SIZE(1, 1), 2, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {4, UPB_SIZE(16, 32), UPB_SIZE(2, 2), 3, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(8, 16, 32), UPB_SIZE(0, 0, 0), 1, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {3, UPB_SIZE(12, 24, 48), UPB_SIZE(1, 1, 1), 2, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {4, UPB_SIZE(16, 32, 64), UPB_SIZE(2, 2, 2), 3, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_Policy_msginit = {
   &envoy_config_rbac_v3_Policy_submsgs[0],
   &envoy_config_rbac_v3_Policy__fields[0],
-  UPB_SIZE(20, 40), 4, kUpb_ExtMode_NonExtendable, 4, 255, 0,
+  UPB_SIZE(20, 40, 80), 4, kUpb_ExtMode_NonExtendable, 4, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_Permission_submsgs[10] = {
@@ -90,24 +90,24 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_Permission_submsgs[10] = {
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_Permission__fields[12] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {3, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), kUpb_NoSub, 8, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
-  {4, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 2, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {5, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 3, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {6, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), kUpb_NoSub, 13, kUpb_FieldMode_Scalar | (kUpb_FieldRep_4Byte << kUpb_FieldRep_Shift)},
-  {7, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 4, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {8, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 5, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {9, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 6, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {10, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 7, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {11, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 8, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {12, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 9, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {3, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), kUpb_NoSub, 8, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
+  {4, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 2, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {5, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 3, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {6, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), kUpb_NoSub, 13, kUpb_FieldMode_Scalar | (kUpb_FieldRep_4Byte << kUpb_FieldRep_Shift)},
+  {7, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 4, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {8, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 5, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {9, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 6, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {10, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 7, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {11, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 8, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {12, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 9, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_Permission_msginit = {
   &envoy_config_rbac_v3_Permission_submsgs[0],
   &envoy_config_rbac_v3_Permission__fields[0],
-  UPB_SIZE(8, 24), 12, kUpb_ExtMode_NonExtendable, 12, 255, 0,
+  UPB_SIZE(8, 24, 32), 12, kUpb_ExtMode_NonExtendable, 12, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_Permission_Set_submsgs[1] = {
@@ -115,13 +115,13 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_Permission_Set_submsgs[1] = 
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_Permission_Set__fields[1] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_Permission_Set_msginit = {
   &envoy_config_rbac_v3_Permission_Set_submsgs[0],
   &envoy_config_rbac_v3_Permission_Set__fields[0],
-  UPB_SIZE(4, 8), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(4, 8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_Principal_submsgs[10] = {
@@ -138,23 +138,23 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_Principal_submsgs[10] = {
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_Principal__fields[11] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {3, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), kUpb_NoSub, 8, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
-  {4, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 2, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {5, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 3, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {6, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 4, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {7, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 5, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {8, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 6, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {9, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 7, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {10, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 8, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {11, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 9, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {3, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), kUpb_NoSub, 8, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
+  {4, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 2, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {5, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 3, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {6, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 4, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {7, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 5, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {8, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 6, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {9, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 7, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {10, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 8, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {11, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 9, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_Principal_msginit = {
   &envoy_config_rbac_v3_Principal_submsgs[0],
   &envoy_config_rbac_v3_Principal__fields[0],
-  UPB_SIZE(8, 24), 11, kUpb_ExtMode_NonExtendable, 11, 255, 0,
+  UPB_SIZE(8, 24, 32), 11, kUpb_ExtMode_NonExtendable, 11, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_Principal_Set_submsgs[1] = {
@@ -162,13 +162,13 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_Principal_Set_submsgs[1] = {
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_Principal_Set__fields[1] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_Principal_Set_msginit = {
   &envoy_config_rbac_v3_Principal_Set_submsgs[0],
   &envoy_config_rbac_v3_Principal_Set__fields[0],
-  UPB_SIZE(4, 8), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(4, 8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_config_rbac_v3_Principal_Authenticated_submsgs[1] = {
@@ -176,13 +176,13 @@ static const upb_MiniTable_Sub envoy_config_rbac_v3_Principal_Authenticated_subm
 };
 
 static const upb_MiniTable_Field envoy_config_rbac_v3_Principal_Authenticated__fields[1] = {
-  {2, UPB_SIZE(4, 8), UPB_SIZE(1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(4, 8, 16), UPB_SIZE(1, 1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_rbac_v3_Principal_Authenticated_msginit = {
   &envoy_config_rbac_v3_Principal_Authenticated_submsgs[0],
   &envoy_config_rbac_v3_Principal_Authenticated__fields[0],
-  UPB_SIZE(8, 24), 1, kUpb_ExtMode_NonExtendable, 0, 255, 0,
+  UPB_SIZE(8, 24, 32), 1, kUpb_ExtMode_NonExtendable, 0, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[8] = {

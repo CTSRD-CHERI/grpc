@@ -69,29 +69,29 @@ typedef enum {
   envoy_type_v3_HashPolicy_policy_specifier_NOT_SET = 0
 } envoy_type_v3_HashPolicy_policy_specifier_oneofcases;
 UPB_INLINE envoy_type_v3_HashPolicy_policy_specifier_oneofcases envoy_type_v3_HashPolicy_policy_specifier_case(const envoy_type_v3_HashPolicy* msg) {
-  return (envoy_type_v3_HashPolicy_policy_specifier_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return (envoy_type_v3_HashPolicy_policy_specifier_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE bool envoy_type_v3_HashPolicy_has_source_ip(const envoy_type_v3_HashPolicy* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 1;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 1;
 }
 UPB_INLINE void envoy_type_v3_HashPolicy_clear_source_ip(const envoy_type_v3_HashPolicy* msg) {
-  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_SourceIp*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), envoy_type_v3_HashPolicy_policy_specifier_NOT_SET);
+  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_SourceIp*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), envoy_type_v3_HashPolicy_policy_specifier_NOT_SET);
 }
 UPB_INLINE const envoy_type_v3_HashPolicy_SourceIp* envoy_type_v3_HashPolicy_source_ip(const envoy_type_v3_HashPolicy* msg) {
-  return UPB_READ_ONEOF(msg, const envoy_type_v3_HashPolicy_SourceIp*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 1, NULL);
+  return UPB_READ_ONEOF(msg, const envoy_type_v3_HashPolicy_SourceIp*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 1, NULL);
 }
 UPB_INLINE bool envoy_type_v3_HashPolicy_has_filter_state(const envoy_type_v3_HashPolicy* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 2;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 2;
 }
 UPB_INLINE void envoy_type_v3_HashPolicy_clear_filter_state(const envoy_type_v3_HashPolicy* msg) {
-  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_FilterState*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), envoy_type_v3_HashPolicy_policy_specifier_NOT_SET);
+  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_FilterState*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), envoy_type_v3_HashPolicy_policy_specifier_NOT_SET);
 }
 UPB_INLINE const envoy_type_v3_HashPolicy_FilterState* envoy_type_v3_HashPolicy_filter_state(const envoy_type_v3_HashPolicy* msg) {
-  return UPB_READ_ONEOF(msg, const envoy_type_v3_HashPolicy_FilterState*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 2, NULL);
+  return UPB_READ_ONEOF(msg, const envoy_type_v3_HashPolicy_FilterState*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 2, NULL);
 }
 
 UPB_INLINE void envoy_type_v3_HashPolicy_set_source_ip(envoy_type_v3_HashPolicy *msg, envoy_type_v3_HashPolicy_SourceIp* value) {
-  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_SourceIp*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 1);
+  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_SourceIp*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 1);
 }
 UPB_INLINE struct envoy_type_v3_HashPolicy_SourceIp* envoy_type_v3_HashPolicy_mutable_source_ip(envoy_type_v3_HashPolicy* msg, upb_Arena* arena) {
   struct envoy_type_v3_HashPolicy_SourceIp* sub = (struct envoy_type_v3_HashPolicy_SourceIp*)envoy_type_v3_HashPolicy_source_ip(msg);
@@ -103,7 +103,7 @@ UPB_INLINE struct envoy_type_v3_HashPolicy_SourceIp* envoy_type_v3_HashPolicy_mu
   return sub;
 }
 UPB_INLINE void envoy_type_v3_HashPolicy_set_filter_state(envoy_type_v3_HashPolicy *msg, envoy_type_v3_HashPolicy_FilterState* value) {
-  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_FilterState*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 2);
+  UPB_WRITE_ONEOF(msg, envoy_type_v3_HashPolicy_FilterState*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 2);
 }
 UPB_INLINE struct envoy_type_v3_HashPolicy_FilterState* envoy_type_v3_HashPolicy_mutable_filter_state(envoy_type_v3_HashPolicy* msg, upb_Arena* arena) {
   struct envoy_type_v3_HashPolicy_FilterState* sub = (struct envoy_type_v3_HashPolicy_FilterState*)envoy_type_v3_HashPolicy_filter_state(msg);
@@ -180,14 +180,14 @@ UPB_INLINE char* envoy_type_v3_HashPolicy_FilterState_serialize_ex(const envoy_t
   return upb_Encode(msg, &envoy_type_v3_HashPolicy_FilterState_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_type_v3_HashPolicy_FilterState_clear_key(const envoy_type_v3_HashPolicy_FilterState* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_type_v3_HashPolicy_FilterState_key(const envoy_type_v3_HashPolicy_FilterState* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void envoy_type_v3_HashPolicy_FilterState_set_key(envoy_type_v3_HashPolicy_FilterState *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 extern const upb_MiniTable_File envoy_type_v3_hash_policy_proto_upb_file_layout;

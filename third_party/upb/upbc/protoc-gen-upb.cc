@@ -236,7 +236,11 @@ std::string CTypeInternal(const protobuf::FieldDescriptor* field,
 std::string SizeLg2(const protobuf::FieldDescriptor* field) {
   switch (field->cpp_type()) {
     case protobuf::FieldDescriptor::CPPTYPE_MESSAGE:
+#if defined(UPB_CHERI_SUPPORT)
+      return "UPB_SIZE(2, 3, 4)";
+#else
       return "UPB_SIZE(2, 3)";
+#endif
     case protobuf::FieldDescriptor::CPPTYPE_ENUM:
       return std::to_string(2);
     case protobuf::FieldDescriptor::CPPTYPE_BOOL:
@@ -254,7 +258,11 @@ std::string SizeLg2(const protobuf::FieldDescriptor* field) {
     case protobuf::FieldDescriptor::CPPTYPE_UINT64:
       return std::to_string(3);
     case protobuf::FieldDescriptor::CPPTYPE_STRING:
+#if defined(UPB_CHERI_SUPPORT)
+      return "UPB_SIZE(3, 4, 5)";
+#else
       return "UPB_SIZE(3, 4)";
+#endif
     default:
       fprintf(stderr, "Unexpected type");
       abort();
@@ -620,7 +628,8 @@ class FileLayout {
   FileLayout(const protobuf::FileDescriptor* fd)
       : descriptor_(fd),
         layout32_(fd, kUpb_MiniTablePlatform_32Bit),
-        layout64_(fd, kUpb_MiniTablePlatform_64Bit) {}
+        layout64_(fd, kUpb_MiniTablePlatform_64Bit),
+        layout_cheri_(fd, kUpb_MiniTablePlatform_cheri) {}
 
   const protobuf::FileDescriptor* descriptor() const { return descriptor_; }
 
@@ -632,12 +641,25 @@ class FileLayout {
     return layout64_.GetMiniTable(m);
   }
 
+#if defined(UPB_CHERI_SUPPORT)
+  const upb_MiniTable* GetMiniTableCheri(const protobuf::Descriptor* m) const {
+    return layout_cheri_.GetMiniTable(m);
+  }
+#endif
+
   std::string GetFieldOffset(const protobuf::FieldDescriptor* f) const {
     const upb_MiniTable_Field* f_32 = upb_MiniTable_FindFieldByNumber(
         GetMiniTable32(f->containing_type()), f->number());
     const upb_MiniTable_Field* f_64 = upb_MiniTable_FindFieldByNumber(
         GetMiniTable64(f->containing_type()), f->number());
+#if defined(UPB_CHERI_SUPPORT)
+    const upb_MiniTable_Field* f_cheri = upb_MiniTable_FindFieldByNumber(
+        GetMiniTableCheri(f->containing_type()), f->number());
+    return absl::Substitute("UPB_SIZE($0, $1, $2)", f_32->offset, f_64->offset,
+                            f_cheri->offset);
+#else
     return absl::Substitute("UPB_SIZE($0, $1)", f_32->offset, f_64->offset);
+#endif
   }
 
   std::string GetOneofCaseOffset(const protobuf::OneofDescriptor* o) const {
@@ -646,13 +668,26 @@ class FileLayout {
         GetMiniTable32(f->containing_type()), f->number());
     const upb_MiniTable_Field* f_64 = upb_MiniTable_FindFieldByNumber(
         GetMiniTable64(f->containing_type()), f->number());
+#if defined(UPB_CHERI_SUPPORT)
+    const upb_MiniTable_Field* f_cheri = upb_MiniTable_FindFieldByNumber(
+        GetMiniTableCheri(f->containing_type()), f->number());
+    return absl::Substitute("UPB_SIZE($0, $1, $2)", ~f_32->presence,
+                            ~f_64->presence, ~f_cheri->presence);
+#else
     return absl::Substitute("UPB_SIZE($0, $1)", ~f_32->presence,
                             ~f_64->presence);
+#endif
   }
 
   std::string GetMessageSize(const protobuf::Descriptor* d) const {
+#if defined(UPB_CHERI_SUPPORT)
+    return absl::Substitute("UPB_SIZE($0, $1, $2)", GetMiniTable32(d)->size,
+                            GetMiniTable64(d)->size,
+                            GetMiniTableCheri(d)->size);
+#else
     return absl::Substitute("UPB_SIZE($0, $1)", GetMiniTable32(d)->size,
                             GetMiniTable64(d)->size);
+#endif
   }
 
   int GetHasbitIndex(const protobuf::FieldDescriptor* f) const {
@@ -674,6 +709,7 @@ class FileLayout {
   const protobuf::FileDescriptor* descriptor_;
   FilePlatformLayout layout32_;
   FilePlatformLayout layout64_;
+  FilePlatformLayout layout_cheri_;
 };
 
 void DumpEnumValues(const protobuf::EnumDescriptor* desc, Output& output) {
@@ -1370,6 +1406,10 @@ void WriteHeader(const FileLayout& layout, Output& output) {
     const protobuf::Descriptor* max64_message = nullptr;
     size_t max32 = 0;
     size_t max64 = 0;
+#if defined(UPB_CHERI_SUPPORT)
+    const protobuf::Descriptor* max_cheri_message = nullptr;
+    size_t max_cheri = 0;
+#endif
     for (const auto* message : this_file_messages) {
       if (absl::EndsWith(message->name(), "Options")) {
         size_t size32 = layout.GetMiniTable32(message)->size;
@@ -1382,12 +1422,25 @@ void WriteHeader(const FileLayout& layout, Output& output) {
           max64 = size64;
           max64_message = message;
         }
+#if defined(UPB_CHERI_SUPPORT)
+        size_t size_cheri = layout.GetMiniTableCheri(message)->size;
+        if (size_cheri > max_cheri) {
+          max_cheri = size_cheri;
+          max_cheri_message = message;
+        }
+#endif
       }
     }
 
     output("/* Max size 32 is $0 */\n", max32_message->full_name());
     output("/* Max size 64 is $0 */\n", max64_message->full_name());
+#if defined(UPB_CHERI_SUPPORT)
+    output("/* Max size CHERI is $0 */\n", max_cheri_message->full_name());
+    output("#define _UPB_MAXOPT_SIZE UPB_SIZE($0, $1, $2)\n\n", max32, max64,
+           max_cheri);
+#else
     output("#define _UPB_MAXOPT_SIZE UPB_SIZE($0, $1)\n\n", max32, max64);
+#endif
   }
 
   output(
@@ -1642,6 +1695,29 @@ std::string GetModeInit(uint8_t mode) {
   return ret;
 }
 
+#if defined(UPB_CHERI_SUPPORT)
+void WriteField(const upb_MiniTable_Field* field_cheri,
+                const upb_MiniTable_Field* field64,
+                const upb_MiniTable_Field* field32, Output& output) {
+  output("{$0, UPB_SIZE($1, $2, $8), UPB_SIZE($3, $4, $9), $5, $6, $7}",
+         field64->number, field32->offset, field64->offset, field32->presence,
+         field64->presence,
+         field64->submsg_index == kUpb_NoSub
+             ? "kUpb_NoSub"
+             : absl::StrCat(field64->submsg_index).c_str(),
+         field64->descriptortype, GetModeInit(field64->mode),
+         field_cheri->offset, field_cheri->presence);
+}
+
+// Writes a single field into a .upb.c source file.
+void WriteMessageField(const upb_MiniTable_Field* field_cheri,
+                       const upb_MiniTable_Field* field64,
+                       const upb_MiniTable_Field* field32, Output& output) {
+  output("  ");
+  WriteField(field_cheri, field64, field32, output);
+  output(",\n");
+}
+#else  /* !UPB_CHERI_SUPPORT */
 void WriteField(const upb_MiniTable_Field* field64,
                 const upb_MiniTable_Field* field32, Output& output) {
   output("{$0, UPB_SIZE($1, $2), UPB_SIZE($3, $4), $5, $6, $7}",
@@ -1660,6 +1736,7 @@ void WriteMessageField(const upb_MiniTable_Field* field64,
   WriteField(field64, field32, output);
   output(",\n");
 }
+#endif /* !UPB_CHERI_SUPPORT */
 
 // Writes a single message into a .upb.c source file.
 void WriteMessage(const protobuf::Descriptor* message, const FileLayout& layout,
@@ -1671,6 +1748,9 @@ void WriteMessage(const protobuf::Descriptor* message, const FileLayout& layout,
   const upb_MiniTable* mt_32 = layout.GetMiniTable32(message);
   const upb_MiniTable* mt_64 = layout.GetMiniTable64(message);
   std::vector<std::string> subs;
+#if defined(UPB_CHERI_SUPPORT)
+  const upb_MiniTable* mt_cheri = layout.GetMiniTableCheri(message);
+#endif
 
   for (int i = 0; i < mt_64->field_count; i++) {
     const upb_MiniTable_Field* f = &mt_64->fields[i];
@@ -1698,7 +1778,12 @@ void WriteMessage(const protobuf::Descriptor* message, const FileLayout& layout,
     output("static const upb_MiniTable_Field $0[$1] = {\n", fields_array_name,
            mt_64->field_count);
     for (int i = 0; i < mt_64->field_count; i++) {
+#if defined(UPB_CHERI_SUPPORT)
+      WriteMessageField(&mt_cheri->fields[i], &mt_64->fields[i],
+                        &mt_32->fields[i], output);
+#else
       WriteMessageField(&mt_64->fields[i], &mt_32->fields[i], output);
+#endif
     }
     output("};\n\n");
   }
@@ -1815,7 +1900,11 @@ int WriteMessages(const FileLayout& layout, Output& output,
 }
 
 void WriteExtension(const upb_MiniTable_Extension* ext, Output& output) {
+#if defined(UPB_CHERI_SUPPORT)
+  WriteField(&ext->field, &ext->field, &ext->field, output);
+#else
   WriteField(&ext->field, &ext->field, output);
+#endif
   output(",\n");
   output("  &$0,\n", reinterpret_cast<const char*>(ext->extendee));
   output("  $0,\n", FilePlatformLayout::GetSub(ext->sub));

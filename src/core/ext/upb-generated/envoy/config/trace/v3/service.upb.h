@@ -63,15 +63,15 @@ UPB_INLINE bool envoy_config_trace_v3_TraceServiceConfig_has_grpc_service(const 
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_trace_v3_TraceServiceConfig_clear_grpc_service(const envoy_config_trace_v3_TraceServiceConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_config_core_v3_GrpcService* envoy_config_trace_v3_TraceServiceConfig_grpc_service(const envoy_config_trace_v3_TraceServiceConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct envoy_config_core_v3_GrpcService*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct envoy_config_core_v3_GrpcService*);
 }
 
 UPB_INLINE void envoy_config_trace_v3_TraceServiceConfig_set_grpc_service(envoy_config_trace_v3_TraceServiceConfig *msg, struct envoy_config_core_v3_GrpcService* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct envoy_config_core_v3_GrpcService*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct envoy_config_core_v3_GrpcService*) = value;
 }
 UPB_INLINE struct envoy_config_core_v3_GrpcService* envoy_config_trace_v3_TraceServiceConfig_mutable_grpc_service(envoy_config_trace_v3_TraceServiceConfig* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_GrpcService* sub = (struct envoy_config_core_v3_GrpcService*)envoy_config_trace_v3_TraceServiceConfig_grpc_service(msg);

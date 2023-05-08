@@ -64,20 +64,20 @@ typedef enum {
   envoy_type_matcher_v3_PathMatcher_rule_NOT_SET = 0
 } envoy_type_matcher_v3_PathMatcher_rule_oneofcases;
 UPB_INLINE envoy_type_matcher_v3_PathMatcher_rule_oneofcases envoy_type_matcher_v3_PathMatcher_rule_case(const envoy_type_matcher_v3_PathMatcher* msg) {
-  return (envoy_type_matcher_v3_PathMatcher_rule_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return (envoy_type_matcher_v3_PathMatcher_rule_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE bool envoy_type_matcher_v3_PathMatcher_has_path(const envoy_type_matcher_v3_PathMatcher* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 1;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 1;
 }
 UPB_INLINE void envoy_type_matcher_v3_PathMatcher_clear_path(const envoy_type_matcher_v3_PathMatcher* msg) {
-  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), envoy_type_matcher_v3_PathMatcher_rule_NOT_SET);
+  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), envoy_type_matcher_v3_PathMatcher_rule_NOT_SET);
 }
 UPB_INLINE const struct envoy_type_matcher_v3_StringMatcher* envoy_type_matcher_v3_PathMatcher_path(const envoy_type_matcher_v3_PathMatcher* msg) {
-  return UPB_READ_ONEOF(msg, const struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 1, NULL);
+  return UPB_READ_ONEOF(msg, const struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 1, NULL);
 }
 
 UPB_INLINE void envoy_type_matcher_v3_PathMatcher_set_path(envoy_type_matcher_v3_PathMatcher *msg, struct envoy_type_matcher_v3_StringMatcher* value) {
-  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 1);
+  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 1);
 }
 UPB_INLINE struct envoy_type_matcher_v3_StringMatcher* envoy_type_matcher_v3_PathMatcher_mutable_path(envoy_type_matcher_v3_PathMatcher* msg, upb_Arena* arena) {
   struct envoy_type_matcher_v3_StringMatcher* sub = (struct envoy_type_matcher_v3_StringMatcher*)envoy_type_matcher_v3_PathMatcher_path(msg);

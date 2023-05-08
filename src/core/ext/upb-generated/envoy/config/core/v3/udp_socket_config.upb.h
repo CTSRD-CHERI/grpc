@@ -65,24 +65,24 @@ UPB_INLINE bool envoy_config_core_v3_UdpSocketConfig_has_max_rx_datagram_size(co
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_core_v3_UdpSocketConfig_clear_max_rx_datagram_size(const envoy_config_core_v3_UdpSocketConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_UInt64Value* envoy_config_core_v3_UdpSocketConfig_max_rx_datagram_size(const envoy_config_core_v3_UdpSocketConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct google_protobuf_UInt64Value*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct google_protobuf_UInt64Value*);
 }
 UPB_INLINE bool envoy_config_core_v3_UdpSocketConfig_has_prefer_gro(const envoy_config_core_v3_UdpSocketConfig* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void envoy_config_core_v3_UdpSocketConfig_clear_prefer_gro(const envoy_config_core_v3_UdpSocketConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_BoolValue* envoy_config_core_v3_UdpSocketConfig_prefer_gro(const envoy_config_core_v3_UdpSocketConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const struct google_protobuf_BoolValue*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const struct google_protobuf_BoolValue*);
 }
 
 UPB_INLINE void envoy_config_core_v3_UdpSocketConfig_set_max_rx_datagram_size(envoy_config_core_v3_UdpSocketConfig *msg, struct google_protobuf_UInt64Value* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct google_protobuf_UInt64Value*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct google_protobuf_UInt64Value*) = value;
 }
 UPB_INLINE struct google_protobuf_UInt64Value* envoy_config_core_v3_UdpSocketConfig_mutable_max_rx_datagram_size(envoy_config_core_v3_UdpSocketConfig* msg, upb_Arena* arena) {
   struct google_protobuf_UInt64Value* sub = (struct google_protobuf_UInt64Value*)envoy_config_core_v3_UdpSocketConfig_max_rx_datagram_size(msg);
@@ -95,7 +95,7 @@ UPB_INLINE struct google_protobuf_UInt64Value* envoy_config_core_v3_UdpSocketCon
 }
 UPB_INLINE void envoy_config_core_v3_UdpSocketConfig_set_prefer_gro(envoy_config_core_v3_UdpSocketConfig *msg, struct google_protobuf_BoolValue* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), struct google_protobuf_BoolValue*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), struct google_protobuf_BoolValue*) = value;
 }
 UPB_INLINE struct google_protobuf_BoolValue* envoy_config_core_v3_UdpSocketConfig_mutable_prefer_gro(envoy_config_core_v3_UdpSocketConfig* msg, upb_Arena* arena) {
   struct google_protobuf_BoolValue* sub = (struct google_protobuf_BoolValue*)envoy_config_core_v3_UdpSocketConfig_prefer_gro(msg);

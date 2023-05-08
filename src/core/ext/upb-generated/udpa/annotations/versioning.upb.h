@@ -61,14 +61,14 @@ UPB_INLINE char* udpa_annotations_VersioningAnnotation_serialize_ex(const udpa_a
   return upb_Encode(msg, &udpa_annotations_VersioningAnnotation_msginit, options, arena, len);
 }
 UPB_INLINE void udpa_annotations_VersioningAnnotation_clear_previous_message_type(const udpa_annotations_VersioningAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView udpa_annotations_VersioningAnnotation_previous_message_type(const udpa_annotations_VersioningAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void udpa_annotations_VersioningAnnotation_set_previous_message_type(udpa_annotations_VersioningAnnotation *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 UPB_INLINE bool udpa_annotations_has_versioning(const struct google_protobuf_MessageOptions* msg) {

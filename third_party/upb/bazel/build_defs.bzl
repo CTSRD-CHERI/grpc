@@ -34,8 +34,9 @@ _DEFAULT_COPTS = []
 _DEFAULT_CPPOPTS.extend([
     "-Wextra",
     # "-Wshorten-64-to-32",  # not in GCC (and my Kokoro images doesn't have Clang)
-    "-Werror",
+    # "-Werror",
     "-Wno-long-long",
+    "-DUPB_CHERI_SUPPORT",
 ])
 _DEFAULT_COPTS.extend([
     "-std=c99",
@@ -47,6 +48,7 @@ _DEFAULT_COPTS.extend([
     # without introducing redundant initialization (with runtime cost):
     #   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80635
     #"-Wno-maybe-uninitialized",
+    "-DUPB_CHERI_SUPPORT",
 ])
 # end:github_only
 

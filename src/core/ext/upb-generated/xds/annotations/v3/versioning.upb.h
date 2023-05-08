@@ -61,14 +61,14 @@ UPB_INLINE char* xds_annotations_v3_VersioningAnnotation_serialize_ex(const xds_
   return upb_Encode(msg, &xds_annotations_v3_VersioningAnnotation_msginit, options, arena, len);
 }
 UPB_INLINE void xds_annotations_v3_VersioningAnnotation_clear_previous_message_type(const xds_annotations_v3_VersioningAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView xds_annotations_v3_VersioningAnnotation_previous_message_type(const xds_annotations_v3_VersioningAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void xds_annotations_v3_VersioningAnnotation_set_previous_message_type(xds_annotations_v3_VersioningAnnotation *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 UPB_INLINE bool xds_annotations_v3_has_versioning(const struct google_protobuf_MessageOptions* msg) {

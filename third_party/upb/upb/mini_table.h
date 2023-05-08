@@ -113,8 +113,14 @@ char* upb_MtDataEncoder_FinishEnum(upb_MtDataEncoder* e, char* ptr);
 typedef enum {
   kUpb_MiniTablePlatform_32Bit,
   kUpb_MiniTablePlatform_64Bit,
+  kUpb_MiniTablePlatform_cheri,
   kUpb_MiniTablePlatform_Native =
+#if defined(UPB_CHERI_SUPPORT)
+      UPB_SIZE(kUpb_MiniTablePlatform_32Bit, kUpb_MiniTablePlatform_64Bit,
+               kUpb_MiniTablePlatform_cheri),
+#else
       UPB_SIZE(kUpb_MiniTablePlatform_32Bit, kUpb_MiniTablePlatform_64Bit),
+#endif
 } upb_MiniTablePlatform;
 
 // Builds a mini table from the data encoded in the buffer [data, len]. If any

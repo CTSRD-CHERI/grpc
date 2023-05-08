@@ -49,6 +49,10 @@ typedef union {
   const upb_Message* msg_val;
   const upb_Array* array_val;
   upb_StringView str_val;
+#if defined(__CHERI_PURE_CAPABILITY__)
+  // Convince the compiler that the padding exists
+  uint8_t _bytes[sizeof(upb_StringView)];
+#endif
 } upb_MessageValue;
 
 typedef union {

@@ -60,33 +60,33 @@ UPB_INLINE char* envoy_type_http_v3_Cookie_serialize_ex(const envoy_type_http_v3
   return upb_Encode(msg, &envoy_type_http_v3_Cookie_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_type_http_v3_Cookie_clear_name(const envoy_type_http_v3_Cookie* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_type_http_v3_Cookie_name(const envoy_type_http_v3_Cookie* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 UPB_INLINE bool envoy_type_http_v3_Cookie_has_ttl(const envoy_type_http_v3_Cookie* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_type_http_v3_Cookie_clear_ttl(const envoy_type_http_v3_Cookie* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_Duration* envoy_type_http_v3_Cookie_ttl(const envoy_type_http_v3_Cookie* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const struct google_protobuf_Duration*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const struct google_protobuf_Duration*);
 }
 UPB_INLINE void envoy_type_http_v3_Cookie_clear_path(const envoy_type_http_v3_Cookie* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 32), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_type_http_v3_Cookie_path(const envoy_type_http_v3_Cookie* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 32), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), upb_StringView);
 }
 
 UPB_INLINE void envoy_type_http_v3_Cookie_set_name(envoy_type_http_v3_Cookie *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void envoy_type_http_v3_Cookie_set_ttl(envoy_type_http_v3_Cookie *msg, struct google_protobuf_Duration* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), struct google_protobuf_Duration*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), struct google_protobuf_Duration*) = value;
 }
 UPB_INLINE struct google_protobuf_Duration* envoy_type_http_v3_Cookie_mutable_ttl(envoy_type_http_v3_Cookie* msg, upb_Arena* arena) {
   struct google_protobuf_Duration* sub = (struct google_protobuf_Duration*)envoy_type_http_v3_Cookie_ttl(msg);
@@ -98,7 +98,7 @@ UPB_INLINE struct google_protobuf_Duration* envoy_type_http_v3_Cookie_mutable_tt
   return sub;
 }
 UPB_INLINE void envoy_type_http_v3_Cookie_set_path(envoy_type_http_v3_Cookie *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 32), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), upb_StringView) = value;
 }
 
 extern const upb_MiniTable_File envoy_type_http_v3_cookie_proto_upb_file_layout;

@@ -76,17 +76,26 @@ static char _upb_CTypeo_mapsize[12] = {
 
 static const char _upb_CTypeo_sizelg2[12] = {
     0,
-    0,              /* kUpb_CType_Bool */
-    2,              /* kUpb_CType_Float */
-    2,              /* kUpb_CType_Int32 */
-    2,              /* kUpb_CType_UInt32 */
-    2,              /* kUpb_CType_Enum */
+    0, /* kUpb_CType_Bool */
+    2, /* kUpb_CType_Float */
+    2, /* kUpb_CType_Int32 */
+    2, /* kUpb_CType_UInt32 */
+    2, /* kUpb_CType_Enum */
+#if defined(UPB_CHERI_SUPPORT)
+    UPB_SIZE(2, 3, 4), /* kUpb_CType_Message */
+#else
     UPB_SIZE(2, 3), /* kUpb_CType_Message */
-    3,              /* kUpb_CType_Double */
-    3,              /* kUpb_CType_Int64 */
-    3,              /* kUpb_CType_UInt64 */
+#endif
+    3, /* kUpb_CType_Double */
+    3, /* kUpb_CType_Int64 */
+    3, /* kUpb_CType_UInt64 */
+#if defined(UPB_CHERI_SUPPORT)
+    UPB_SIZE(3, 4, 5), /* kUpb_CType_String */
+    UPB_SIZE(3, 4, 5), /* kUpb_CType_Bytes */
+#else
     UPB_SIZE(3, 4), /* kUpb_CType_String */
     UPB_SIZE(3, 4), /* kUpb_CType_Bytes */
+#endif
 };
 
 /** upb_Message

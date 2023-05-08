@@ -64,23 +64,23 @@ UPB_INLINE char* envoy_type_v3_Int64Range_serialize_ex(const envoy_type_v3_Int64
   return upb_Encode(msg, &envoy_type_v3_Int64Range_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_type_v3_Int64Range_clear_start(const envoy_type_v3_Int64Range* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int64_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int64_t) = 0;
 }
 UPB_INLINE int64_t envoy_type_v3_Int64Range_start(const envoy_type_v3_Int64Range* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int64_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int64_t);
 }
 UPB_INLINE void envoy_type_v3_Int64Range_clear_end(const envoy_type_v3_Int64Range* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), int64_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), int64_t) = 0;
 }
 UPB_INLINE int64_t envoy_type_v3_Int64Range_end(const envoy_type_v3_Int64Range* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), int64_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), int64_t);
 }
 
 UPB_INLINE void envoy_type_v3_Int64Range_set_start(envoy_type_v3_Int64Range *msg, int64_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int64_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int64_t) = value;
 }
 UPB_INLINE void envoy_type_v3_Int64Range_set_end(envoy_type_v3_Int64Range *msg, int64_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), int64_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), int64_t) = value;
 }
 
 /* envoy.type.v3.Int32Range */
@@ -115,23 +115,23 @@ UPB_INLINE char* envoy_type_v3_Int32Range_serialize_ex(const envoy_type_v3_Int32
   return upb_Encode(msg, &envoy_type_v3_Int32Range_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_type_v3_Int32Range_clear_start(const envoy_type_v3_Int32Range* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = 0;
 }
 UPB_INLINE int32_t envoy_type_v3_Int32Range_start(const envoy_type_v3_Int32Range* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE void envoy_type_v3_Int32Range_clear_end(const envoy_type_v3_Int32Range* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = 0;
 }
 UPB_INLINE int32_t envoy_type_v3_Int32Range_end(const envoy_type_v3_Int32Range* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 
 UPB_INLINE void envoy_type_v3_Int32Range_set_start(envoy_type_v3_Int32Range *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = value;
 }
 UPB_INLINE void envoy_type_v3_Int32Range_set_end(envoy_type_v3_Int32Range *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = value;
 }
 
 /* envoy.type.v3.DoubleRange */
@@ -166,23 +166,23 @@ UPB_INLINE char* envoy_type_v3_DoubleRange_serialize_ex(const envoy_type_v3_Doub
   return upb_Encode(msg, &envoy_type_v3_DoubleRange_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_type_v3_DoubleRange_clear_start(const envoy_type_v3_DoubleRange* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), double) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), double) = 0;
 }
 UPB_INLINE double envoy_type_v3_DoubleRange_start(const envoy_type_v3_DoubleRange* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), double);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), double);
 }
 UPB_INLINE void envoy_type_v3_DoubleRange_clear_end(const envoy_type_v3_DoubleRange* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), double) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), double) = 0;
 }
 UPB_INLINE double envoy_type_v3_DoubleRange_end(const envoy_type_v3_DoubleRange* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), double);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), double);
 }
 
 UPB_INLINE void envoy_type_v3_DoubleRange_set_start(envoy_type_v3_DoubleRange *msg, double value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), double) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), double) = value;
 }
 UPB_INLINE void envoy_type_v3_DoubleRange_set_end(envoy_type_v3_DoubleRange *msg, double value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), double) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), double) = value;
 }
 
 extern const upb_MiniTable_File envoy_type_v3_range_proto_upb_file_layout;

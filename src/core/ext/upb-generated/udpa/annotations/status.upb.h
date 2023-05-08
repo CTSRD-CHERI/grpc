@@ -68,23 +68,23 @@ UPB_INLINE char* udpa_annotations_StatusAnnotation_serialize_ex(const udpa_annot
   return upb_Encode(msg, &udpa_annotations_StatusAnnotation_msginit, options, arena, len);
 }
 UPB_INLINE void udpa_annotations_StatusAnnotation_clear_work_in_progress(const udpa_annotations_StatusAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool) = 0;
 }
 UPB_INLINE bool udpa_annotations_StatusAnnotation_work_in_progress(const udpa_annotations_StatusAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool);
 }
 UPB_INLINE void udpa_annotations_StatusAnnotation_clear_package_version_status(const udpa_annotations_StatusAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = 0;
 }
 UPB_INLINE int32_t udpa_annotations_StatusAnnotation_package_version_status(const udpa_annotations_StatusAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 
 UPB_INLINE void udpa_annotations_StatusAnnotation_set_work_in_progress(udpa_annotations_StatusAnnotation *msg, bool value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool) = value;
 }
 UPB_INLINE void udpa_annotations_StatusAnnotation_set_package_version_status(udpa_annotations_StatusAnnotation *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = value;
 }
 
 UPB_INLINE bool udpa_annotations_has_file_status(const struct google_protobuf_FileOptions* msg) {

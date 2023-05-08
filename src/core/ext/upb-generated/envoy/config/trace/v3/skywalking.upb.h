@@ -68,24 +68,24 @@ UPB_INLINE bool envoy_config_trace_v3_SkyWalkingConfig_has_grpc_service(const en
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_trace_v3_SkyWalkingConfig_clear_grpc_service(const envoy_config_trace_v3_SkyWalkingConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_config_core_v3_GrpcService* envoy_config_trace_v3_SkyWalkingConfig_grpc_service(const envoy_config_trace_v3_SkyWalkingConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct envoy_config_core_v3_GrpcService*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct envoy_config_core_v3_GrpcService*);
 }
 UPB_INLINE bool envoy_config_trace_v3_SkyWalkingConfig_has_client_config(const envoy_config_trace_v3_SkyWalkingConfig* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void envoy_config_trace_v3_SkyWalkingConfig_clear_client_config(const envoy_config_trace_v3_SkyWalkingConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const envoy_config_trace_v3_ClientConfig* envoy_config_trace_v3_SkyWalkingConfig_client_config(const envoy_config_trace_v3_SkyWalkingConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const envoy_config_trace_v3_ClientConfig*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const envoy_config_trace_v3_ClientConfig*);
 }
 
 UPB_INLINE void envoy_config_trace_v3_SkyWalkingConfig_set_grpc_service(envoy_config_trace_v3_SkyWalkingConfig *msg, struct envoy_config_core_v3_GrpcService* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct envoy_config_core_v3_GrpcService*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct envoy_config_core_v3_GrpcService*) = value;
 }
 UPB_INLINE struct envoy_config_core_v3_GrpcService* envoy_config_trace_v3_SkyWalkingConfig_mutable_grpc_service(envoy_config_trace_v3_SkyWalkingConfig* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_GrpcService* sub = (struct envoy_config_core_v3_GrpcService*)envoy_config_trace_v3_SkyWalkingConfig_grpc_service(msg);
@@ -98,7 +98,7 @@ UPB_INLINE struct envoy_config_core_v3_GrpcService* envoy_config_trace_v3_SkyWal
 }
 UPB_INLINE void envoy_config_trace_v3_SkyWalkingConfig_set_client_config(envoy_config_trace_v3_SkyWalkingConfig *msg, envoy_config_trace_v3_ClientConfig* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), envoy_config_trace_v3_ClientConfig*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), envoy_config_trace_v3_ClientConfig*) = value;
 }
 UPB_INLINE struct envoy_config_trace_v3_ClientConfig* envoy_config_trace_v3_SkyWalkingConfig_mutable_client_config(envoy_config_trace_v3_SkyWalkingConfig* msg, upb_Arena* arena) {
   struct envoy_config_trace_v3_ClientConfig* sub = (struct envoy_config_trace_v3_ClientConfig*)envoy_config_trace_v3_SkyWalkingConfig_client_config(msg);
@@ -146,51 +146,51 @@ typedef enum {
   envoy_config_trace_v3_ClientConfig_backend_token_specifier_NOT_SET = 0
 } envoy_config_trace_v3_ClientConfig_backend_token_specifier_oneofcases;
 UPB_INLINE envoy_config_trace_v3_ClientConfig_backend_token_specifier_oneofcases envoy_config_trace_v3_ClientConfig_backend_token_specifier_case(const envoy_config_trace_v3_ClientConfig* msg) {
-  return (envoy_config_trace_v3_ClientConfig_backend_token_specifier_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return (envoy_config_trace_v3_ClientConfig_backend_token_specifier_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_clear_service_name(const envoy_config_trace_v3_ClientConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_trace_v3_ClientConfig_service_name(const envoy_config_trace_v3_ClientConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView);
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_clear_instance_name(const envoy_config_trace_v3_ClientConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_trace_v3_ClientConfig_instance_name(const envoy_config_trace_v3_ClientConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), upb_StringView);
 }
 UPB_INLINE bool envoy_config_trace_v3_ClientConfig_has_backend_token(const envoy_config_trace_v3_ClientConfig* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(4, 4)) == 3;
+  return _upb_getoneofcase(msg, UPB_SIZE(4, 4, 4)) == 3;
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_clear_backend_token(const envoy_config_trace_v3_ClientConfig* msg) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(4, 4), envoy_config_trace_v3_ClientConfig_backend_token_specifier_NOT_SET);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8, 16), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(4, 4, 4), envoy_config_trace_v3_ClientConfig_backend_token_specifier_NOT_SET);
 }
 UPB_INLINE upb_StringView envoy_config_trace_v3_ClientConfig_backend_token(const envoy_config_trace_v3_ClientConfig* msg) {
-  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8), UPB_SIZE(4, 4), 3, upb_StringView_FromString(""));
+  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8, 16), UPB_SIZE(4, 4, 4), 3, upb_StringView_FromString(""));
 }
 UPB_INLINE bool envoy_config_trace_v3_ClientConfig_has_max_cache_size(const envoy_config_trace_v3_ClientConfig* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_clear_max_cache_size(const envoy_config_trace_v3_ClientConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_UInt32Value* envoy_config_trace_v3_ClientConfig_max_cache_size(const envoy_config_trace_v3_ClientConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const struct google_protobuf_UInt32Value*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), const struct google_protobuf_UInt32Value*);
 }
 
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_set_service_name(envoy_config_trace_v3_ClientConfig *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_set_instance_name(envoy_config_trace_v3_ClientConfig *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_set_backend_token(envoy_config_trace_v3_ClientConfig *msg, upb_StringView value) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8), value, UPB_SIZE(4, 4), 3);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(8, 8, 16), value, UPB_SIZE(4, 4, 4), 3);
 }
 UPB_INLINE void envoy_config_trace_v3_ClientConfig_set_max_cache_size(envoy_config_trace_v3_ClientConfig *msg, struct google_protobuf_UInt32Value* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), struct google_protobuf_UInt32Value*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), struct google_protobuf_UInt32Value*) = value;
 }
 UPB_INLINE struct google_protobuf_UInt32Value* envoy_config_trace_v3_ClientConfig_mutable_max_cache_size(envoy_config_trace_v3_ClientConfig* msg, upb_Arena* arena) {
   struct google_protobuf_UInt32Value* sub = (struct google_protobuf_UInt32Value*)envoy_config_trace_v3_ClientConfig_max_cache_size(msg);

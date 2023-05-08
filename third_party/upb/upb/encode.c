@@ -448,7 +448,7 @@ static bool encode_shouldencode(upb_encstate* e, const upb_Message* msg,
         memcpy(&ch, mem, 1);
         return ch != 0;
       }
-#if UINTPTR_MAX == 0xffffffff
+#if __SIZEOF_POINTER__ == 4
       case kUpb_FieldRep_Pointer:
 #endif
       case kUpb_FieldRep_4Byte: {
@@ -456,7 +456,7 @@ static bool encode_shouldencode(upb_encstate* e, const upb_Message* msg,
         memcpy(&u32, mem, 4);
         return u32 != 0;
       }
-#if UINTPTR_MAX != 0xffffffff
+#if __SIZEOF_POINTER__ == 8
       case kUpb_FieldRep_Pointer:
 #endif
       case kUpb_FieldRep_8Byte: {
@@ -468,6 +468,13 @@ static bool encode_shouldencode(upb_encstate* e, const upb_Message* msg,
         const upb_StringView* str = (const upb_StringView*)mem;
         return str->size != 0;
       }
+#if defined(UPB_CHERI_SUPPORT) && defined(__CHERI_PURE_CAPABILITY__)
+      case kUpb_FieldRep_Pointer: {
+        uintptr_t uptr;
+        memcpy(&uptr, mem, sizeof(uptr));
+        return uptr != 0;
+      }
+#endif
       default:
         UPB_UNREACHABLE();
     }

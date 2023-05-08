@@ -22,20 +22,20 @@ static const upb_MiniTable_Sub envoy_config_listener_v3_UdpListenerConfig_submsg
 };
 
 static const upb_MiniTable_Field envoy_config_listener_v3_UdpListenerConfig__fields[2] = {
-  {5, UPB_SIZE(4, 8), UPB_SIZE(1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {7, UPB_SIZE(8, 16), UPB_SIZE(2, 2), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {5, UPB_SIZE(4, 8, 16), UPB_SIZE(1, 1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {7, UPB_SIZE(8, 16, 32), UPB_SIZE(2, 2, 2), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_config_listener_v3_UdpListenerConfig_msginit = {
   &envoy_config_listener_v3_UdpListenerConfig_submsgs[0],
   &envoy_config_listener_v3_UdpListenerConfig__fields[0],
-  UPB_SIZE(12, 24), 2, kUpb_ExtMode_NonExtendable, 0, 255, 0,
+  UPB_SIZE(12, 24, 48), 2, kUpb_ExtMode_NonExtendable, 0, 255, 0,
 };
 
 const upb_MiniTable envoy_config_listener_v3_ActiveRawUdpListenerConfig_msginit = {
   NULL,
   NULL,
-  UPB_SIZE(0, 8), 0, kUpb_ExtMode_NonExtendable, 0, 255, 0,
+  UPB_SIZE(0, 8, 0), 0, kUpb_ExtMode_NonExtendable, 0, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[2] = {

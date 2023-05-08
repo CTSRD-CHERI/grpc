@@ -20,13 +20,13 @@ static const upb_MiniTable_Sub envoy_extensions_load_balancing_policies_wrr_loca
 };
 
 static const upb_MiniTable_Field envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality__fields[1] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(1, 1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_msginit = {
   &envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_submsgs[0],
   &envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality__fields[0],
-  UPB_SIZE(8, 24), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 24, 32), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[1] = {
