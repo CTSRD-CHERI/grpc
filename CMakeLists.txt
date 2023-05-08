@@ -315,6 +315,8 @@ if(UNIX AND NOT HAIKU)
   endif()
 endif()
 
+add_definitions("-DUPB_CHERI_SUPPORT")
+
 # configure ccache if requested
 include(cmake/ccache.cmake)
 
