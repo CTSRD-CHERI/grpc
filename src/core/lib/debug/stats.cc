@@ -149,15 +149,30 @@ std::string grpc_stats_data_as_json(const grpc_stats_data* data) {
   std::vector<std::string> parts;
   parts.push_back("{");
   for (size_t i = 0; i < GRPC_STATS_COUNTER_COUNT; i++) {
+#if defined(__CHERI_PURE_CAPABILITY__)
+    // XXX-AM: Need to teach abseil about this
+    parts.push_back(absl::StrFormat("\"%s\": %" PRIdMAX,
+                                    grpc_stats_counter_name[i],
+                                    static_cast<intmax_t>(data->counters[i])));
+#else
     parts.push_back(absl::StrFormat(
         "\"%s\": %" PRIdPTR, grpc_stats_counter_name[i], data->counters[i]));
+#endif
   }
   for (size_t i = 0; i < GRPC_STATS_HISTOGRAM_COUNT; i++) {
     parts.push_back(absl::StrFormat("\"%s\": [", grpc_stats_histogram_name[i]));
     for (int j = 0; j < grpc_stats_histo_buckets[i]; j++) {
+#if defined(__CHERI_PURE_CAPABILITY__)
+      // XXX-AM: Need to teach abseil about this
+      parts.push_back(absl::StrFormat(
+          "%s%" PRIdMAX, j == 0 ? "" : ",",
+          static_cast<intmax_t>(
+              data->histograms[grpc_stats_histo_start[i] + j])));
+#else
       parts.push_back(
           absl::StrFormat("%s%" PRIdPTR, j == 0 ? "" : ",",
                           data->histograms[grpc_stats_histo_start[i] + j]));
+#endif
     }
     parts.push_back(
         absl::StrFormat("], \"%s_bkt\": [", grpc_stats_histogram_name[i]));
