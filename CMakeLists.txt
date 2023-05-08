@@ -325,6 +325,7 @@ include(cmake/upb.cmake)
 include(cmake/xxhash.cmake)
 include(cmake/zlib.cmake)
 include(cmake/download_archive.cmake)
+
 if(gRPC_BUILD_TESTS)
   include(CTest)
 endif()
@@ -416,16 +417,6 @@ file(MAKE_DIRECTORY ${_gRPC_PROTO_SRCS_DIR})
 # Create directory for generated .proto files
 set(_gRPC_PROTO_GENS_DIR ${CMAKE_BINARY_DIR}/gens)
 file(MAKE_DIRECTORY ${_gRPC_PROTO_GENS_DIR})
-
-#
-# add_grpc_test
-# -------------
-#
-#   Generate a test executable, same signature as add_executable()
-function(add_grpc_test name)
-  add_executable(${name} ${ARGN})
-  add_test(NAME ${name} COMMAND ${name})
-endfunction()
 
 #  protobuf_generate_grpc_cpp
 #  --------------------------
@@ -4291,7 +4282,7 @@ target_link_libraries(gen_hpack_tables
 
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alloc_test
+add_executable(alloc_test
   test/core/gpr/alloc_test.cc
 )
 
@@ -4315,10 +4306,15 @@ target_link_libraries(alloc_test
 )
 
 
+
+add_test(NAME alloc_test
+  COMMAND alloc_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alpn_test
+add_executable(alpn_test
   test/core/transport/chttp2/alpn_test.cc
 )
 
@@ -4342,10 +4338,15 @@ target_link_libraries(alpn_test
 )
 
 
+
+add_test(NAME alpn_test
+  COMMAND alpn_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_counter_test
+add_executable(alts_counter_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/alts_counter_test.cc
 )
@@ -4370,10 +4371,15 @@ target_link_libraries(alts_counter_test
 )
 
 
+
+add_test(NAME alts_counter_test
+  COMMAND alts_counter_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_crypt_test
+add_executable(alts_crypt_test
   test/core/tsi/alts/crypt/aes_gcm_test.cc
   test/core/tsi/alts/crypt/gsec_test_util.cc
 )
@@ -4398,10 +4404,15 @@ target_link_libraries(alts_crypt_test
 )
 
 
+
+add_test(NAME alts_crypt_test
+  COMMAND alts_crypt_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_crypter_test
+add_executable(alts_crypter_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/alts_crypter_test.cc
 )
@@ -4426,10 +4437,15 @@ target_link_libraries(alts_crypter_test
 )
 
 
+
+add_test(NAME alts_crypter_test
+  COMMAND alts_crypter_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_frame_protector_test
+add_executable(alts_frame_protector_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/alts_frame_protector_test.cc
   test/core/tsi/transport_security_test_lib.cc
@@ -4455,10 +4471,15 @@ target_link_libraries(alts_frame_protector_test
 )
 
 
+
+add_test(NAME alts_frame_protector_test
+  COMMAND alts_frame_protector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_grpc_record_protocol_test
+add_executable(alts_grpc_record_protocol_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/zero_copy_frame_protector/alts_grpc_record_protocol_test.cc
 )
@@ -4483,10 +4504,15 @@ target_link_libraries(alts_grpc_record_protocol_test
 )
 
 
+
+add_test(NAME alts_grpc_record_protocol_test
+  COMMAND alts_grpc_record_protocol_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_handshaker_client_test
+add_executable(alts_handshaker_client_test
   test/core/tsi/alts/handshaker/alts_handshaker_client_test.cc
   test/core/tsi/alts/handshaker/alts_handshaker_service_api_test_lib.cc
 )
@@ -4511,10 +4537,15 @@ target_link_libraries(alts_handshaker_client_test
 )
 
 
+
+add_test(NAME alts_handshaker_client_test
+  COMMAND alts_handshaker_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_iovec_record_protocol_test
+add_executable(alts_iovec_record_protocol_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/zero_copy_frame_protector/alts_iovec_record_protocol_test.cc
 )
@@ -4539,10 +4570,15 @@ target_link_libraries(alts_iovec_record_protocol_test
 )
 
 
+
+add_test(NAME alts_iovec_record_protocol_test
+  COMMAND alts_iovec_record_protocol_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_security_connector_test
+add_executable(alts_security_connector_test
   test/core/security/alts_security_connector_test.cc
 )
 
@@ -4566,10 +4602,15 @@ target_link_libraries(alts_security_connector_test
 )
 
 
+
+add_test(NAME alts_security_connector_test
+  COMMAND alts_security_connector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_tsi_handshaker_test
+add_executable(alts_tsi_handshaker_test
   test/core/tsi/alts/handshaker/alts_handshaker_service_api_test_lib.cc
   test/core/tsi/alts/handshaker/alts_tsi_handshaker_test.cc
 )
@@ -4594,10 +4635,15 @@ target_link_libraries(alts_tsi_handshaker_test
 )
 
 
+
+add_test(NAME alts_tsi_handshaker_test
+  COMMAND alts_tsi_handshaker_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_tsi_utils_test
+add_executable(alts_tsi_utils_test
   test/core/tsi/alts/handshaker/alts_handshaker_service_api_test_lib.cc
   test/core/tsi/alts/handshaker/alts_tsi_utils_test.cc
 )
@@ -4622,10 +4668,15 @@ target_link_libraries(alts_tsi_utils_test
 )
 
 
+
+add_test(NAME alts_tsi_utils_test
+  COMMAND alts_tsi_utils_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_zero_copy_grpc_protector_test
+add_executable(alts_zero_copy_grpc_protector_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/zero_copy_frame_protector/alts_zero_copy_grpc_protector_test.cc
 )
@@ -4650,10 +4701,15 @@ target_link_libraries(alts_zero_copy_grpc_protector_test
 )
 
 
+
+add_test(NAME alts_zero_copy_grpc_protector_test
+  COMMAND alts_zero_copy_grpc_protector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(arena_test
+add_executable(arena_test
   test/core/gpr/arena_test.cc
 )
 
@@ -4677,10 +4733,15 @@ target_link_libraries(arena_test
 )
 
 
+
+add_test(NAME arena_test
+  COMMAND arena_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(auth_context_test
+add_executable(auth_context_test
   test/core/security/auth_context_test.cc
 )
 
@@ -4704,10 +4765,15 @@ target_link_libraries(auth_context_test
 )
 
 
+
+add_test(NAME auth_context_test
+  COMMAND auth_context_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(b64_test
+add_executable(b64_test
   test/core/slice/b64_test.cc
 )
 
@@ -4731,10 +4797,15 @@ target_link_libraries(b64_test
 )
 
 
+
+add_test(NAME b64_test
+  COMMAND b64_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(bad_server_response_test
+add_executable(bad_server_response_test
   test/core/end2end/bad_server_response_test.cc
   test/core/end2end/cq_verifier.cc
 )
@@ -4759,11 +4830,16 @@ target_link_libraries(bad_server_response_test
 )
 
 
+
+add_test(NAME bad_server_response_test
+  COMMAND bad_server_response_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(bad_ssl_alpn_test
+  add_executable(bad_ssl_alpn_test
     test/core/bad_ssl/bad_ssl_test.cc
     test/core/end2end/cq_verifier.cc
   )
@@ -4788,12 +4864,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME bad_ssl_alpn_test
+    COMMAND bad_ssl_alpn_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(bad_ssl_cert_test
+  add_executable(bad_ssl_cert_test
     test/core/bad_ssl/bad_ssl_test.cc
     test/core/end2end/cq_verifier.cc
   )
@@ -4818,11 +4899,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME bad_ssl_cert_test
+    COMMAND bad_ssl_cert_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(bin_decoder_test
+add_executable(bin_decoder_test
   test/core/transport/chttp2/bin_decoder_test.cc
 )
 
@@ -4846,10 +4932,15 @@ target_link_libraries(bin_decoder_test
 )
 
 
+
+add_test(NAME bin_decoder_test
+  COMMAND bin_decoder_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(bin_encoder_test
+add_executable(bin_encoder_test
   test/core/transport/chttp2/bin_encoder_test.cc
 )
 
@@ -4873,10 +4964,15 @@ target_link_libraries(bin_encoder_test
 )
 
 
+
+add_test(NAME bin_encoder_test
+  COMMAND bin_encoder_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(buffer_list_test
+add_executable(buffer_list_test
   test/core/iomgr/buffer_list_test.cc
 )
 
@@ -4900,10 +4996,15 @@ target_link_libraries(buffer_list_test
 )
 
 
+
+add_test(NAME buffer_list_test
+  COMMAND buffer_list_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(c_slice_buffer_test
+add_executable(c_slice_buffer_test
   test/core/slice/c_slice_buffer_test.cc
 )
 
@@ -4927,10 +5028,15 @@ target_link_libraries(c_slice_buffer_test
 )
 
 
+
+add_test(NAME c_slice_buffer_test
+  COMMAND c_slice_buffer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_stack_test
+add_executable(channel_stack_test
   test/core/channel/channel_stack_test.cc
 )
 
@@ -4954,10 +5060,15 @@ target_link_libraries(channel_stack_test
 )
 
 
+
+add_test(NAME channel_stack_test
+  COMMAND channel_stack_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(check_gcp_environment_linux_test
+add_executable(check_gcp_environment_linux_test
   test/core/security/check_gcp_environment_linux_test.cc
 )
 
@@ -4981,10 +5092,15 @@ target_link_libraries(check_gcp_environment_linux_test
 )
 
 
+
+add_test(NAME check_gcp_environment_linux_test
+  COMMAND check_gcp_environment_linux_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(check_gcp_environment_windows_test
+add_executable(check_gcp_environment_windows_test
   test/core/security/check_gcp_environment_windows_test.cc
 )
 
@@ -5008,11 +5124,16 @@ target_link_libraries(check_gcp_environment_windows_test
 )
 
 
+
+add_test(NAME check_gcp_environment_windows_test
+  COMMAND check_gcp_environment_windows_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(client_ssl_test
+  add_executable(client_ssl_test
     test/core/handshake/client_ssl.cc
   )
 
@@ -5036,11 +5157,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME client_ssl_test
+    COMMAND client_ssl_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cmdline_test
+add_executable(cmdline_test
   test/core/util/cmdline_test.cc
 )
 
@@ -5064,11 +5190,16 @@ target_link_libraries(cmdline_test
 )
 
 
+
+add_test(NAME cmdline_test
+  COMMAND cmdline_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(combiner_test
+  add_executable(combiner_test
     test/core/iomgr/combiner_test.cc
   )
 
@@ -5092,11 +5223,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME combiner_test
+    COMMAND combiner_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(completion_queue_threading_test
+add_executable(completion_queue_threading_test
   test/core/surface/completion_queue_threading_test.cc
 )
 
@@ -5120,10 +5256,15 @@ target_link_libraries(completion_queue_threading_test
 )
 
 
+
+add_test(NAME completion_queue_threading_test
+  COMMAND completion_queue_threading_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(compression_test
+add_executable(compression_test
   test/core/compression/args_utils.cc
   test/core/compression/compression_test.cc
 )
@@ -5148,10 +5289,15 @@ target_link_libraries(compression_test
 )
 
 
+
+add_test(NAME compression_test
+  COMMAND compression_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(concurrent_connectivity_test
+add_executable(concurrent_connectivity_test
   test/core/surface/concurrent_connectivity_test.cc
 )
 
@@ -5175,10 +5321,15 @@ target_link_libraries(concurrent_connectivity_test
 )
 
 
+
+add_test(NAME concurrent_connectivity_test
+  COMMAND concurrent_connectivity_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(connection_refused_test
+add_executable(connection_refused_test
   test/core/end2end/connection_refused_test.cc
   test/core/end2end/cq_verifier.cc
 )
@@ -5203,10 +5354,15 @@ target_link_libraries(connection_refused_test
 )
 
 
+
+add_test(NAME connection_refused_test
+  COMMAND connection_refused_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cpu_test
+add_executable(cpu_test
   test/core/gpr/cpu_test.cc
 )
 
@@ -5230,10 +5386,15 @@ target_link_libraries(cpu_test
 )
 
 
+
+add_test(NAME cpu_test
+  COMMAND cpu_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(dns_resolver_cooldown_test
+add_executable(dns_resolver_cooldown_test
   test/core/client_channel/resolvers/dns_resolver_cooldown_test.cc
 )
 
@@ -5257,10 +5418,15 @@ target_link_libraries(dns_resolver_cooldown_test
 )
 
 
+
+add_test(NAME dns_resolver_cooldown_test
+  COMMAND dns_resolver_cooldown_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(dns_resolver_test
+add_executable(dns_resolver_test
   test/core/client_channel/resolvers/dns_resolver_test.cc
 )
 
@@ -5284,11 +5450,16 @@ target_link_libraries(dns_resolver_test
 )
 
 
+
+add_test(NAME dns_resolver_test
+  COMMAND dns_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(dualstack_socket_test
+  add_executable(dualstack_socket_test
     test/core/end2end/cq_verifier.cc
     test/core/end2end/dualstack_socket_test.cc
   )
@@ -5313,11 +5484,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME dualstack_socket_test
+    COMMAND dualstack_socket_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(endpoint_pair_test
+add_executable(endpoint_pair_test
   test/core/iomgr/endpoint_pair_test.cc
   test/core/iomgr/endpoint_tests.cc
 )
@@ -5342,10 +5518,15 @@ target_link_libraries(endpoint_pair_test
 )
 
 
+
+add_test(NAME endpoint_pair_test
+  COMMAND endpoint_pair_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(env_test
+add_executable(env_test
   test/core/gpr/env_test.cc
 )
 
@@ -5369,10 +5550,15 @@ target_link_libraries(env_test
 )
 
 
+
+add_test(NAME env_test
+  COMMAND env_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(fake_resolver_test
+add_executable(fake_resolver_test
   test/core/client_channel/resolvers/fake_resolver_test.cc
 )
 
@@ -5396,10 +5582,15 @@ target_link_libraries(fake_resolver_test
 )
 
 
+
+add_test(NAME fake_resolver_test
+  COMMAND fake_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(fake_transport_security_test
+add_executable(fake_transport_security_test
   test/core/tsi/fake_transport_security_test.cc
   test/core/tsi/transport_security_test_lib.cc
 )
@@ -5424,11 +5615,16 @@ target_link_libraries(fake_transport_security_test
 )
 
 
+
+add_test(NAME fake_transport_security_test
+  COMMAND fake_transport_security_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(fd_conservation_posix_test
+  add_executable(fd_conservation_posix_test
     test/core/iomgr/fd_conservation_posix_test.cc
   )
 
@@ -5452,12 +5648,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME fd_conservation_posix_test
+    COMMAND fd_conservation_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(fd_posix_test
+  add_executable(fd_posix_test
     test/core/iomgr/fd_posix_test.cc
   )
 
@@ -5481,12 +5682,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME fd_posix_test
+    COMMAND fd_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(fling_stream_test
+  add_executable(fling_stream_test
     test/core/end2end/data/client_certs.cc
     test/core/end2end/data/server1_cert.cc
     test/core/end2end/data/server1_key.cc
@@ -5514,12 +5720,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME fling_stream_test
+    COMMAND fling_stream_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(fling_test
+  add_executable(fling_test
     test/core/end2end/data/client_certs.cc
     test/core/end2end/data/server1_cert.cc
     test/core/end2end/data/server1_key.cc
@@ -5547,12 +5758,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME fling_test
+    COMMAND fling_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(fork_test
+  add_executable(fork_test
     test/core/gprpp/fork_test.cc
   )
 
@@ -5576,11 +5792,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME fork_test
+    COMMAND fork_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(format_request_test
+add_executable(format_request_test
   test/core/end2end/data/client_certs.cc
   test/core/end2end/data/server1_cert.cc
   test/core/end2end/data/server1_key.cc
@@ -5608,10 +5829,15 @@ target_link_libraries(format_request_test
 )
 
 
+
+add_test(NAME format_request_test
+  COMMAND format_request_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(frame_handler_test
+add_executable(frame_handler_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/frame_handler_test.cc
 )
@@ -5636,10 +5862,15 @@ target_link_libraries(frame_handler_test
 )
 
 
+
+add_test(NAME frame_handler_test
+  COMMAND frame_handler_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(goaway_server_test
+add_executable(goaway_server_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/goaway_server_test.cc
 )
@@ -5664,10 +5895,15 @@ target_link_libraries(goaway_server_test
 )
 
 
+
+add_test(NAME goaway_server_test
+  COMMAND goaway_server_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_alts_credentials_options_test
+add_executable(grpc_alts_credentials_options_test
   test/core/security/grpc_alts_credentials_options_test.cc
 )
 
@@ -5691,10 +5927,15 @@ target_link_libraries(grpc_alts_credentials_options_test
 )
 
 
+
+add_test(NAME grpc_alts_credentials_options_test
+  COMMAND grpc_alts_credentials_options_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_byte_buffer_reader_test
+add_executable(grpc_byte_buffer_reader_test
   test/core/surface/byte_buffer_reader_test.cc
 )
 
@@ -5718,10 +5959,15 @@ target_link_libraries(grpc_byte_buffer_reader_test
 )
 
 
+
+add_test(NAME grpc_byte_buffer_reader_test
+  COMMAND grpc_byte_buffer_reader_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_completion_queue_test
+add_executable(grpc_completion_queue_test
   test/core/surface/completion_queue_test.cc
 )
 
@@ -5745,10 +5991,15 @@ target_link_libraries(grpc_completion_queue_test
 )
 
 
+
+add_test(NAME grpc_completion_queue_test
+  COMMAND grpc_completion_queue_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_ipv6_loopback_available_test
+add_executable(grpc_ipv6_loopback_available_test
   test/core/iomgr/grpc_ipv6_loopback_available_test.cc
 )
 
@@ -5772,11 +6023,16 @@ target_link_libraries(grpc_ipv6_loopback_available_test
 )
 
 
+
+add_test(NAME grpc_ipv6_loopback_available_test
+  COMMAND grpc_ipv6_loopback_available_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(handshake_server_with_readahead_handshaker_test
+  add_executable(handshake_server_with_readahead_handshaker_test
     test/core/handshake/readahead_handshaker_server_ssl.cc
     test/core/handshake/server_ssl_common.cc
   )
@@ -5801,11 +6057,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME handshake_server_with_readahead_handshaker_test
+    COMMAND handshake_server_with_readahead_handshaker_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(histogram_test
+add_executable(histogram_test
   test/core/util/histogram_test.cc
 )
 
@@ -5829,10 +6090,15 @@ target_link_libraries(histogram_test
 )
 
 
+
+add_test(NAME histogram_test
+  COMMAND histogram_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(host_port_test
+add_executable(host_port_test
   test/core/gprpp/host_port_test.cc
 )
 
@@ -5856,10 +6122,15 @@ target_link_libraries(host_port_test
 )
 
 
+
+add_test(NAME host_port_test
+  COMMAND host_port_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(hpack_encoder_test
+add_executable(hpack_encoder_test
   test/core/transport/chttp2/hpack_encoder_test.cc
 )
 
@@ -5883,10 +6154,15 @@ target_link_libraries(hpack_encoder_test
 )
 
 
+
+add_test(NAME hpack_encoder_test
+  COMMAND hpack_encoder_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(inproc_callback_test
+add_executable(inproc_callback_test
   test/core/end2end/inproc_callback_test.cc
 )
 
@@ -5910,10 +6186,15 @@ target_link_libraries(inproc_callback_test
 )
 
 
+
+add_test(NAME inproc_callback_test
+  COMMAND inproc_callback_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(invalid_call_argument_test
+add_executable(invalid_call_argument_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/invalid_call_argument_test.cc
 )
@@ -5938,10 +6219,15 @@ target_link_libraries(invalid_call_argument_test
 )
 
 
+
+add_test(NAME invalid_call_argument_test
+  COMMAND invalid_call_argument_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(json_token_test
+add_executable(json_token_test
   test/core/security/json_token_test.cc
 )
 
@@ -5965,10 +6251,15 @@ target_link_libraries(json_token_test
 )
 
 
+
+add_test(NAME json_token_test
+  COMMAND json_token_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(jwt_verifier_test
+add_executable(jwt_verifier_test
   test/core/security/jwt_verifier_test.cc
 )
 
@@ -5992,10 +6283,15 @@ target_link_libraries(jwt_verifier_test
 )
 
 
+
+add_test(NAME jwt_verifier_test
+  COMMAND jwt_verifier_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(lame_client_test
+add_executable(lame_client_test
   test/core/end2end/cq_verifier.cc
   test/core/surface/lame_client_test.cc
 )
@@ -6020,10 +6316,15 @@ target_link_libraries(lame_client_test
 )
 
 
+
+add_test(NAME lame_client_test
+  COMMAND lame_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(load_file_test
+add_executable(load_file_test
   test/core/iomgr/load_file_test.cc
 )
 
@@ -6047,11 +6348,16 @@ target_link_libraries(load_file_test
 )
 
 
+
+add_test(NAME load_file_test
+  COMMAND load_file_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(memory_quota_stress_test
+  add_executable(memory_quota_stress_test
     src/core/ext/upb-generated/google/protobuf/any.upb.c
     src/core/ext/upb-generated/google/rpc/status.upb.c
     src/core/lib/debug/trace.cc
@@ -6098,11 +6404,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME memory_quota_stress_test
+    COMMAND memory_quota_stress_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(message_compress_test
+add_executable(message_compress_test
   test/core/compression/message_compress_test.cc
 )
 
@@ -6126,10 +6437,15 @@ target_link_libraries(message_compress_test
 )
 
 
+
+add_test(NAME message_compress_test
+  COMMAND message_compress_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(minimal_stack_is_minimal_test
+add_executable(minimal_stack_is_minimal_test
   test/core/channel/minimal_stack_is_minimal_test.cc
 )
 
@@ -6153,10 +6469,15 @@ target_link_libraries(minimal_stack_is_minimal_test
 )
 
 
+
+add_test(NAME minimal_stack_is_minimal_test
+  COMMAND minimal_stack_is_minimal_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(mpmcqueue_test
+add_executable(mpmcqueue_test
   test/core/iomgr/mpmcqueue_test.cc
 )
 
@@ -6180,11 +6501,16 @@ target_link_libraries(mpmcqueue_test
 )
 
 
+
+add_test(NAME mpmcqueue_test
+  COMMAND mpmcqueue_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(mpscq_test
+  add_executable(mpscq_test
     test/core/gprpp/mpscq_test.cc
   )
 
@@ -6208,11 +6534,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME mpscq_test
+    COMMAND mpscq_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(multiple_server_queues_test
+add_executable(multiple_server_queues_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/multiple_server_queues_test.cc
 )
@@ -6237,10 +6568,15 @@ target_link_libraries(multiple_server_queues_test
 )
 
 
+
+add_test(NAME multiple_server_queues_test
+  COMMAND multiple_server_queues_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(murmur_hash_test
+add_executable(murmur_hash_test
   test/core/gpr/murmur_hash_test.cc
 )
 
@@ -6264,10 +6600,15 @@ target_link_libraries(murmur_hash_test
 )
 
 
+
+add_test(NAME murmur_hash_test
+  COMMAND murmur_hash_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(no_server_test
+add_executable(no_server_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/no_server_test.cc
 )
@@ -6292,10 +6633,15 @@ target_link_libraries(no_server_test
 )
 
 
+
+add_test(NAME no_server_test
+  COMMAND no_server_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(num_external_connectivity_watchers_test
+add_executable(num_external_connectivity_watchers_test
   test/core/surface/num_external_connectivity_watchers_test.cc
 )
 
@@ -6319,10 +6665,15 @@ target_link_libraries(num_external_connectivity_watchers_test
 )
 
 
+
+add_test(NAME num_external_connectivity_watchers_test
+  COMMAND num_external_connectivity_watchers_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(parse_address_test
+add_executable(parse_address_test
   test/core/address_utils/parse_address_test.cc
 )
 
@@ -6346,11 +6697,16 @@ target_link_libraries(parse_address_test
 )
 
 
+
+add_test(NAME parse_address_test
+  COMMAND parse_address_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(parse_address_with_named_scope_id_test
+  add_executable(parse_address_with_named_scope_id_test
     test/core/address_utils/parse_address_with_named_scope_id_test.cc
   )
 
@@ -6374,11 +6730,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME parse_address_with_named_scope_id_test
+    COMMAND parse_address_with_named_scope_id_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(parser_test
+add_executable(parser_test
   test/core/end2end/data/client_certs.cc
   test/core/end2end/data/server1_cert.cc
   test/core/end2end/data/server1_key.cc
@@ -6406,10 +6767,15 @@ target_link_libraries(parser_test
 )
 
 
+
+add_test(NAME parser_test
+  COMMAND parser_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(percent_encoding_test
+add_executable(percent_encoding_test
   test/core/slice/percent_encoding_test.cc
 )
 
@@ -6433,10 +6799,15 @@ target_link_libraries(percent_encoding_test
 )
 
 
+
+add_test(NAME percent_encoding_test
+  COMMAND percent_encoding_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(public_headers_must_be_c89
+add_executable(public_headers_must_be_c89
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   test/core/surface/public_headers_must_be_c89.c
@@ -6462,11 +6833,16 @@ target_link_libraries(public_headers_must_be_c89
 )
 
 
+
+add_test(NAME public_headers_must_be_c89
+  COMMAND public_headers_must_be_c89
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(resolve_address_using_ares_resolver_posix_test
+  add_executable(resolve_address_using_ares_resolver_posix_test
     test/core/iomgr/resolve_address_posix_test.cc
   )
 
@@ -6490,12 +6866,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME resolve_address_using_ares_resolver_posix_test
+    COMMAND resolve_address_using_ares_resolver_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(resolve_address_using_native_resolver_posix_test
+  add_executable(resolve_address_using_native_resolver_posix_test
     test/core/iomgr/resolve_address_posix_test.cc
   )
 
@@ -6519,11 +6900,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME resolve_address_using_native_resolver_posix_test
+    COMMAND resolve_address_using_native_resolver_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(secure_channel_create_test
+add_executable(secure_channel_create_test
   test/core/surface/secure_channel_create_test.cc
 )
 
@@ -6547,10 +6933,15 @@ target_link_libraries(secure_channel_create_test
 )
 
 
+
+add_test(NAME secure_channel_create_test
+  COMMAND secure_channel_create_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(secure_endpoint_test
+add_executable(secure_endpoint_test
   test/core/iomgr/endpoint_tests.cc
   test/core/security/secure_endpoint_test.cc
 )
@@ -6575,10 +6966,15 @@ target_link_libraries(secure_endpoint_test
 )
 
 
+
+add_test(NAME secure_endpoint_test
+  COMMAND secure_endpoint_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(security_connector_test
+add_executable(security_connector_test
   test/core/security/security_connector_test.cc
 )
 
@@ -6602,10 +6998,15 @@ target_link_libraries(security_connector_test
 )
 
 
+
+add_test(NAME security_connector_test
+  COMMAND security_connector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(sequential_connectivity_test
+add_executable(sequential_connectivity_test
   test/core/surface/sequential_connectivity_test.cc
 )
 
@@ -6629,11 +7030,16 @@ target_link_libraries(sequential_connectivity_test
 )
 
 
+
+add_test(NAME sequential_connectivity_test
+  COMMAND sequential_connectivity_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(server_ssl_test
+  add_executable(server_ssl_test
     test/core/handshake/server_ssl.cc
     test/core/handshake/server_ssl_common.cc
   )
@@ -6658,11 +7064,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME server_ssl_test
+    COMMAND server_ssl_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_test
+add_executable(server_test
   test/core/surface/server_test.cc
 )
 
@@ -6686,10 +7097,15 @@ target_link_libraries(server_test
 )
 
 
+
+add_test(NAME server_test
+  COMMAND server_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(slice_string_helpers_test
+add_executable(slice_string_helpers_test
   src/core/lib/slice/slice.cc
   src/core/lib/slice/slice_refcount.cc
   src/core/lib/slice/slice_string_helpers.cc
@@ -6716,10 +7132,15 @@ target_link_libraries(slice_string_helpers_test
 )
 
 
+
+add_test(NAME slice_string_helpers_test
+  COMMAND slice_string_helpers_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(sockaddr_resolver_test
+add_executable(sockaddr_resolver_test
   test/core/client_channel/resolvers/sockaddr_resolver_test.cc
 )
 
@@ -6743,11 +7164,16 @@ target_link_libraries(sockaddr_resolver_test
 )
 
 
+
+add_test(NAME sockaddr_resolver_test
+  COMMAND sockaddr_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(socket_utils_test
+  add_executable(socket_utils_test
     test/core/iomgr/socket_utils_test.cc
   )
 
@@ -6771,11 +7197,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME socket_utils_test
+    COMMAND socket_utils_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(spinlock_test
+add_executable(spinlock_test
   test/core/gpr/spinlock_test.cc
 )
 
@@ -6799,10 +7230,15 @@ target_link_libraries(spinlock_test
 )
 
 
+
+add_test(NAME spinlock_test
+  COMMAND spinlock_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(ssl_credentials_test
+add_executable(ssl_credentials_test
   test/core/security/ssl_credentials_test.cc
 )
 
@@ -6826,11 +7262,16 @@ target_link_libraries(ssl_credentials_test
 )
 
 
+
+add_test(NAME ssl_credentials_test
+  COMMAND ssl_credentials_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(ssl_transport_security_test
+  add_executable(ssl_transport_security_test
     test/core/tsi/ssl_transport_security_test.cc
     test/core/tsi/transport_security_test_lib.cc
   )
@@ -6855,11 +7296,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME ssl_transport_security_test
+    COMMAND ssl_transport_security_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(status_conversion_test
+add_executable(status_conversion_test
   test/core/transport/status_conversion_test.cc
 )
 
@@ -6883,10 +7329,15 @@ target_link_libraries(status_conversion_test
 )
 
 
+
+add_test(NAME status_conversion_test
+  COMMAND status_conversion_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(stream_map_test
+add_executable(stream_map_test
   test/core/transport/chttp2/stream_map_test.cc
 )
 
@@ -6910,10 +7361,15 @@ target_link_libraries(stream_map_test
 )
 
 
+
+add_test(NAME stream_map_test
+  COMMAND stream_map_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(string_test
+add_executable(string_test
   test/core/gpr/string_test.cc
 )
 
@@ -6937,10 +7393,15 @@ target_link_libraries(string_test
 )
 
 
+
+add_test(NAME string_test
+  COMMAND string_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(sync_test
+add_executable(sync_test
   test/core/gpr/sync_test.cc
 )
 
@@ -6964,11 +7425,16 @@ target_link_libraries(sync_test
 )
 
 
+
+add_test(NAME sync_test
+  COMMAND sync_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(tcp_client_posix_test
+  add_executable(tcp_client_posix_test
     test/core/iomgr/tcp_client_posix_test.cc
   )
 
@@ -6992,12 +7458,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME tcp_client_posix_test
+    COMMAND tcp_client_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(tcp_posix_test
+  add_executable(tcp_posix_test
     test/core/iomgr/endpoint_tests.cc
     test/core/iomgr/tcp_posix_test.cc
   )
@@ -7022,12 +7493,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME tcp_posix_test
+    COMMAND tcp_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(tcp_server_posix_test
+  add_executable(tcp_server_posix_test
     test/core/iomgr/tcp_server_posix_test.cc
   )
 
@@ -7051,11 +7527,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME tcp_server_posix_test
+    COMMAND tcp_server_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_gpr_time_test
+add_executable(test_core_gpr_time_test
   test/core/gpr/time_test.cc
 )
 
@@ -7079,10 +7560,15 @@ target_link_libraries(test_core_gpr_time_test
 )
 
 
+
+add_test(NAME test_core_gpr_time_test
+  COMMAND test_core_gpr_time_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_iomgr_time_averaged_stats_test
+add_executable(test_core_iomgr_time_averaged_stats_test
   test/core/iomgr/time_averaged_stats_test.cc
 )
 
@@ -7106,10 +7592,15 @@ target_link_libraries(test_core_iomgr_time_averaged_stats_test
 )
 
 
+
+add_test(NAME test_core_iomgr_time_averaged_stats_test
+  COMMAND test_core_iomgr_time_averaged_stats_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_iomgr_timer_heap_test
+add_executable(test_core_iomgr_timer_heap_test
   test/core/iomgr/timer_heap_test.cc
 )
 
@@ -7133,10 +7624,15 @@ target_link_libraries(test_core_iomgr_timer_heap_test
 )
 
 
+
+add_test(NAME test_core_iomgr_timer_heap_test
+  COMMAND test_core_iomgr_timer_heap_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_iomgr_timer_list_test
+add_executable(test_core_iomgr_timer_list_test
   test/core/iomgr/timer_list_test.cc
 )
 
@@ -7160,10 +7656,15 @@ target_link_libraries(test_core_iomgr_timer_list_test
 )
 
 
+
+add_test(NAME test_core_iomgr_timer_list_test
+  COMMAND test_core_iomgr_timer_list_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(thd_test
+add_executable(thd_test
   test/core/gprpp/thd_test.cc
 )
 
@@ -7187,10 +7688,15 @@ target_link_libraries(thd_test
 )
 
 
+
+add_test(NAME thd_test
+  COMMAND thd_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(threadpool_test
+add_executable(threadpool_test
   test/core/iomgr/threadpool_test.cc
 )
 
@@ -7214,10 +7720,15 @@ target_link_libraries(threadpool_test
 )
 
 
+
+add_test(NAME threadpool_test
+  COMMAND threadpool_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(transport_security_common_api_test
+add_executable(transport_security_common_api_test
   test/core/tsi/alts/handshaker/transport_security_common_api_test.cc
 )
 
@@ -7241,10 +7752,15 @@ target_link_libraries(transport_security_common_api_test
 )
 
 
+
+add_test(NAME transport_security_common_api_test
+  COMMAND transport_security_common_api_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(transport_security_test
+add_executable(transport_security_test
   test/core/tsi/transport_security_test.cc
 )
 
@@ -7268,10 +7784,15 @@ target_link_libraries(transport_security_test
 )
 
 
+
+add_test(NAME transport_security_test
+  COMMAND transport_security_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(varint_test
+add_executable(varint_test
   test/core/transport/chttp2/varint_test.cc
 )
 
@@ -7295,10 +7816,15 @@ target_link_libraries(varint_test
 )
 
 
+
+add_test(NAME varint_test
+  COMMAND varint_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(activity_test
+add_executable(activity_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -7390,11 +7916,16 @@ target_link_libraries(activity_test
 )
 
 
+
+add_test(NAME activity_test
+  COMMAND activity_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(address_sorting_test
+  add_executable(address_sorting_test
     test/cpp/naming/address_sorting_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -7427,12 +7958,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME address_sorting_test
+    COMMAND address_sorting_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(address_sorting_test_unsecure
+  add_executable(address_sorting_test_unsecure
     test/cpp/naming/address_sorting_test.cc
     test/cpp/util/byte_buffer_proto_helper.cc
     test/cpp/util/string_ref_helper.cc
@@ -7469,11 +8005,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME address_sorting_test_unsecure
+    COMMAND address_sorting_test_unsecure
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(admin_services_end2end_test
+add_executable(admin_services_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/base.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/base.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/base.pb.h
@@ -7525,11 +8066,16 @@ target_link_libraries(admin_services_end2end_test
 )
 
 
+
+add_test(NAME admin_services_end2end_test
+  COMMAND admin_services_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(alarm_test
+  add_executable(alarm_test
     test/cpp/common/alarm_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -7562,12 +8108,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME alarm_test
+    COMMAND alarm_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(alts_concurrent_connectivity_test
+  add_executable(alts_concurrent_connectivity_test
     ${_gRPC_PROTO_GENS_DIR}/test/core/tsi/alts/fake_handshaker/handshaker.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/tsi/alts/fake_handshaker/handshaker.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/tsi/alts/fake_handshaker/handshaker.pb.h
@@ -7611,11 +8162,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME alts_concurrent_connectivity_test
+    COMMAND alts_concurrent_connectivity_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(alts_util_test
+add_executable(alts_util_test
   test/cpp/common/alts_util_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7648,10 +8204,15 @@ target_link_libraries(alts_util_test
 )
 
 
+
+add_test(NAME alts_util_test
+  COMMAND alts_util_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(arena_promise_test
+add_executable(arena_promise_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -7709,10 +8270,15 @@ target_link_libraries(arena_promise_test
 )
 
 
+
+add_test(NAME arena_promise_test
+  COMMAND arena_promise_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(async_end2end_test
+add_executable(async_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.h
@@ -7768,10 +8334,15 @@ target_link_libraries(async_end2end_test
 )
 
 
+
+add_test(NAME async_end2end_test
+  COMMAND async_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(auth_property_iterator_test
+add_executable(auth_property_iterator_test
   test/cpp/common/auth_property_iterator_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7803,10 +8374,15 @@ target_link_libraries(auth_property_iterator_test
 )
 
 
+
+add_test(NAME auth_property_iterator_test
+  COMMAND auth_property_iterator_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(authorization_matchers_test
+add_executable(authorization_matchers_test
   test/core/security/authorization_matchers_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7838,10 +8414,15 @@ target_link_libraries(authorization_matchers_test
 )
 
 
+
+add_test(NAME authorization_matchers_test
+  COMMAND authorization_matchers_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(authorization_policy_provider_test
+add_executable(authorization_policy_provider_test
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   src/cpp/server/authorization_policy_provider.cc
@@ -7877,10 +8458,15 @@ target_link_libraries(authorization_policy_provider_test
 )
 
 
+
+add_test(NAME authorization_policy_provider_test
+  COMMAND authorization_policy_provider_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(avl_test
+add_executable(avl_test
   test/core/avl/avl_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7911,10 +8497,15 @@ target_link_libraries(avl_test
 )
 
 
+
+add_test(NAME avl_test
+  COMMAND avl_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(aws_request_signer_test
+add_executable(aws_request_signer_test
   test/core/security/aws_request_signer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7946,10 +8537,15 @@ target_link_libraries(aws_request_signer_test
 )
 
 
+
+add_test(NAME aws_request_signer_test
+  COMMAND aws_request_signer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(backoff_test
+add_executable(backoff_test
   test/core/backoff/backoff_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7981,10 +8577,15 @@ target_link_libraries(backoff_test
 )
 
 
+
+add_test(NAME backoff_test
+  COMMAND backoff_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(bad_streaming_id_bad_client_test
+add_executable(bad_streaming_id_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/bad_streaming_id.cc
   test/core/end2end/cq_verifier.cc
@@ -8018,10 +8619,15 @@ target_link_libraries(bad_streaming_id_bad_client_test
 )
 
 
+
+add_test(NAME bad_streaming_id_bad_client_test
+  COMMAND bad_streaming_id_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(badreq_bad_client_test
+add_executable(badreq_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/badreq.cc
   test/core/end2end/cq_verifier.cc
@@ -8055,11 +8661,16 @@ target_link_libraries(badreq_bad_client_test
 )
 
 
+
+add_test(NAME badreq_bad_client_test
+  COMMAND badreq_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(bdp_estimator_test
+  add_executable(bdp_estimator_test
     test/core/transport/bdp_estimator_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -8091,11 +8702,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME bdp_estimator_test
+    COMMAND bdp_estimator_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(binder_resolver_test
+add_executable(binder_resolver_test
   test/core/client_channel/resolvers/binder_resolver_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8127,10 +8743,15 @@ target_link_libraries(binder_resolver_test
 )
 
 
+
+add_test(NAME binder_resolver_test
+  COMMAND binder_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(binder_server_test
+add_executable(binder_server_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -8180,10 +8801,15 @@ target_link_libraries(binder_server_test
 )
 
 
+
+add_test(NAME binder_server_test
+  COMMAND binder_server_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(binder_transport_test
+add_executable(binder_transport_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -8273,10 +8899,15 @@ target_link_libraries(binder_transport_test
 )
 
 
+
+add_test(NAME binder_transport_test
+  COMMAND binder_transport_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(bitset_test
+add_executable(bitset_test
   test/core/gprpp/bitset_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8307,10 +8938,15 @@ target_link_libraries(bitset_test
 )
 
 
+
+add_test(NAME bitset_test
+  COMMAND bitset_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(byte_buffer_test
+add_executable(byte_buffer_test
   test/cpp/util/byte_buffer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8342,10 +8978,15 @@ target_link_libraries(byte_buffer_test
 )
 
 
+
+add_test(NAME byte_buffer_test
+  COMMAND byte_buffer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(call_finalization_test
+add_executable(call_finalization_test
   test/core/channel/call_finalization_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8377,10 +9018,15 @@ target_link_libraries(call_finalization_test
 )
 
 
+
+add_test(NAME call_finalization_test
+  COMMAND call_finalization_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(call_push_pull_test
+add_executable(call_push_pull_test
   test/core/promise/call_push_pull_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8415,10 +9061,15 @@ target_link_libraries(call_push_pull_test
 )
 
 
+
+add_test(NAME call_push_pull_test
+  COMMAND call_push_pull_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cancel_ares_query_test
+add_executable(cancel_ares_query_test
   test/core/end2end/cq_verifier.cc
   test/core/util/fake_udp_and_tcp_server.cc
   test/cpp/naming/cancel_ares_query_test.cc
@@ -8453,10 +9104,15 @@ target_link_libraries(cancel_ares_query_test
 )
 
 
+
+add_test(NAME cancel_ares_query_test
+  COMMAND cancel_ares_query_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cel_authorization_engine_test
+add_executable(cel_authorization_engine_test
   src/core/ext/upb-generated/google/type/expr.upb.c
   src/core/lib/security/authorization/cel_authorization_engine.cc
   test/core/security/cel_authorization_engine_test.cc
@@ -8490,10 +9146,15 @@ target_link_libraries(cel_authorization_engine_test
 )
 
 
+
+add_test(NAME cel_authorization_engine_test
+  COMMAND cel_authorization_engine_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(certificate_provider_registry_test
+add_executable(certificate_provider_registry_test
   test/core/client_channel/certificate_provider_registry_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8525,10 +9186,15 @@ target_link_libraries(certificate_provider_registry_test
 )
 
 
+
+add_test(NAME certificate_provider_registry_test
+  COMMAND certificate_provider_registry_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(certificate_provider_store_test
+add_executable(certificate_provider_store_test
   test/core/xds/certificate_provider_store_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8560,10 +9226,15 @@ target_link_libraries(certificate_provider_store_test
 )
 
 
+
+add_test(NAME certificate_provider_store_test
+  COMMAND certificate_provider_store_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cfstream_test
+add_executable(cfstream_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -8612,10 +9283,15 @@ target_link_libraries(cfstream_test
 )
 
 
+
+add_test(NAME cfstream_test
+  COMMAND cfstream_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_args_test
+add_executable(channel_args_test
   test/core/channel/channel_args_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8647,10 +9323,15 @@ target_link_libraries(channel_args_test
 )
 
 
+
+add_test(NAME channel_args_test
+  COMMAND channel_args_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_arguments_test
+add_executable(channel_arguments_test
   test/cpp/common/channel_arguments_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8683,10 +9364,15 @@ target_link_libraries(channel_arguments_test
 )
 
 
+
+add_test(NAME channel_arguments_test
+  COMMAND channel_arguments_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_creds_registry_test
+add_executable(channel_creds_registry_test
   test/core/security/channel_creds_registry_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8718,10 +9404,15 @@ target_link_libraries(channel_creds_registry_test
 )
 
 
+
+add_test(NAME channel_creds_registry_test
+  COMMAND channel_creds_registry_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_filter_test
+add_executable(channel_filter_test
   test/cpp/common/channel_filter_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8754,10 +9445,15 @@ target_link_libraries(channel_filter_test
 )
 
 
+
+add_test(NAME channel_filter_test
+  COMMAND channel_filter_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_stack_builder_test
+add_executable(channel_stack_builder_test
   test/core/channel/channel_stack_builder_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8789,10 +9485,15 @@ target_link_libraries(channel_stack_builder_test
 )
 
 
+
+add_test(NAME channel_stack_builder_test
+  COMMAND channel_stack_builder_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channel_trace_test
+add_executable(channel_trace_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.h
@@ -8830,10 +9531,15 @@ target_link_libraries(channel_trace_test
 )
 
 
+
+add_test(NAME channel_trace_test
+  COMMAND channel_trace_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channelz_registry_test
+add_executable(channelz_registry_test
   test/core/channel/channelz_registry_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8866,10 +9572,15 @@ target_link_libraries(channelz_registry_test
 )
 
 
+
+add_test(NAME channelz_registry_test
+  COMMAND channelz_registry_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channelz_service_test
+add_executable(channelz_service_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -8919,10 +9630,15 @@ target_link_libraries(channelz_service_test
 )
 
 
+
+add_test(NAME channelz_service_test
+  COMMAND channelz_service_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(channelz_test
+add_executable(channelz_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.h
@@ -8960,10 +9676,15 @@ target_link_libraries(channelz_test
 )
 
 
+
+add_test(NAME channelz_test
+  COMMAND channelz_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(chunked_vector_test
+add_executable(chunked_vector_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -9021,10 +9742,15 @@ target_link_libraries(chunked_vector_test
 )
 
 
+
+add_test(NAME chunked_vector_test
+  COMMAND chunked_vector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cli_call_test
+add_executable(cli_call_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.h
@@ -9082,10 +9808,15 @@ target_link_libraries(cli_call_test
 )
 
 
+
+add_test(NAME cli_call_test
+  COMMAND cli_call_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(client_authority_filter_test
+add_executable(client_authority_filter_test
   test/core/filters/client_authority_filter_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9117,10 +9848,15 @@ target_link_libraries(client_authority_filter_test
 )
 
 
+
+add_test(NAME client_authority_filter_test
+  COMMAND client_authority_filter_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(client_callback_end2end_test
+add_executable(client_callback_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9170,11 +9906,16 @@ target_link_libraries(client_callback_end2end_test
 )
 
 
+
+add_test(NAME client_callback_end2end_test
+  COMMAND client_callback_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(client_channel_stress_test
+  add_executable(client_channel_stress_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.h
@@ -9231,11 +9972,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME client_channel_stress_test
+    COMMAND client_channel_stress_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(client_context_test_peer_test
+add_executable(client_context_test_peer_test
   test/cpp/test/client_context_test_peer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9268,10 +10014,15 @@ target_link_libraries(client_context_test_peer_test
 )
 
 
+
+add_test(NAME client_context_test_peer_test
+  COMMAND client_context_test_peer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(client_interceptors_end2end_test
+add_executable(client_interceptors_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9321,11 +10072,16 @@ target_link_libraries(client_interceptors_end2end_test
 )
 
 
+
+add_test(NAME client_interceptors_end2end_test
+  COMMAND client_interceptors_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(client_lb_end2end_test
+  add_executable(client_lb_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -9382,11 +10138,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME client_lb_end2end_test
+    COMMAND client_lb_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(codegen_test_full
+add_executable(codegen_test_full
   test/cpp/codegen/codegen_test_full.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9419,10 +10180,15 @@ target_link_libraries(codegen_test_full
 )
 
 
+
+add_test(NAME codegen_test_full
+  COMMAND codegen_test_full
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(codegen_test_minimal
+add_executable(codegen_test_minimal
   test/cpp/codegen/codegen_test_minimal.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9455,10 +10221,15 @@ target_link_libraries(codegen_test_minimal
 )
 
 
+
+add_test(NAME codegen_test_minimal
+  COMMAND codegen_test_minimal
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(connection_prefix_bad_client_test
+add_executable(connection_prefix_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/connection_prefix.cc
   test/core/end2end/cq_verifier.cc
@@ -9492,10 +10263,15 @@ target_link_libraries(connection_prefix_bad_client_test
 )
 
 
+
+add_test(NAME connection_prefix_bad_client_test
+  COMMAND connection_prefix_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(connectivity_state_test
+add_executable(connectivity_state_test
   test/core/transport/connectivity_state_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9527,10 +10303,15 @@ target_link_libraries(connectivity_state_test
 )
 
 
+
+add_test(NAME connectivity_state_test
+  COMMAND connectivity_state_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(context_allocator_end2end_test
+add_executable(context_allocator_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9579,10 +10360,15 @@ target_link_libraries(context_allocator_end2end_test
 )
 
 
+
+add_test(NAME context_allocator_end2end_test
+  COMMAND context_allocator_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(context_list_test
+add_executable(context_list_test
   test/core/transport/chttp2/context_list_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9614,10 +10400,15 @@ target_link_libraries(context_list_test
 )
 
 
+
+add_test(NAME context_list_test
+  COMMAND context_list_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(context_test
+add_executable(context_test
   test/core/promise/context_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9648,10 +10439,15 @@ target_link_libraries(context_test
 )
 
 
+
+add_test(NAME context_test
+  COMMAND context_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(core_configuration_test
+add_executable(core_configuration_test
   test/core/config/core_configuration_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9683,10 +10479,15 @@ target_link_libraries(core_configuration_test
 )
 
 
+
+add_test(NAME core_configuration_test
+  COMMAND core_configuration_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(cpp_impl_of_test
+add_executable(cpp_impl_of_test
   test/core/gprpp/cpp_impl_of_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9717,11 +10518,16 @@ target_link_libraries(cpp_impl_of_test
 )
 
 
+
+add_test(NAME cpp_impl_of_test
+  COMMAND cpp_impl_of_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(crl_ssl_transport_security_test
+  add_executable(crl_ssl_transport_security_test
     test/core/tsi/crl_ssl_transport_security_test.cc
     test/core/tsi/transport_security_test_lib.cc
     third_party/googletest/googletest/src/gtest-all.cc
@@ -9754,11 +10560,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME crl_ssl_transport_security_test
+    COMMAND crl_ssl_transport_security_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(delegating_channel_test
+add_executable(delegating_channel_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9807,10 +10618,15 @@ target_link_libraries(delegating_channel_test
 )
 
 
+
+add_test(NAME delegating_channel_test
+  COMMAND delegating_channel_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(destroy_grpclb_channel_with_active_connect_stress_test
+add_executable(destroy_grpclb_channel_with_active_connect_stress_test
   test/cpp/client/destroy_grpclb_channel_with_active_connect_stress_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9842,10 +10658,15 @@ target_link_libraries(destroy_grpclb_channel_with_active_connect_stress_test
 )
 
 
+
+add_test(NAME destroy_grpclb_channel_with_active_connect_stress_test
+  COMMAND destroy_grpclb_channel_with_active_connect_stress_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(dual_ref_counted_test
+add_executable(dual_ref_counted_test
   test/core/gprpp/dual_ref_counted_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9877,10 +10698,15 @@ target_link_libraries(dual_ref_counted_test
 )
 
 
+
+add_test(NAME dual_ref_counted_test
+  COMMAND dual_ref_counted_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(duplicate_header_bad_client_test
+add_executable(duplicate_header_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/duplicate_header.cc
   test/core/end2end/cq_verifier.cc
@@ -9914,10 +10740,15 @@ target_link_libraries(duplicate_header_bad_client_test
 )
 
 
+
+add_test(NAME duplicate_header_bad_client_test
+  COMMAND duplicate_header_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(end2end_binder_transport_test
+add_executable(end2end_binder_transport_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9968,10 +10799,15 @@ target_link_libraries(end2end_binder_transport_test
 )
 
 
+
+add_test(NAME end2end_binder_transport_test
+  COMMAND end2end_binder_transport_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(end2end_test
+add_executable(end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -10026,10 +10862,15 @@ target_link_libraries(end2end_test
 )
 
 
+
+add_test(NAME end2end_test
+  COMMAND end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(endpoint_binder_pool_test
+add_executable(endpoint_binder_pool_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -10119,10 +10960,15 @@ target_link_libraries(endpoint_binder_pool_test
 )
 
 
+
+add_test(NAME endpoint_binder_pool_test
+  COMMAND endpoint_binder_pool_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(endpoint_config_test
+add_executable(endpoint_config_test
   test/core/event_engine/endpoint_config_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10154,10 +11000,15 @@ target_link_libraries(endpoint_config_test
 )
 
 
+
+add_test(NAME endpoint_config_test
+  COMMAND endpoint_config_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(error_details_test
+add_executable(error_details_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/status/status.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/status/status.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/status/status.pb.h
@@ -10202,10 +11053,15 @@ target_link_libraries(error_details_test
 )
 
 
+
+add_test(NAME error_details_test
+  COMMAND error_details_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(error_test
+add_executable(error_test
   test/core/iomgr/endpoint_tests.cc
   test/core/iomgr/error_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -10238,10 +11094,15 @@ target_link_libraries(error_test
 )
 
 
+
+add_test(NAME error_test
+  COMMAND error_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(error_utils_test
+add_executable(error_utils_test
   test/core/transport/error_utils_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10273,10 +11134,15 @@ target_link_libraries(error_utils_test
 )
 
 
+
+add_test(NAME error_utils_test
+  COMMAND error_utils_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(evaluate_args_test
+add_executable(evaluate_args_test
   test/core/security/evaluate_args_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10308,11 +11174,16 @@ target_link_libraries(evaluate_args_test
 )
 
 
+
+add_test(NAME evaluate_args_test
+  COMMAND evaluate_args_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(examine_stack_test
+  add_executable(examine_stack_test
     test/core/gprpp/examine_stack_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -10344,11 +11215,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME examine_stack_test
+    COMMAND examine_stack_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(exception_test
+add_executable(exception_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -10396,10 +11272,15 @@ target_link_libraries(exception_test
 )
 
 
+
+add_test(NAME exception_test
+  COMMAND exception_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(exec_ctx_wakeup_scheduler_test
+add_executable(exec_ctx_wakeup_scheduler_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -10451,10 +11332,15 @@ target_link_libraries(exec_ctx_wakeup_scheduler_test
 )
 
 
+
+add_test(NAME exec_ctx_wakeup_scheduler_test
+  COMMAND exec_ctx_wakeup_scheduler_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(fake_binder_test
+add_executable(fake_binder_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -10544,10 +11430,15 @@ target_link_libraries(fake_binder_test
 )
 
 
+
+add_test(NAME fake_binder_test
+  COMMAND fake_binder_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(file_watcher_certificate_provider_factory_test
+add_executable(file_watcher_certificate_provider_factory_test
   test/core/xds/file_watcher_certificate_provider_factory_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10579,10 +11470,15 @@ target_link_libraries(file_watcher_certificate_provider_factory_test
 )
 
 
+
+add_test(NAME file_watcher_certificate_provider_factory_test
+  COMMAND file_watcher_certificate_provider_factory_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(filter_end2end_test
+add_executable(filter_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -10634,10 +11530,15 @@ target_link_libraries(filter_end2end_test
 )
 
 
+
+add_test(NAME filter_end2end_test
+  COMMAND filter_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(flaky_network_test
+add_executable(flaky_network_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -10686,10 +11587,15 @@ target_link_libraries(flaky_network_test
 )
 
 
+
+add_test(NAME flaky_network_test
+  COMMAND flaky_network_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(flow_control_test
+add_executable(flow_control_test
   src/core/ext/transport/chttp2/transport/flow_control.cc
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
@@ -10750,10 +11656,15 @@ target_link_libraries(flow_control_test
 )
 
 
+
+add_test(NAME flow_control_test
+  COMMAND flow_control_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(for_each_test
+add_executable(for_each_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -10813,10 +11724,15 @@ target_link_libraries(for_each_test
 )
 
 
+
+add_test(NAME for_each_test
+  COMMAND for_each_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(forkable_test
+add_executable(forkable_test
   test/core/event_engine/forkable_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10848,11 +11764,16 @@ target_link_libraries(forkable_test
 )
 
 
+
+add_test(NAME forkable_test
+  COMMAND forkable_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(fuzzing_event_engine_test
+  add_executable(fuzzing_event_engine_test
     ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.pb.h
@@ -10892,11 +11813,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME fuzzing_event_engine_test
+    COMMAND fuzzing_event_engine_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(generic_end2end_test
+add_executable(generic_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -10948,11 +11874,16 @@ target_link_libraries(generic_end2end_test
 )
 
 
+
+add_test(NAME generic_end2end_test
+  COMMAND generic_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(global_config_env_test
+  add_executable(global_config_env_test
     test/core/gprpp/global_config_env_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -10984,11 +11915,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME global_config_env_test
+    COMMAND global_config_env_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(global_config_test
+add_executable(global_config_test
   test/core/gprpp/global_config_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11020,10 +11956,15 @@ target_link_libraries(global_config_test
 )
 
 
+
+add_test(NAME global_config_test
+  COMMAND global_config_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(google_c2p_resolver_test
+add_executable(google_c2p_resolver_test
   test/core/client_channel/resolvers/google_c2p_resolver_test.cc
   test/core/util/fake_udp_and_tcp_server.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -11056,10 +11997,15 @@ target_link_libraries(google_c2p_resolver_test
 )
 
 
+
+add_test(NAME google_c2p_resolver_test
+  COMMAND google_c2p_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(google_mesh_ca_certificate_provider_factory_test
+add_executable(google_mesh_ca_certificate_provider_factory_test
   src/core/ext/xds/google_mesh_ca_certificate_provider_factory.cc
   test/core/xds/google_mesh_ca_certificate_provider_factory_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -11092,10 +12038,15 @@ target_link_libraries(google_mesh_ca_certificate_provider_factory_test
 )
 
 
+
+add_test(NAME google_mesh_ca_certificate_provider_factory_test
+  COMMAND google_mesh_ca_certificate_provider_factory_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(graceful_shutdown_test
+add_executable(graceful_shutdown_test
   test/core/end2end/cq_verifier.cc
   test/core/transport/chttp2/graceful_shutdown_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -11128,10 +12079,15 @@ target_link_libraries(graceful_shutdown_test
 )
 
 
+
+add_test(NAME graceful_shutdown_test
+  COMMAND graceful_shutdown_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_authorization_engine_test
+add_executable(grpc_authorization_engine_test
   test/core/security/grpc_authorization_engine_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11163,10 +12119,15 @@ target_link_libraries(grpc_authorization_engine_test
 )
 
 
+
+add_test(NAME grpc_authorization_engine_test
+  COMMAND grpc_authorization_engine_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_authorization_policy_provider_test
+add_executable(grpc_authorization_policy_provider_test
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   test/core/security/grpc_authorization_policy_provider_test.cc
@@ -11200,10 +12161,15 @@ target_link_libraries(grpc_authorization_policy_provider_test
 )
 
 
+
+add_test(NAME grpc_authorization_policy_provider_test
+  COMMAND grpc_authorization_policy_provider_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_authz_end2end_test
+add_executable(grpc_authz_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -11255,10 +12221,15 @@ target_link_libraries(grpc_authz_end2end_test
 )
 
 
+
+add_test(NAME grpc_authz_end2end_test
+  COMMAND grpc_authz_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_cli
+add_executable(grpc_cli
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.h
@@ -11301,6 +12272,11 @@ target_link_libraries(grpc_cli
   grpc++_test_config
 )
 
+
+
+add_test(NAME grpc_cli
+  COMMAND grpc_cli
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 endif()
 if(gRPC_BUILD_CODEGEN AND gRPC_BUILD_GRPC_CPP_PLUGIN)
@@ -11585,7 +12561,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_tls_certificate_distributor_test
+add_executable(grpc_tls_certificate_distributor_test
   test/core/security/grpc_tls_certificate_distributor_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11617,10 +12593,15 @@ target_link_libraries(grpc_tls_certificate_distributor_test
 )
 
 
+
+add_test(NAME grpc_tls_certificate_distributor_test
+  COMMAND grpc_tls_certificate_distributor_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_tls_certificate_provider_test
+add_executable(grpc_tls_certificate_provider_test
   test/core/security/grpc_tls_certificate_provider_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11652,10 +12633,15 @@ target_link_libraries(grpc_tls_certificate_provider_test
 )
 
 
+
+add_test(NAME grpc_tls_certificate_provider_test
+  COMMAND grpc_tls_certificate_provider_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_tls_certificate_verifier_test
+add_executable(grpc_tls_certificate_verifier_test
   test/core/security/grpc_tls_certificate_verifier_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11687,10 +12673,15 @@ target_link_libraries(grpc_tls_certificate_verifier_test
 )
 
 
+
+add_test(NAME grpc_tls_certificate_verifier_test
+  COMMAND grpc_tls_certificate_verifier_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_tls_credentials_options_comparator_test
+add_executable(grpc_tls_credentials_options_comparator_test
   test/core/security/grpc_tls_credentials_options_comparator_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11722,10 +12713,15 @@ target_link_libraries(grpc_tls_credentials_options_comparator_test
 )
 
 
+
+add_test(NAME grpc_tls_credentials_options_comparator_test
+  COMMAND grpc_tls_credentials_options_comparator_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpc_tls_credentials_options_test
+add_executable(grpc_tls_credentials_options_test
   test/core/security/grpc_tls_credentials_options_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11757,11 +12753,16 @@ target_link_libraries(grpc_tls_credentials_options_test
 )
 
 
+
+add_test(NAME grpc_tls_credentials_options_test
+  COMMAND grpc_tls_credentials_options_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(grpc_tool_test
+  add_executable(grpc_tool_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -11817,11 +12818,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME grpc_tool_test
+    COMMAND grpc_tool_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(grpclb_api_test
+add_executable(grpclb_api_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.h
@@ -11857,11 +12863,16 @@ target_link_libraries(grpclb_api_test
 )
 
 
+
+add_test(NAME grpclb_api_test
+  COMMAND grpclb_api_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(grpclb_end2end_test
+  add_executable(grpclb_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.h
@@ -11919,11 +12930,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME grpclb_end2end_test
+    COMMAND grpclb_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(h2_ssl_session_reuse_test
+add_executable(h2_ssl_session_reuse_test
   test/core/end2end/h2_ssl_session_reuse_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11955,10 +12971,15 @@ target_link_libraries(h2_ssl_session_reuse_test
 )
 
 
+
+add_test(NAME h2_ssl_session_reuse_test
+  COMMAND h2_ssl_session_reuse_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(head_of_line_blocking_bad_client_test
+add_executable(head_of_line_blocking_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/head_of_line_blocking.cc
   test/core/end2end/cq_verifier.cc
@@ -11992,10 +13013,15 @@ target_link_libraries(head_of_line_blocking_bad_client_test
 )
 
 
+
+add_test(NAME head_of_line_blocking_bad_client_test
+  COMMAND head_of_line_blocking_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(headers_bad_client_test
+add_executable(headers_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/headers.cc
   test/core/end2end/cq_verifier.cc
@@ -12029,10 +13055,15 @@ target_link_libraries(headers_bad_client_test
 )
 
 
+
+add_test(NAME headers_bad_client_test
+  COMMAND headers_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(health_service_end2end_test
+add_executable(health_service_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.h
@@ -12090,10 +13121,15 @@ target_link_libraries(health_service_end2end_test
 )
 
 
+
+add_test(NAME health_service_end2end_test
+  COMMAND health_service_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(hpack_parser_table_test
+add_executable(hpack_parser_table_test
   test/core/transport/chttp2/hpack_parser_table_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12125,10 +13161,15 @@ target_link_libraries(hpack_parser_table_test
 )
 
 
+
+add_test(NAME hpack_parser_table_test
+  COMMAND hpack_parser_table_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(hpack_parser_test
+add_executable(hpack_parser_test
   test/core/transport/chttp2/hpack_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12160,10 +13201,15 @@ target_link_libraries(hpack_parser_test
 )
 
 
+
+add_test(NAME hpack_parser_test
+  COMMAND hpack_parser_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(http2_client
+add_executable(http2_client
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -12208,10 +13254,15 @@ target_link_libraries(http2_client
 )
 
 
+
+add_test(NAME http2_client
+  COMMAND http2_client
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(http_proxy_mapper_test
+add_executable(http_proxy_mapper_test
   test/core/client_channel/http_proxy_mapper_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12243,11 +13294,16 @@ target_link_libraries(http_proxy_mapper_test
 )
 
 
+
+add_test(NAME http_proxy_mapper_test
+  COMMAND http_proxy_mapper_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(httpcli_test
+  add_executable(httpcli_test
     test/core/http/httpcli_test.cc
     test/core/http/httpcli_test_util.cc
     test/core/util/fake_udp_and_tcp_server.cc
@@ -12281,12 +13337,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME httpcli_test
+    COMMAND httpcli_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(httpscli_test
+  add_executable(httpscli_test
     test/core/http/httpcli_test_util.cc
     test/core/http/httpscli_test.cc
     test/core/util/fake_udp_and_tcp_server.cc
@@ -12320,11 +13381,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME httpscli_test
+    COMMAND httpscli_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(hybrid_end2end_test
+add_executable(hybrid_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -12377,10 +13443,15 @@ target_link_libraries(hybrid_end2end_test
 )
 
 
+
+add_test(NAME hybrid_end2end_test
+  COMMAND hybrid_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(idle_filter_state_test
+add_executable(idle_filter_state_test
   src/core/ext/filters/channel_idle/idle_filter_state.cc
   test/core/client_idle/idle_filter_state_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -12412,10 +13483,15 @@ target_link_libraries(idle_filter_state_test
 )
 
 
+
+add_test(NAME idle_filter_state_test
+  COMMAND idle_filter_state_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(if_test
+add_executable(if_test
   test/core/promise/if_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12449,10 +13525,15 @@ target_link_libraries(if_test
 )
 
 
+
+add_test(NAME if_test
+  COMMAND if_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(init_test
+add_executable(init_test
   test/core/surface/init_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12484,10 +13565,15 @@ target_link_libraries(init_test
 )
 
 
+
+add_test(NAME init_test
+  COMMAND init_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(initial_settings_frame_bad_client_test
+add_executable(initial_settings_frame_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/initial_settings_frame.cc
   test/core/end2end/cq_verifier.cc
@@ -12521,10 +13607,15 @@ target_link_libraries(initial_settings_frame_bad_client_test
 )
 
 
+
+add_test(NAME initial_settings_frame_bad_client_test
+  COMMAND initial_settings_frame_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(insecure_security_connector_test
+add_executable(insecure_security_connector_test
   test/core/security/insecure_security_connector_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12556,10 +13647,15 @@ target_link_libraries(insecure_security_connector_test
 )
 
 
+
+add_test(NAME insecure_security_connector_test
+  COMMAND insecure_security_connector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(interop_client
+add_executable(interop_client
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -12607,10 +13703,15 @@ target_link_libraries(interop_client
 )
 
 
+
+add_test(NAME interop_client
+  COMMAND interop_client
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(interop_server
+add_executable(interop_server
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -12657,10 +13758,15 @@ target_link_libraries(interop_server
 )
 
 
+
+add_test(NAME interop_server
+  COMMAND interop_server
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(iomgr_event_engine_test
+add_executable(iomgr_event_engine_test
   test/core/event_engine/test_suite/event_engine_test.cc
   test/core/event_engine/test_suite/event_engine_test_utils.cc
   test/core/event_engine/test_suite/iomgr_event_engine_test.cc
@@ -12695,10 +13801,15 @@ target_link_libraries(iomgr_event_engine_test
 )
 
 
+
+add_test(NAME iomgr_event_engine_test
+  COMMAND iomgr_event_engine_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(istio_echo_server_test
+add_executable(istio_echo_server_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/istio_echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/istio_echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/istio_echo.pb.h
@@ -12737,10 +13848,15 @@ target_link_libraries(istio_echo_server_test
 )
 
 
+
+add_test(NAME istio_echo_server_test
+  COMMAND istio_echo_server_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(join_test
+add_executable(join_test
   test/core/promise/join_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12774,10 +13890,15 @@ target_link_libraries(join_test
 )
 
 
+
+add_test(NAME join_test
+  COMMAND join_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(json_test
+add_executable(json_test
   test/core/json/json_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12809,10 +13930,15 @@ target_link_libraries(json_test
 )
 
 
+
+add_test(NAME json_test
+  COMMAND json_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(large_metadata_bad_client_test
+add_executable(large_metadata_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/large_metadata.cc
   test/core/end2end/cq_verifier.cc
@@ -12846,10 +13972,15 @@ target_link_libraries(large_metadata_bad_client_test
 )
 
 
+
+add_test(NAME large_metadata_bad_client_test
+  COMMAND large_metadata_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(latch_test
+add_executable(latch_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -12939,10 +14070,15 @@ target_link_libraries(latch_test
 )
 
 
+
+add_test(NAME latch_test
+  COMMAND latch_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(lb_get_cpu_stats_test
+add_executable(lb_get_cpu_stats_test
   src/cpp/server/load_reporter/get_cpu_stats_linux.cc
   src/cpp/server/load_reporter/get_cpu_stats_macos.cc
   src/cpp/server/load_reporter/get_cpu_stats_unsupported.cc
@@ -12979,10 +14115,15 @@ target_link_libraries(lb_get_cpu_stats_test
 )
 
 
+
+add_test(NAME lb_get_cpu_stats_test
+  COMMAND lb_get_cpu_stats_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(lb_load_data_store_test
+add_executable(lb_load_data_store_test
   src/cpp/server/load_reporter/load_data_store.cc
   test/cpp/server/load_reporter/load_data_store_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -13016,10 +14157,15 @@ target_link_libraries(lb_load_data_store_test
 )
 
 
+
+add_test(NAME lb_load_data_store_test
+  COMMAND lb_load_data_store_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(log_test
+add_executable(log_test
   test/core/gpr/log_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13051,10 +14197,15 @@ target_link_libraries(log_test
 )
 
 
+
+add_test(NAME log_test
+  COMMAND log_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(loop_test
+add_executable(loop_test
   test/core/promise/loop_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13090,10 +14241,15 @@ target_link_libraries(loop_test
 )
 
 
+
+add_test(NAME loop_test
+  COMMAND loop_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(match_test
+add_executable(match_test
   test/core/gprpp/match_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13125,10 +14281,15 @@ target_link_libraries(match_test
 )
 
 
+
+add_test(NAME match_test
+  COMMAND match_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(matchers_test
+add_executable(matchers_test
   test/core/security/matchers_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13160,10 +14321,15 @@ target_link_libraries(matchers_test
 )
 
 
+
+add_test(NAME matchers_test
+  COMMAND matchers_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(memory_quota_test
+add_executable(memory_quota_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -13218,10 +14384,15 @@ target_link_libraries(memory_quota_test
 )
 
 
+
+add_test(NAME memory_quota_test
+  COMMAND memory_quota_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(message_allocator_end2end_test
+add_executable(message_allocator_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -13270,10 +14441,15 @@ target_link_libraries(message_allocator_end2end_test
 )
 
 
+
+add_test(NAME message_allocator_end2end_test
+  COMMAND message_allocator_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(metadata_map_test
+add_executable(metadata_map_test
   test/core/transport/metadata_map_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13305,10 +14481,15 @@ target_link_libraries(metadata_map_test
 )
 
 
+
+add_test(NAME metadata_map_test
+  COMMAND metadata_map_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(miscompile_with_no_unique_address_test
+add_executable(miscompile_with_no_unique_address_test
   test/core/compiler_bugs/miscompile_with_no_unique_address_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13339,10 +14520,15 @@ target_link_libraries(miscompile_with_no_unique_address_test
 )
 
 
+
+add_test(NAME miscompile_with_no_unique_address_test
+  COMMAND miscompile_with_no_unique_address_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(mock_stream_test
+add_executable(mock_stream_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -13391,10 +14577,15 @@ target_link_libraries(mock_stream_test
 )
 
 
+
+add_test(NAME mock_stream_test
+  COMMAND mock_stream_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(mock_test
+add_executable(mock_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -13447,10 +14638,15 @@ target_link_libraries(mock_test
 )
 
 
+
+add_test(NAME mock_test
+  COMMAND mock_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(no_destruct_test
+add_executable(no_destruct_test
   test/core/gprpp/no_destruct_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13482,10 +14678,15 @@ target_link_libraries(no_destruct_test
 )
 
 
+
+add_test(NAME no_destruct_test
+  COMMAND no_destruct_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(nonblocking_test
+add_executable(nonblocking_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -13533,10 +14734,15 @@ target_link_libraries(nonblocking_test
 )
 
 
+
+add_test(NAME nonblocking_test
+  COMMAND nonblocking_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(observable_test
+add_executable(observable_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -13628,11 +14834,16 @@ target_link_libraries(observable_test
 )
 
 
+
+add_test(NAME observable_test
+  COMMAND observable_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(oracle_event_engine_posix_test
+  add_executable(oracle_event_engine_posix_test
     test/core/event_engine/test_suite/client_test.cc
     test/core/event_engine/test_suite/event_engine_test.cc
     test/core/event_engine/test_suite/event_engine_test_utils.cc
@@ -13668,11 +14879,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME oracle_event_engine_posix_test
+    COMMAND oracle_event_engine_posix_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(orca_service_end2end_test
+add_executable(orca_service_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/orca_load_report.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/orca_load_report.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/orca_load_report.pb.h
@@ -13713,10 +14929,15 @@ target_link_libraries(orca_service_end2end_test
 )
 
 
+
+add_test(NAME orca_service_end2end_test
+  COMMAND orca_service_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(orphanable_test
+add_executable(orphanable_test
   test/core/gprpp/orphanable_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13748,10 +14969,15 @@ target_link_libraries(orphanable_test
 )
 
 
+
+add_test(NAME orphanable_test
+  COMMAND orphanable_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(out_of_bounds_bad_client_test
+add_executable(out_of_bounds_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/out_of_bounds.cc
   test/core/end2end/cq_verifier.cc
@@ -13785,10 +15011,15 @@ target_link_libraries(out_of_bounds_bad_client_test
 )
 
 
+
+add_test(NAME out_of_bounds_bad_client_test
+  COMMAND out_of_bounds_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(overload_test
+add_executable(overload_test
   test/core/gprpp/overload_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13819,10 +15050,15 @@ target_link_libraries(overload_test
 )
 
 
+
+add_test(NAME overload_test
+  COMMAND overload_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(parsed_metadata_test
+add_executable(parsed_metadata_test
   test/core/transport/parsed_metadata_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13854,10 +15090,15 @@ target_link_libraries(parsed_metadata_test
 )
 
 
+
+add_test(NAME parsed_metadata_test
+  COMMAND parsed_metadata_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(periodic_update_test
+add_executable(periodic_update_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -13906,10 +15147,15 @@ target_link_libraries(periodic_update_test
 )
 
 
+
+add_test(NAME periodic_update_test
+  COMMAND periodic_update_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(pid_controller_test
+add_executable(pid_controller_test
   test/core/transport/pid_controller_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13941,10 +15187,15 @@ target_link_libraries(pid_controller_test
 )
 
 
+
+add_test(NAME pid_controller_test
+  COMMAND pid_controller_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(pipe_test
+add_executable(pipe_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -14002,10 +15253,15 @@ target_link_libraries(pipe_test
 )
 
 
+
+add_test(NAME pipe_test
+  COMMAND pipe_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(poll_test
+add_executable(poll_test
   test/core/promise/poll_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14037,10 +15293,15 @@ target_link_libraries(poll_test
 )
 
 
+
+add_test(NAME poll_test
+  COMMAND poll_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(port_sharing_end2end_test
+add_executable(port_sharing_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -14089,10 +15350,15 @@ target_link_libraries(port_sharing_end2end_test
 )
 
 
+
+add_test(NAME port_sharing_end2end_test
+  COMMAND port_sharing_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(promise_factory_test
+add_executable(promise_factory_test
   test/core/promise/promise_factory_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14128,10 +15394,15 @@ target_link_libraries(promise_factory_test
 )
 
 
+
+add_test(NAME promise_factory_test
+  COMMAND promise_factory_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(promise_map_test
+add_executable(promise_map_test
   test/core/promise/map_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14166,10 +15437,15 @@ target_link_libraries(promise_map_test
 )
 
 
+
+add_test(NAME promise_map_test
+  COMMAND promise_map_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(promise_test
+add_executable(promise_test
   test/core/promise/promise_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14204,10 +15480,15 @@ target_link_libraries(promise_test
 )
 
 
+
+add_test(NAME promise_test
+  COMMAND promise_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(proto_server_reflection_test
+add_executable(proto_server_reflection_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -14262,10 +15543,15 @@ target_link_libraries(proto_server_reflection_test
 )
 
 
+
+add_test(NAME proto_server_reflection_test
+  COMMAND proto_server_reflection_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(proto_utils_test
+add_executable(proto_utils_test
   test/cpp/codegen/proto_utils_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14298,10 +15584,15 @@ target_link_libraries(proto_utils_test
 )
 
 
+
+add_test(NAME proto_utils_test
+  COMMAND proto_utils_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(qps_json_driver
+add_executable(qps_json_driver
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.h
@@ -14380,10 +15671,15 @@ target_link_libraries(qps_json_driver
 )
 
 
+
+add_test(NAME qps_json_driver
+  COMMAND qps_json_driver
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(qps_worker
+add_executable(qps_worker
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.h
@@ -14454,10 +15750,15 @@ target_link_libraries(qps_worker
 )
 
 
+
+add_test(NAME qps_worker
+  COMMAND qps_worker
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(race_test
+add_executable(race_test
   test/core/promise/race_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14489,10 +15790,15 @@ target_link_libraries(race_test
 )
 
 
+
+add_test(NAME race_test
+  COMMAND race_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(raw_end2end_test
+add_executable(raw_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -14545,10 +15851,15 @@ target_link_libraries(raw_end2end_test
 )
 
 
+
+add_test(NAME raw_end2end_test
+  COMMAND raw_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(rbac_service_config_parser_test
+add_executable(rbac_service_config_parser_test
   test/core/ext/filters/rbac/rbac_service_config_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14580,10 +15891,15 @@ target_link_libraries(rbac_service_config_parser_test
 )
 
 
+
+add_test(NAME rbac_service_config_parser_test
+  COMMAND rbac_service_config_parser_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(rbac_translator_test
+add_executable(rbac_translator_test
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   test/core/security/rbac_translator_test.cc
@@ -14617,10 +15933,15 @@ target_link_libraries(rbac_translator_test
 )
 
 
+
+add_test(NAME rbac_translator_test
+  COMMAND rbac_translator_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(ref_counted_ptr_test
+add_executable(ref_counted_ptr_test
   test/core/gprpp/ref_counted_ptr_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14652,10 +15973,15 @@ target_link_libraries(ref_counted_ptr_test
 )
 
 
+
+add_test(NAME ref_counted_ptr_test
+  COMMAND ref_counted_ptr_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(ref_counted_test
+add_executable(ref_counted_test
   test/core/gprpp/ref_counted_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14687,11 +16013,16 @@ target_link_libraries(ref_counted_test
 )
 
 
+
+add_test(NAME ref_counted_test
+  COMMAND ref_counted_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(remove_stream_from_stalled_lists_test
+  add_executable(remove_stream_from_stalled_lists_test
     test/core/transport/chttp2/remove_stream_from_stalled_lists_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -14723,11 +16054,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME remove_stream_from_stalled_lists_test
+    COMMAND remove_stream_from_stalled_lists_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(resolve_address_using_ares_resolver_test
+add_executable(resolve_address_using_ares_resolver_test
   test/core/iomgr/resolve_address_test.cc
   test/core/util/fake_udp_and_tcp_server.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -14761,10 +16097,15 @@ target_link_libraries(resolve_address_using_ares_resolver_test
 )
 
 
+
+add_test(NAME resolve_address_using_ares_resolver_test
+  COMMAND resolve_address_using_ares_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(resolve_address_using_native_resolver_test
+add_executable(resolve_address_using_native_resolver_test
   test/core/iomgr/resolve_address_test.cc
   test/core/util/fake_udp_and_tcp_server.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -14798,10 +16139,15 @@ target_link_libraries(resolve_address_using_native_resolver_test
 )
 
 
+
+add_test(NAME resolve_address_using_native_resolver_test
+  COMMAND resolve_address_using_native_resolver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(resource_quota_test
+add_executable(resource_quota_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -14858,10 +16204,15 @@ target_link_libraries(resource_quota_test
 )
 
 
+
+add_test(NAME resource_quota_test
+  COMMAND resource_quota_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(retry_throttle_test
+add_executable(retry_throttle_test
   test/core/client_channel/retry_throttle_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14893,10 +16244,15 @@ target_link_libraries(retry_throttle_test
 )
 
 
+
+add_test(NAME retry_throttle_test
+  COMMAND retry_throttle_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(rls_end2end_test
+add_executable(rls_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.h
@@ -14956,10 +16312,15 @@ target_link_libraries(rls_end2end_test
 )
 
 
+
+add_test(NAME rls_end2end_test
+  COMMAND rls_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(rls_lb_config_parser_test
+add_executable(rls_lb_config_parser_test
   test/core/client_channel/rls_lb_config_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14991,10 +16352,15 @@ target_link_libraries(rls_lb_config_parser_test
 )
 
 
+
+add_test(NAME rls_lb_config_parser_test
+  COMMAND rls_lb_config_parser_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(secure_auth_context_test
+add_executable(secure_auth_context_test
   test/cpp/common/secure_auth_context_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15026,10 +16392,15 @@ target_link_libraries(secure_auth_context_test
 )
 
 
+
+add_test(NAME secure_auth_context_test
+  COMMAND secure_auth_context_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(seq_test
+add_executable(seq_test
   test/core/promise/seq_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15063,10 +16434,15 @@ target_link_libraries(seq_test
 )
 
 
+
+add_test(NAME seq_test
+  COMMAND seq_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_builder_plugin_test
+add_executable(server_builder_plugin_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -15119,11 +16495,16 @@ target_link_libraries(server_builder_plugin_test
 )
 
 
+
+add_test(NAME server_builder_plugin_test
+  COMMAND server_builder_plugin_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(server_builder_test
+  add_executable(server_builder_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15172,12 +16553,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME server_builder_test
+    COMMAND server_builder_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(server_builder_with_socket_mutator_test
+  add_executable(server_builder_with_socket_mutator_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15226,11 +16612,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME server_builder_with_socket_mutator_test
+    COMMAND server_builder_with_socket_mutator_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_chttp2_test
+add_executable(server_chttp2_test
   test/core/surface/server_chttp2_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15262,10 +16653,15 @@ target_link_libraries(server_chttp2_test
 )
 
 
+
+add_test(NAME server_chttp2_test
+  COMMAND server_chttp2_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_config_selector_test
+add_executable(server_config_selector_test
   test/core/server_config_selector/server_config_selector_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15297,10 +16693,15 @@ target_link_libraries(server_config_selector_test
 )
 
 
+
+add_test(NAME server_config_selector_test
+  COMMAND server_config_selector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_context_test_spouse_test
+add_executable(server_context_test_spouse_test
   test/cpp/test/server_context_test_spouse_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15333,10 +16734,15 @@ target_link_libraries(server_context_test_spouse_test
 )
 
 
+
+add_test(NAME server_context_test_spouse_test
+  COMMAND server_context_test_spouse_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_early_return_test
+add_executable(server_early_return_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15384,10 +16790,15 @@ target_link_libraries(server_early_return_test
 )
 
 
+
+add_test(NAME server_early_return_test
+  COMMAND server_early_return_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_interceptors_end2end_test
+add_executable(server_interceptors_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15437,10 +16848,15 @@ target_link_libraries(server_interceptors_end2end_test
 )
 
 
+
+add_test(NAME server_interceptors_end2end_test
+  COMMAND server_interceptors_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(server_registered_method_bad_client_test
+add_executable(server_registered_method_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/server_registered_method.cc
   test/core/end2end/cq_verifier.cc
@@ -15474,11 +16890,16 @@ target_link_libraries(server_registered_method_bad_client_test
 )
 
 
+
+add_test(NAME server_registered_method_bad_client_test
+  COMMAND server_registered_method_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(server_request_call_test
+  add_executable(server_request_call_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15527,11 +16948,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME server_request_call_test
+    COMMAND server_request_call_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(service_config_end2end_test
+add_executable(service_config_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -15584,10 +17010,15 @@ target_link_libraries(service_config_end2end_test
 )
 
 
+
+add_test(NAME service_config_end2end_test
+  COMMAND service_config_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(service_config_test
+add_executable(service_config_test
   test/core/client_channel/service_config_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15619,10 +17050,15 @@ target_link_libraries(service_config_test
 )
 
 
+
+add_test(NAME service_config_test
+  COMMAND service_config_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(settings_timeout_test
+add_executable(settings_timeout_test
   test/core/transport/chttp2/settings_timeout_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15654,10 +17090,15 @@ target_link_libraries(settings_timeout_test
 )
 
 
+
+add_test(NAME settings_timeout_test
+  COMMAND settings_timeout_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(shutdown_test
+add_executable(shutdown_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -15709,10 +17150,15 @@ target_link_libraries(shutdown_test
 )
 
 
+
+add_test(NAME shutdown_test
+  COMMAND shutdown_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(simple_request_bad_client_test
+add_executable(simple_request_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/simple_request.cc
   test/core/end2end/cq_verifier.cc
@@ -15746,10 +17192,15 @@ target_link_libraries(simple_request_bad_client_test
 )
 
 
+
+add_test(NAME simple_request_bad_client_test
+  COMMAND simple_request_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(single_set_ptr_test
+add_executable(single_set_ptr_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -15834,10 +17285,15 @@ target_link_libraries(single_set_ptr_test
 )
 
 
+
+add_test(NAME single_set_ptr_test
+  COMMAND single_set_ptr_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(sleep_test
+add_executable(sleep_test
   test/core/promise/sleep_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15869,10 +17325,15 @@ target_link_libraries(sleep_test
 )
 
 
+
+add_test(NAME sleep_test
+  COMMAND sleep_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(smoke_test
+add_executable(smoke_test
   test/core/event_engine/smoke_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15904,10 +17365,15 @@ target_link_libraries(smoke_test
 )
 
 
+
+add_test(NAME smoke_test
+  COMMAND smoke_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(sockaddr_utils_test
+add_executable(sockaddr_utils_test
   test/core/address_utils/sockaddr_utils_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15939,11 +17405,16 @@ target_link_libraries(sockaddr_utils_test
 )
 
 
+
+add_test(NAME sockaddr_utils_test
+  COMMAND sockaddr_utils_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(stack_tracer_test
+  add_executable(stack_tracer_test
     test/core/util/stack_tracer_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -15975,11 +17446,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME stack_tracer_test
+    COMMAND stack_tracer_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(stat_test
+add_executable(stat_test
   test/core/gprpp/stat_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16011,10 +17487,15 @@ target_link_libraries(stat_test
 )
 
 
+
+add_test(NAME stat_test
+  COMMAND stat_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(stats_test
+add_executable(stats_test
   test/core/debug/stats_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16046,10 +17527,15 @@ target_link_libraries(stats_test
 )
 
 
+
+add_test(NAME stats_test
+  COMMAND stats_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(status_helper_test
+add_executable(status_helper_test
   test/core/gprpp/status_helper_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16081,10 +17567,15 @@ target_link_libraries(status_helper_test
 )
 
 
+
+add_test(NAME status_helper_test
+  COMMAND status_helper_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(status_util_test
+add_executable(status_util_test
   test/core/channel/status_util_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16116,11 +17607,16 @@ target_link_libraries(status_util_test
 )
 
 
+
+add_test(NAME status_util_test
+  COMMAND status_util_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(stranded_event_test
+  add_executable(stranded_event_test
     test/core/end2end/cq_verifier.cc
     test/core/iomgr/stranded_event_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
@@ -16153,12 +17649,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME stranded_event_test
+    COMMAND stranded_event_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(streaming_throughput_test
+  add_executable(streaming_throughput_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -16210,11 +17711,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME streaming_throughput_test
+    COMMAND streaming_throughput_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(streams_not_seen_test
+add_executable(streams_not_seen_test
   test/core/end2end/cq_verifier.cc
   test/core/transport/chttp2/streams_not_seen_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16247,10 +17753,15 @@ target_link_libraries(streams_not_seen_test
 )
 
 
+
+add_test(NAME streams_not_seen_test
+  COMMAND streams_not_seen_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(string_ref_test
+add_executable(string_ref_test
   test/cpp/util/string_ref_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16283,10 +17794,15 @@ target_link_libraries(string_ref_test
 )
 
 
+
+add_test(NAME string_ref_test
+  COMMAND string_ref_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(system_roots_test
+add_executable(system_roots_test
   test/core/security/system_roots_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16318,10 +17834,15 @@ target_link_libraries(system_roots_test
 )
 
 
+
+add_test(NAME system_roots_test
+  COMMAND system_roots_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(table_test
+add_executable(table_test
   test/core/gprpp/table_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16355,10 +17876,15 @@ target_link_libraries(table_test
 )
 
 
+
+add_test(NAME table_test
+  COMMAND table_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_event_engine_iomgr_event_engine_time_averaged_stats_test
+add_executable(test_core_event_engine_iomgr_event_engine_time_averaged_stats_test
   src/core/lib/event_engine/iomgr_engine/time_averaged_stats.cc
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
@@ -16444,10 +17970,15 @@ target_link_libraries(test_core_event_engine_iomgr_event_engine_time_averaged_st
 )
 
 
+
+add_test(NAME test_core_event_engine_iomgr_event_engine_time_averaged_stats_test
+  COMMAND test_core_event_engine_iomgr_event_engine_time_averaged_stats_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_event_engine_iomgr_event_engine_timer_heap_test
+add_executable(test_core_event_engine_iomgr_event_engine_timer_heap_test
   src/core/lib/event_engine/iomgr_engine/time_averaged_stats.cc
   src/core/lib/event_engine/iomgr_engine/timer.cc
   src/core/lib/event_engine/iomgr_engine/timer_heap.cc
@@ -16537,10 +18068,15 @@ target_link_libraries(test_core_event_engine_iomgr_event_engine_timer_heap_test
 )
 
 
+
+add_test(NAME test_core_event_engine_iomgr_event_engine_timer_heap_test
+  COMMAND test_core_event_engine_iomgr_event_engine_timer_heap_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_event_engine_iomgr_event_engine_timer_list_test
+add_executable(test_core_event_engine_iomgr_event_engine_timer_list_test
   src/core/lib/event_engine/iomgr_engine/time_averaged_stats.cc
   src/core/lib/event_engine/iomgr_engine/timer.cc
   src/core/lib/event_engine/iomgr_engine/timer_heap.cc
@@ -16630,10 +18166,15 @@ target_link_libraries(test_core_event_engine_iomgr_event_engine_timer_list_test
 )
 
 
+
+add_test(NAME test_core_event_engine_iomgr_event_engine_timer_list_test
+  COMMAND test_core_event_engine_iomgr_event_engine_timer_list_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_event_engine_slice_buffer_test
+add_executable(test_core_event_engine_slice_buffer_test
   test/core/event_engine/slice_buffer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16665,10 +18206,15 @@ target_link_libraries(test_core_event_engine_slice_buffer_test
 )
 
 
+
+add_test(NAME test_core_event_engine_slice_buffer_test
+  COMMAND test_core_event_engine_slice_buffer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_gprpp_time_test
+add_executable(test_core_gprpp_time_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -16755,10 +18301,15 @@ target_link_libraries(test_core_gprpp_time_test
 )
 
 
+
+add_test(NAME test_core_gprpp_time_test
+  COMMAND test_core_gprpp_time_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_security_credentials_test
+add_executable(test_core_security_credentials_test
   test/core/security/credentials_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16790,10 +18341,15 @@ target_link_libraries(test_core_security_credentials_test
 )
 
 
+
+add_test(NAME test_core_security_credentials_test
+  COMMAND test_core_security_credentials_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_slice_slice_buffer_test
+add_executable(test_core_slice_slice_buffer_test
   test/core/slice/slice_buffer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16825,10 +18381,15 @@ target_link_libraries(test_core_slice_slice_buffer_test
 )
 
 
+
+add_test(NAME test_core_slice_slice_buffer_test
+  COMMAND test_core_slice_slice_buffer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_core_slice_slice_test
+add_executable(test_core_slice_slice_test
   test/core/slice/slice_test.cc
   test/core/util/build.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16861,10 +18422,15 @@ target_link_libraries(test_core_slice_slice_test
 )
 
 
+
+add_test(NAME test_core_slice_slice_test
+  COMMAND test_core_slice_slice_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_cpp_client_credentials_test
+add_executable(test_cpp_client_credentials_test
   test/cpp/client/credentials_test.cc
   test/cpp/util/tls_test_utils.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16898,10 +18464,15 @@ target_link_libraries(test_cpp_client_credentials_test
 )
 
 
+
+add_test(NAME test_cpp_client_credentials_test
+  COMMAND test_cpp_client_credentials_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_cpp_server_credentials_test
+add_executable(test_cpp_server_credentials_test
   test/cpp/server/credentials_test.cc
   test/cpp/util/tls_test_utils.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16935,10 +18506,15 @@ target_link_libraries(test_cpp_server_credentials_test
 )
 
 
+
+add_test(NAME test_cpp_server_credentials_test
+  COMMAND test_cpp_server_credentials_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_cpp_util_slice_test
+add_executable(test_cpp_util_slice_test
   test/cpp/util/slice_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16970,10 +18546,15 @@ target_link_libraries(test_cpp_util_slice_test
 )
 
 
+
+add_test(NAME test_cpp_util_slice_test
+  COMMAND test_cpp_util_slice_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(test_cpp_util_time_test
+add_executable(test_cpp_util_time_test
   test/cpp/util/time_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17005,10 +18586,15 @@ target_link_libraries(test_cpp_util_time_test
 )
 
 
+
+add_test(NAME test_cpp_util_time_test
+  COMMAND test_cpp_util_time_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(thread_manager_test
+add_executable(thread_manager_test
   test/cpp/thread_manager/thread_manager_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17041,10 +18627,15 @@ target_link_libraries(thread_manager_test
 )
 
 
+
+add_test(NAME thread_manager_test
+  COMMAND thread_manager_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(thread_quota_test
+add_executable(thread_quota_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -17130,11 +18721,16 @@ target_link_libraries(thread_quota_test
 )
 
 
+
+add_test(NAME thread_quota_test
+  COMMAND thread_quota_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(thread_stress_test
+  add_executable(thread_stress_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -17186,12 +18782,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME thread_stress_test
+    COMMAND thread_stress_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(time_jump_test
+  add_executable(time_jump_test
     test/cpp/common/time_jump_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -17224,11 +18825,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME time_jump_test
+    COMMAND time_jump_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(time_util_test
+add_executable(time_util_test
   test/core/gprpp/time_util_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17260,10 +18866,15 @@ target_link_libraries(time_util_test
 )
 
 
+
+add_test(NAME time_util_test
+  COMMAND time_util_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(timeout_encoding_test
+add_executable(timeout_encoding_test
   test/core/transport/timeout_encoding_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17295,10 +18906,15 @@ target_link_libraries(timeout_encoding_test
 )
 
 
+
+add_test(NAME timeout_encoding_test
+  COMMAND timeout_encoding_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(timer_test
+add_executable(timer_test
   test/cpp/common/timer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17331,10 +18947,15 @@ target_link_libraries(timer_test
 )
 
 
+
+add_test(NAME timer_test
+  COMMAND timer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(tls_certificate_verifier_test
+add_executable(tls_certificate_verifier_test
   test/cpp/security/tls_certificate_verifier_test.cc
   test/cpp/util/tls_test_utils.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -17368,10 +18989,15 @@ target_link_libraries(tls_certificate_verifier_test
 )
 
 
+
+add_test(NAME tls_certificate_verifier_test
+  COMMAND tls_certificate_verifier_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(tls_key_export_test
+add_executable(tls_key_export_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -17419,10 +19045,15 @@ target_link_libraries(tls_key_export_test
 )
 
 
+
+add_test(NAME tls_key_export_test
+  COMMAND tls_key_export_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(tls_security_connector_test
+add_executable(tls_security_connector_test
   test/core/security/tls_security_connector_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17454,10 +19085,15 @@ target_link_libraries(tls_security_connector_test
 )
 
 
+
+add_test(NAME tls_security_connector_test
+  COMMAND tls_security_connector_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(tls_test
+add_executable(tls_test
   test/core/gpr/tls_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17489,10 +19125,15 @@ target_link_libraries(tls_test
 )
 
 
+
+add_test(NAME tls_test
+  COMMAND tls_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(too_many_pings_test
+add_executable(too_many_pings_test
   test/core/end2end/cq_verifier.cc
   test/core/transport/chttp2/too_many_pings_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -17526,10 +19167,15 @@ target_link_libraries(too_many_pings_test
 )
 
 
+
+add_test(NAME too_many_pings_test
+  COMMAND too_many_pings_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(transport_stream_receiver_test
+add_executable(transport_stream_receiver_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -17618,10 +19264,15 @@ target_link_libraries(transport_stream_receiver_test
 )
 
 
+
+add_test(NAME transport_stream_receiver_test
+  COMMAND transport_stream_receiver_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(try_join_test
+add_executable(try_join_test
   test/core/promise/try_join_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17657,10 +19308,15 @@ target_link_libraries(try_join_test
 )
 
 
+
+add_test(NAME try_join_test
+  COMMAND try_join_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(try_seq_metadata_test
+add_executable(try_seq_metadata_test
   test/core/promise/try_seq_metadata_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17692,10 +19348,15 @@ target_link_libraries(try_seq_metadata_test
 )
 
 
+
+add_test(NAME try_seq_metadata_test
+  COMMAND try_seq_metadata_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(try_seq_test
+add_executable(try_seq_test
   test/core/promise/try_seq_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17731,10 +19392,15 @@ target_link_libraries(try_seq_test
 )
 
 
+
+add_test(NAME try_seq_test
+  COMMAND try_seq_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(unique_type_name_test
+add_executable(unique_type_name_test
   test/core/gprpp/unique_type_name_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17767,10 +19433,15 @@ target_link_libraries(unique_type_name_test
 )
 
 
+
+add_test(NAME unique_type_name_test
+  COMMAND unique_type_name_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(unknown_frame_bad_client_test
+add_executable(unknown_frame_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/unknown_frame.cc
   test/core/end2end/cq_verifier.cc
@@ -17804,10 +19475,15 @@ target_link_libraries(unknown_frame_bad_client_test
 )
 
 
+
+add_test(NAME unknown_frame_bad_client_test
+  COMMAND unknown_frame_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(uri_parser_test
+add_executable(uri_parser_test
   test/core/uri/uri_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17839,10 +19515,15 @@ target_link_libraries(uri_parser_test
 )
 
 
+
+add_test(NAME uri_parser_test
+  COMMAND uri_parser_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(useful_test
+add_executable(useful_test
   test/core/gpr/useful_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17873,10 +19554,15 @@ target_link_libraries(useful_test
 )
 
 
+
+add_test(NAME useful_test
+  COMMAND useful_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(window_overflow_bad_client_test
+add_executable(window_overflow_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/window_overflow.cc
   test/core/end2end/cq_verifier.cc
@@ -17910,10 +19596,15 @@ target_link_libraries(window_overflow_bad_client_test
 )
 
 
+
+add_test(NAME window_overflow_bad_client_test
+  COMMAND window_overflow_bad_client_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(wire_reader_test
+add_executable(wire_reader_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -18003,10 +19694,15 @@ target_link_libraries(wire_reader_test
 )
 
 
+
+add_test(NAME wire_reader_test
+  COMMAND wire_reader_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(wire_writer_test
+add_executable(wire_writer_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -18096,11 +19792,16 @@ target_link_libraries(wire_writer_test
 )
 
 
+
+add_test(NAME wire_writer_test
+  COMMAND wire_writer_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(work_serializer_test
+  add_executable(work_serializer_test
     test/core/iomgr/work_serializer_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -18132,12 +19833,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME work_serializer_test
+    COMMAND work_serializer_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(writes_per_rpc_test
+  add_executable(writes_per_rpc_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -18209,11 +19915,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME writes_per_rpc_test
+    COMMAND writes_per_rpc_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_bootstrap_test
+add_executable(xds_bootstrap_test
   test/core/xds/xds_bootstrap_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -18245,10 +19956,15 @@ target_link_libraries(xds_bootstrap_test
 )
 
 
+
+add_test(NAME xds_bootstrap_test
+  COMMAND xds_bootstrap_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_certificate_provider_test
+add_executable(xds_certificate_provider_test
   test/core/xds/xds_certificate_provider_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -18280,11 +19996,16 @@ target_link_libraries(xds_certificate_provider_test
 )
 
 
+
+add_test(NAME xds_certificate_provider_test
+  COMMAND xds_certificate_provider_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_cluster_end2end_test
+  add_executable(xds_cluster_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -18452,12 +20173,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_cluster_end2end_test
+    COMMAND xds_cluster_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_cluster_type_end2end_test
+  add_executable(xds_cluster_type_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -18630,12 +20356,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_cluster_type_end2end_test
+    COMMAND xds_cluster_type_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_core_end2end_test
+  add_executable(xds_core_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -18803,11 +20534,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_core_end2end_test
+    COMMAND xds_core_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_credentials_end2end_test
+add_executable(xds_credentials_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -18856,10 +20592,15 @@ target_link_libraries(xds_credentials_end2end_test
 )
 
 
+
+add_test(NAME xds_credentials_end2end_test
+  COMMAND xds_credentials_end2end_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_credentials_test
+add_executable(xds_credentials_test
   test/core/security/xds_credentials_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -18891,11 +20632,16 @@ target_link_libraries(xds_credentials_test
 )
 
 
+
+add_test(NAME xds_credentials_test
+  COMMAND xds_credentials_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_csds_end2end_test
+  add_executable(xds_csds_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19072,12 +20818,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_csds_end2end_test
+    COMMAND xds_csds_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_end2end_test
+  add_executable(xds_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19270,12 +21021,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_end2end_test
+    COMMAND xds_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_fault_injection_end2end_test
+  add_executable(xds_fault_injection_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19451,11 +21207,16 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_fault_injection_end2end_test
+    COMMAND xds_fault_injection_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_interop_client
+add_executable(xds_interop_client
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -19521,10 +21282,15 @@ target_link_libraries(xds_interop_client
 )
 
 
+
+add_test(NAME xds_interop_client
+  COMMAND xds_interop_client
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_interop_server
+add_executable(xds_interop_server
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.h
@@ -19595,10 +21361,15 @@ target_link_libraries(xds_interop_server
 )
 
 
+
+add_test(NAME xds_interop_server
+  COMMAND xds_interop_server
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_grpc_test(xds_lb_policy_registry_test
+add_executable(xds_lb_policy_registry_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.h
@@ -19693,11 +21464,16 @@ target_link_libraries(xds_lb_policy_registry_test
 )
 
 
+
+add_test(NAME xds_lb_policy_registry_test
+  COMMAND xds_lb_policy_registry_test
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_outlier_detection_end2end_test
+  add_executable(xds_outlier_detection_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19873,12 +21649,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_outlier_detection_end2end_test
+    COMMAND xds_outlier_detection_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_ring_hash_end2end_test
+  add_executable(xds_ring_hash_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -20051,12 +21832,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_ring_hash_end2end_test
+    COMMAND xds_ring_hash_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_rls_end2end_test
+  add_executable(xds_rls_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.h
@@ -20233,12 +22019,17 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_rls_end2end_test
+    COMMAND xds_rls_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_grpc_test(xds_routing_end2end_test
+  add_executable(xds_routing_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -20414,8 +22205,15 @@ if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
   )
 
 
+
+  add_test(NAME xds_routing_end2end_test
+    COMMAND xds_routing_end2end_test
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 endif()
 endif()
+
+
 
 
 
@@ -20484,7 +22282,7 @@ generate_pkgconfig(
   "gRPC"
   "high performance general RPC framework"
   "${gRPC_CORE_VERSION}"
-  "gpr absl_base absl_bind_front absl_cord absl_core_headers absl_flat_hash_map absl_flat_hash_set absl_function_ref absl_hash absl_inlined_vector absl_memory absl_optional absl_random_random absl_span absl_status absl_statusor absl_str_format absl_strings absl_synchronization absl_time absl_type_traits absl_utility absl_variant"
+  "gpr openssl absl_base absl_bind_front absl_cord absl_core_headers absl_flat_hash_map absl_flat_hash_set absl_function_ref absl_hash absl_inlined_vector absl_memory absl_optional absl_random_random absl_span absl_status absl_statusor absl_str_format absl_strings absl_synchronization absl_time absl_type_traits absl_utility absl_variant"
   "-lgrpc -laddress_sorting -lre2 -lupb -lcares -lz"
   ""
   "grpc.pc")

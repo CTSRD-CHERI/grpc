@@ -369,6 +369,10 @@
   include(cmake/zlib.cmake)
   include(cmake/download_archive.cmake)
 
+  if(gRPC_BUILD_TESTS)
+    include(CTest)
+  endif()
+
   % for external_proto_library in external_proto_libraries:
   % if len(external_proto_library.urls) > 1:
   # Setup external proto library at ${external_proto_library.destination} with ${len(external_proto_library.urls)} download URLs
@@ -608,6 +612,7 @@
   if(gRPC_BUILD_TESTS)
   <%block filter='platforms_condition_block(tgt.platforms)'>
   ${cc_binary(tgt)}
+  ${cc_test(tgt)}
   </%block>
   endif()
   % elif tgt.build in ["protoc"]:
@@ -790,6 +795,12 @@
   )
 
   % endif
+  </%def>
+
+  <%def name="cc_test(tgt)">
+  add_test(NAME ${tgt.name}
+    COMMAND ${tgt.name}
+    WORKING_DIRECTORY <%text>${PROJECT_SOURCE_DIR}</%text>)
   </%def>
 
   <%def name="cc_install(tgt)">
