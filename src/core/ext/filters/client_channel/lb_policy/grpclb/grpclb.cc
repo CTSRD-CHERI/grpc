@@ -639,7 +639,7 @@ std::string GrpcLb::Serverlist::AsText() const {
       auto addr_str = grpc_sockaddr_to_string(&addr, false);
       ipport = addr_str.ok() ? *addr_str : addr_str.status().ToString();
     }
-    entries.push_back(absl::StrFormat("  %" PRIuPTR ": %s token=%s\n", i,
+    entries.push_back(absl::StrFormat("  %" PRIuMAX ": %s token=%s\n", i,
                                       ipport, server.load_balance_token));
   }
   return absl::StrJoin(entries, "");

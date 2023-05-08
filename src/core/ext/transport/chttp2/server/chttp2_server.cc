@@ -970,13 +970,13 @@ grpc_error_handle Chttp2ServerAddPort(Server* server, const char* addr,
     }
     if (error_list.size() == resolved_or->size()) {
       std::string msg = absl::StrFormat(
-          "No address added out of total %" PRIuPTR " resolved for '%s'",
+          "No address added out of total %" PRIuMAX " resolved for '%s'",
           resolved_or->size(), addr);
       return GRPC_ERROR_CREATE_REFERENCING(msg.c_str(), error_list.data(),
                                            error_list.size());
     } else if (!error_list.empty()) {
       std::string msg = absl::StrFormat(
-          "Only %" PRIuPTR " addresses added out of total %" PRIuPTR
+          "Only %" PRIuMAX " addresses added out of total %" PRIuMAX
           " resolved",
           resolved_or->size() - error_list.size(), resolved_or->size());
       error = GRPC_ERROR_CREATE_REFERENCING(msg.c_str(), error_list.data(),
