@@ -92,7 +92,7 @@ static grpc_core::Resolver::Result create_new_resolver_result() {
   // Create address list.
   grpc_core::ServerAddressList addresses;
   for (size_t i = 0; i < num_addresses; ++i) {
-    std::string uri_string = absl::StrFormat("ipv4:127.0.0.1:100%" PRIuPTR,
+    std::string uri_string = absl::StrFormat("ipv4:127.0.0.1:100%" PRIuMAX,
                                              test_counter * num_addresses + i);
     absl::StatusOr<grpc_core::URI> uri = grpc_core::URI::Parse(uri_string);
     GPR_ASSERT(uri.ok());

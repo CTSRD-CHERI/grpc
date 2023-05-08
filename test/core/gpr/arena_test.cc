@@ -47,9 +47,9 @@ static void test(const char* name, size_t init_size, const size_t* allocs,
                  size_t nallocs) {
   std::vector<std::string> parts;
   parts.push_back(
-      absl::StrFormat("test '%s': %" PRIdPTR " <- {", name, init_size));
+      absl::StrFormat("test '%s': %" PRIdMAX " <- {", name, init_size));
   for (size_t i = 0; i < nallocs; i++) {
-    parts.push_back(absl::StrFormat("%" PRIdPTR ",", allocs[i]));
+    parts.push_back(absl::StrFormat("%" PRIdMAX ",", allocs[i]));
   }
   parts.push_back("}");
   std::string s = absl::StrJoin(parts, "");
