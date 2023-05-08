@@ -325,6 +325,9 @@ include(cmake/upb.cmake)
 include(cmake/xxhash.cmake)
 include(cmake/zlib.cmake)
 include(cmake/download_archive.cmake)
+if(gRPC_BUILD_TESTS)
+  include(CTest)
+endif()
 
 # Setup external proto library at third_party/envoy-api with 2 download URLs
 if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/envoy-api)
@@ -413,6 +416,16 @@ file(MAKE_DIRECTORY ${_gRPC_PROTO_SRCS_DIR})
 # Create directory for generated .proto files
 set(_gRPC_PROTO_GENS_DIR ${CMAKE_BINARY_DIR}/gens)
 file(MAKE_DIRECTORY ${_gRPC_PROTO_GENS_DIR})
+
+#
+# add_grpc_test
+# -------------
+#
+#   Generate a test executable, same signature as add_executable()
+function(add_grpc_test name)
+  add_executable(${name} ${ARGN})
+  add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
 #  protobuf_generate_grpc_cpp
 #  --------------------------
@@ -4278,7 +4291,7 @@ target_link_libraries(gen_hpack_tables
 
 if(gRPC_BUILD_TESTS)
 
-add_executable(alloc_test
+add_grpc_test(alloc_test
   test/core/gpr/alloc_test.cc
 )
 
@@ -4305,7 +4318,7 @@ target_link_libraries(alloc_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alpn_test
+add_grpc_test(alpn_test
   test/core/transport/chttp2/alpn_test.cc
 )
 
@@ -4332,7 +4345,7 @@ target_link_libraries(alpn_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_counter_test
+add_grpc_test(alts_counter_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/alts_counter_test.cc
 )
@@ -4360,7 +4373,7 @@ target_link_libraries(alts_counter_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_crypt_test
+add_grpc_test(alts_crypt_test
   test/core/tsi/alts/crypt/aes_gcm_test.cc
   test/core/tsi/alts/crypt/gsec_test_util.cc
 )
@@ -4388,7 +4401,7 @@ target_link_libraries(alts_crypt_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_crypter_test
+add_grpc_test(alts_crypter_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/alts_crypter_test.cc
 )
@@ -4416,7 +4429,7 @@ target_link_libraries(alts_crypter_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_frame_protector_test
+add_grpc_test(alts_frame_protector_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/alts_frame_protector_test.cc
   test/core/tsi/transport_security_test_lib.cc
@@ -4445,7 +4458,7 @@ target_link_libraries(alts_frame_protector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_grpc_record_protocol_test
+add_grpc_test(alts_grpc_record_protocol_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/zero_copy_frame_protector/alts_grpc_record_protocol_test.cc
 )
@@ -4473,7 +4486,7 @@ target_link_libraries(alts_grpc_record_protocol_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_handshaker_client_test
+add_grpc_test(alts_handshaker_client_test
   test/core/tsi/alts/handshaker/alts_handshaker_client_test.cc
   test/core/tsi/alts/handshaker/alts_handshaker_service_api_test_lib.cc
 )
@@ -4501,7 +4514,7 @@ target_link_libraries(alts_handshaker_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_iovec_record_protocol_test
+add_grpc_test(alts_iovec_record_protocol_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/zero_copy_frame_protector/alts_iovec_record_protocol_test.cc
 )
@@ -4529,7 +4542,7 @@ target_link_libraries(alts_iovec_record_protocol_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_security_connector_test
+add_grpc_test(alts_security_connector_test
   test/core/security/alts_security_connector_test.cc
 )
 
@@ -4556,7 +4569,7 @@ target_link_libraries(alts_security_connector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_tsi_handshaker_test
+add_grpc_test(alts_tsi_handshaker_test
   test/core/tsi/alts/handshaker/alts_handshaker_service_api_test_lib.cc
   test/core/tsi/alts/handshaker/alts_tsi_handshaker_test.cc
 )
@@ -4584,7 +4597,7 @@ target_link_libraries(alts_tsi_handshaker_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_tsi_utils_test
+add_grpc_test(alts_tsi_utils_test
   test/core/tsi/alts/handshaker/alts_handshaker_service_api_test_lib.cc
   test/core/tsi/alts/handshaker/alts_tsi_utils_test.cc
 )
@@ -4612,7 +4625,7 @@ target_link_libraries(alts_tsi_utils_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_zero_copy_grpc_protector_test
+add_grpc_test(alts_zero_copy_grpc_protector_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/zero_copy_frame_protector/alts_zero_copy_grpc_protector_test.cc
 )
@@ -4640,7 +4653,7 @@ target_link_libraries(alts_zero_copy_grpc_protector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(arena_test
+add_grpc_test(arena_test
   test/core/gpr/arena_test.cc
 )
 
@@ -4667,7 +4680,7 @@ target_link_libraries(arena_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(auth_context_test
+add_grpc_test(auth_context_test
   test/core/security/auth_context_test.cc
 )
 
@@ -4694,7 +4707,7 @@ target_link_libraries(auth_context_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(b64_test
+add_grpc_test(b64_test
   test/core/slice/b64_test.cc
 )
 
@@ -4721,7 +4734,7 @@ target_link_libraries(b64_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(bad_server_response_test
+add_grpc_test(bad_server_response_test
   test/core/end2end/bad_server_response_test.cc
   test/core/end2end/cq_verifier.cc
 )
@@ -4750,7 +4763,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(bad_ssl_alpn_test
+  add_grpc_test(bad_ssl_alpn_test
     test/core/bad_ssl/bad_ssl_test.cc
     test/core/end2end/cq_verifier.cc
   )
@@ -4780,7 +4793,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(bad_ssl_cert_test
+  add_grpc_test(bad_ssl_cert_test
     test/core/bad_ssl/bad_ssl_test.cc
     test/core/end2end/cq_verifier.cc
   )
@@ -4809,7 +4822,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(bin_decoder_test
+add_grpc_test(bin_decoder_test
   test/core/transport/chttp2/bin_decoder_test.cc
 )
 
@@ -4836,7 +4849,7 @@ target_link_libraries(bin_decoder_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(bin_encoder_test
+add_grpc_test(bin_encoder_test
   test/core/transport/chttp2/bin_encoder_test.cc
 )
 
@@ -4863,7 +4876,7 @@ target_link_libraries(bin_encoder_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(buffer_list_test
+add_grpc_test(buffer_list_test
   test/core/iomgr/buffer_list_test.cc
 )
 
@@ -4890,7 +4903,7 @@ target_link_libraries(buffer_list_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(c_slice_buffer_test
+add_grpc_test(c_slice_buffer_test
   test/core/slice/c_slice_buffer_test.cc
 )
 
@@ -4917,7 +4930,7 @@ target_link_libraries(c_slice_buffer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_stack_test
+add_grpc_test(channel_stack_test
   test/core/channel/channel_stack_test.cc
 )
 
@@ -4944,7 +4957,7 @@ target_link_libraries(channel_stack_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(check_gcp_environment_linux_test
+add_grpc_test(check_gcp_environment_linux_test
   test/core/security/check_gcp_environment_linux_test.cc
 )
 
@@ -4971,7 +4984,7 @@ target_link_libraries(check_gcp_environment_linux_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(check_gcp_environment_windows_test
+add_grpc_test(check_gcp_environment_windows_test
   test/core/security/check_gcp_environment_windows_test.cc
 )
 
@@ -4999,7 +5012,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(client_ssl_test
+  add_grpc_test(client_ssl_test
     test/core/handshake/client_ssl.cc
   )
 
@@ -5027,7 +5040,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cmdline_test
+add_grpc_test(cmdline_test
   test/core/util/cmdline_test.cc
 )
 
@@ -5055,7 +5068,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(combiner_test
+  add_grpc_test(combiner_test
     test/core/iomgr/combiner_test.cc
   )
 
@@ -5083,7 +5096,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(completion_queue_threading_test
+add_grpc_test(completion_queue_threading_test
   test/core/surface/completion_queue_threading_test.cc
 )
 
@@ -5110,7 +5123,7 @@ target_link_libraries(completion_queue_threading_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(compression_test
+add_grpc_test(compression_test
   test/core/compression/args_utils.cc
   test/core/compression/compression_test.cc
 )
@@ -5138,7 +5151,7 @@ target_link_libraries(compression_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(concurrent_connectivity_test
+add_grpc_test(concurrent_connectivity_test
   test/core/surface/concurrent_connectivity_test.cc
 )
 
@@ -5165,7 +5178,7 @@ target_link_libraries(concurrent_connectivity_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(connection_refused_test
+add_grpc_test(connection_refused_test
   test/core/end2end/connection_refused_test.cc
   test/core/end2end/cq_verifier.cc
 )
@@ -5193,7 +5206,7 @@ target_link_libraries(connection_refused_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cpu_test
+add_grpc_test(cpu_test
   test/core/gpr/cpu_test.cc
 )
 
@@ -5220,7 +5233,7 @@ target_link_libraries(cpu_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(dns_resolver_cooldown_test
+add_grpc_test(dns_resolver_cooldown_test
   test/core/client_channel/resolvers/dns_resolver_cooldown_test.cc
 )
 
@@ -5247,7 +5260,7 @@ target_link_libraries(dns_resolver_cooldown_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(dns_resolver_test
+add_grpc_test(dns_resolver_test
   test/core/client_channel/resolvers/dns_resolver_test.cc
 )
 
@@ -5275,7 +5288,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(dualstack_socket_test
+  add_grpc_test(dualstack_socket_test
     test/core/end2end/cq_verifier.cc
     test/core/end2end/dualstack_socket_test.cc
   )
@@ -5304,7 +5317,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(endpoint_pair_test
+add_grpc_test(endpoint_pair_test
   test/core/iomgr/endpoint_pair_test.cc
   test/core/iomgr/endpoint_tests.cc
 )
@@ -5332,7 +5345,7 @@ target_link_libraries(endpoint_pair_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(env_test
+add_grpc_test(env_test
   test/core/gpr/env_test.cc
 )
 
@@ -5359,7 +5372,7 @@ target_link_libraries(env_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(fake_resolver_test
+add_grpc_test(fake_resolver_test
   test/core/client_channel/resolvers/fake_resolver_test.cc
 )
 
@@ -5386,7 +5399,7 @@ target_link_libraries(fake_resolver_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(fake_transport_security_test
+add_grpc_test(fake_transport_security_test
   test/core/tsi/fake_transport_security_test.cc
   test/core/tsi/transport_security_test_lib.cc
 )
@@ -5415,7 +5428,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(fd_conservation_posix_test
+  add_grpc_test(fd_conservation_posix_test
     test/core/iomgr/fd_conservation_posix_test.cc
   )
 
@@ -5444,7 +5457,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(fd_posix_test
+  add_grpc_test(fd_posix_test
     test/core/iomgr/fd_posix_test.cc
   )
 
@@ -5473,7 +5486,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(fling_stream_test
+  add_grpc_test(fling_stream_test
     test/core/end2end/data/client_certs.cc
     test/core/end2end/data/server1_cert.cc
     test/core/end2end/data/server1_key.cc
@@ -5506,7 +5519,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(fling_test
+  add_grpc_test(fling_test
     test/core/end2end/data/client_certs.cc
     test/core/end2end/data/server1_cert.cc
     test/core/end2end/data/server1_key.cc
@@ -5539,7 +5552,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(fork_test
+  add_grpc_test(fork_test
     test/core/gprpp/fork_test.cc
   )
 
@@ -5567,7 +5580,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(format_request_test
+add_grpc_test(format_request_test
   test/core/end2end/data/client_certs.cc
   test/core/end2end/data/server1_cert.cc
   test/core/end2end/data/server1_key.cc
@@ -5598,7 +5611,7 @@ target_link_libraries(format_request_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(frame_handler_test
+add_grpc_test(frame_handler_test
   test/core/tsi/alts/crypt/gsec_test_util.cc
   test/core/tsi/alts/frame_protector/frame_handler_test.cc
 )
@@ -5626,7 +5639,7 @@ target_link_libraries(frame_handler_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(goaway_server_test
+add_grpc_test(goaway_server_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/goaway_server_test.cc
 )
@@ -5654,7 +5667,7 @@ target_link_libraries(goaway_server_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_alts_credentials_options_test
+add_grpc_test(grpc_alts_credentials_options_test
   test/core/security/grpc_alts_credentials_options_test.cc
 )
 
@@ -5681,7 +5694,7 @@ target_link_libraries(grpc_alts_credentials_options_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_byte_buffer_reader_test
+add_grpc_test(grpc_byte_buffer_reader_test
   test/core/surface/byte_buffer_reader_test.cc
 )
 
@@ -5708,7 +5721,7 @@ target_link_libraries(grpc_byte_buffer_reader_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_completion_queue_test
+add_grpc_test(grpc_completion_queue_test
   test/core/surface/completion_queue_test.cc
 )
 
@@ -5735,7 +5748,7 @@ target_link_libraries(grpc_completion_queue_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_ipv6_loopback_available_test
+add_grpc_test(grpc_ipv6_loopback_available_test
   test/core/iomgr/grpc_ipv6_loopback_available_test.cc
 )
 
@@ -5763,7 +5776,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(handshake_server_with_readahead_handshaker_test
+  add_grpc_test(handshake_server_with_readahead_handshaker_test
     test/core/handshake/readahead_handshaker_server_ssl.cc
     test/core/handshake/server_ssl_common.cc
   )
@@ -5792,7 +5805,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(histogram_test
+add_grpc_test(histogram_test
   test/core/util/histogram_test.cc
 )
 
@@ -5819,7 +5832,7 @@ target_link_libraries(histogram_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(host_port_test
+add_grpc_test(host_port_test
   test/core/gprpp/host_port_test.cc
 )
 
@@ -5846,7 +5859,7 @@ target_link_libraries(host_port_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(hpack_encoder_test
+add_grpc_test(hpack_encoder_test
   test/core/transport/chttp2/hpack_encoder_test.cc
 )
 
@@ -5873,7 +5886,7 @@ target_link_libraries(hpack_encoder_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(inproc_callback_test
+add_grpc_test(inproc_callback_test
   test/core/end2end/inproc_callback_test.cc
 )
 
@@ -5900,7 +5913,7 @@ target_link_libraries(inproc_callback_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(invalid_call_argument_test
+add_grpc_test(invalid_call_argument_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/invalid_call_argument_test.cc
 )
@@ -5928,7 +5941,7 @@ target_link_libraries(invalid_call_argument_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(json_token_test
+add_grpc_test(json_token_test
   test/core/security/json_token_test.cc
 )
 
@@ -5955,7 +5968,7 @@ target_link_libraries(json_token_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(jwt_verifier_test
+add_grpc_test(jwt_verifier_test
   test/core/security/jwt_verifier_test.cc
 )
 
@@ -5982,7 +5995,7 @@ target_link_libraries(jwt_verifier_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(lame_client_test
+add_grpc_test(lame_client_test
   test/core/end2end/cq_verifier.cc
   test/core/surface/lame_client_test.cc
 )
@@ -6010,7 +6023,7 @@ target_link_libraries(lame_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(load_file_test
+add_grpc_test(load_file_test
   test/core/iomgr/load_file_test.cc
 )
 
@@ -6038,7 +6051,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(memory_quota_stress_test
+  add_grpc_test(memory_quota_stress_test
     src/core/ext/upb-generated/google/protobuf/any.upb.c
     src/core/ext/upb-generated/google/rpc/status.upb.c
     src/core/lib/debug/trace.cc
@@ -6089,7 +6102,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(message_compress_test
+add_grpc_test(message_compress_test
   test/core/compression/message_compress_test.cc
 )
 
@@ -6116,7 +6129,7 @@ target_link_libraries(message_compress_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(minimal_stack_is_minimal_test
+add_grpc_test(minimal_stack_is_minimal_test
   test/core/channel/minimal_stack_is_minimal_test.cc
 )
 
@@ -6143,7 +6156,7 @@ target_link_libraries(minimal_stack_is_minimal_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(mpmcqueue_test
+add_grpc_test(mpmcqueue_test
   test/core/iomgr/mpmcqueue_test.cc
 )
 
@@ -6171,7 +6184,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(mpscq_test
+  add_grpc_test(mpscq_test
     test/core/gprpp/mpscq_test.cc
   )
 
@@ -6199,7 +6212,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(multiple_server_queues_test
+add_grpc_test(multiple_server_queues_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/multiple_server_queues_test.cc
 )
@@ -6227,7 +6240,7 @@ target_link_libraries(multiple_server_queues_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(murmur_hash_test
+add_grpc_test(murmur_hash_test
   test/core/gpr/murmur_hash_test.cc
 )
 
@@ -6254,7 +6267,7 @@ target_link_libraries(murmur_hash_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(no_server_test
+add_grpc_test(no_server_test
   test/core/end2end/cq_verifier.cc
   test/core/end2end/no_server_test.cc
 )
@@ -6282,7 +6295,7 @@ target_link_libraries(no_server_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(num_external_connectivity_watchers_test
+add_grpc_test(num_external_connectivity_watchers_test
   test/core/surface/num_external_connectivity_watchers_test.cc
 )
 
@@ -6309,7 +6322,7 @@ target_link_libraries(num_external_connectivity_watchers_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(parse_address_test
+add_grpc_test(parse_address_test
   test/core/address_utils/parse_address_test.cc
 )
 
@@ -6337,7 +6350,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(parse_address_with_named_scope_id_test
+  add_grpc_test(parse_address_with_named_scope_id_test
     test/core/address_utils/parse_address_with_named_scope_id_test.cc
   )
 
@@ -6365,7 +6378,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(parser_test
+add_grpc_test(parser_test
   test/core/end2end/data/client_certs.cc
   test/core/end2end/data/server1_cert.cc
   test/core/end2end/data/server1_key.cc
@@ -6396,7 +6409,7 @@ target_link_libraries(parser_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(percent_encoding_test
+add_grpc_test(percent_encoding_test
   test/core/slice/percent_encoding_test.cc
 )
 
@@ -6423,7 +6436,7 @@ target_link_libraries(percent_encoding_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(public_headers_must_be_c89
+add_grpc_test(public_headers_must_be_c89
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   test/core/surface/public_headers_must_be_c89.c
@@ -6453,7 +6466,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(resolve_address_using_ares_resolver_posix_test
+  add_grpc_test(resolve_address_using_ares_resolver_posix_test
     test/core/iomgr/resolve_address_posix_test.cc
   )
 
@@ -6482,7 +6495,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(resolve_address_using_native_resolver_posix_test
+  add_grpc_test(resolve_address_using_native_resolver_posix_test
     test/core/iomgr/resolve_address_posix_test.cc
   )
 
@@ -6510,7 +6523,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(secure_channel_create_test
+add_grpc_test(secure_channel_create_test
   test/core/surface/secure_channel_create_test.cc
 )
 
@@ -6537,7 +6550,7 @@ target_link_libraries(secure_channel_create_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(secure_endpoint_test
+add_grpc_test(secure_endpoint_test
   test/core/iomgr/endpoint_tests.cc
   test/core/security/secure_endpoint_test.cc
 )
@@ -6565,7 +6578,7 @@ target_link_libraries(secure_endpoint_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(security_connector_test
+add_grpc_test(security_connector_test
   test/core/security/security_connector_test.cc
 )
 
@@ -6592,7 +6605,7 @@ target_link_libraries(security_connector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(sequential_connectivity_test
+add_grpc_test(sequential_connectivity_test
   test/core/surface/sequential_connectivity_test.cc
 )
 
@@ -6620,7 +6633,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(server_ssl_test
+  add_grpc_test(server_ssl_test
     test/core/handshake/server_ssl.cc
     test/core/handshake/server_ssl_common.cc
   )
@@ -6649,7 +6662,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_test
+add_grpc_test(server_test
   test/core/surface/server_test.cc
 )
 
@@ -6676,7 +6689,7 @@ target_link_libraries(server_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(slice_string_helpers_test
+add_grpc_test(slice_string_helpers_test
   src/core/lib/slice/slice.cc
   src/core/lib/slice/slice_refcount.cc
   src/core/lib/slice/slice_string_helpers.cc
@@ -6706,7 +6719,7 @@ target_link_libraries(slice_string_helpers_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(sockaddr_resolver_test
+add_grpc_test(sockaddr_resolver_test
   test/core/client_channel/resolvers/sockaddr_resolver_test.cc
 )
 
@@ -6734,7 +6747,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(socket_utils_test
+  add_grpc_test(socket_utils_test
     test/core/iomgr/socket_utils_test.cc
   )
 
@@ -6762,7 +6775,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(spinlock_test
+add_grpc_test(spinlock_test
   test/core/gpr/spinlock_test.cc
 )
 
@@ -6789,7 +6802,7 @@ target_link_libraries(spinlock_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(ssl_credentials_test
+add_grpc_test(ssl_credentials_test
   test/core/security/ssl_credentials_test.cc
 )
 
@@ -6817,7 +6830,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(ssl_transport_security_test
+  add_grpc_test(ssl_transport_security_test
     test/core/tsi/ssl_transport_security_test.cc
     test/core/tsi/transport_security_test_lib.cc
   )
@@ -6846,7 +6859,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(status_conversion_test
+add_grpc_test(status_conversion_test
   test/core/transport/status_conversion_test.cc
 )
 
@@ -6873,7 +6886,7 @@ target_link_libraries(status_conversion_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(stream_map_test
+add_grpc_test(stream_map_test
   test/core/transport/chttp2/stream_map_test.cc
 )
 
@@ -6900,7 +6913,7 @@ target_link_libraries(stream_map_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(string_test
+add_grpc_test(string_test
   test/core/gpr/string_test.cc
 )
 
@@ -6927,7 +6940,7 @@ target_link_libraries(string_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(sync_test
+add_grpc_test(sync_test
   test/core/gpr/sync_test.cc
 )
 
@@ -6955,7 +6968,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(tcp_client_posix_test
+  add_grpc_test(tcp_client_posix_test
     test/core/iomgr/tcp_client_posix_test.cc
   )
 
@@ -6984,7 +6997,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(tcp_posix_test
+  add_grpc_test(tcp_posix_test
     test/core/iomgr/endpoint_tests.cc
     test/core/iomgr/tcp_posix_test.cc
   )
@@ -7014,7 +7027,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(tcp_server_posix_test
+  add_grpc_test(tcp_server_posix_test
     test/core/iomgr/tcp_server_posix_test.cc
   )
 
@@ -7042,7 +7055,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_gpr_time_test
+add_grpc_test(test_core_gpr_time_test
   test/core/gpr/time_test.cc
 )
 
@@ -7069,7 +7082,7 @@ target_link_libraries(test_core_gpr_time_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_iomgr_time_averaged_stats_test
+add_grpc_test(test_core_iomgr_time_averaged_stats_test
   test/core/iomgr/time_averaged_stats_test.cc
 )
 
@@ -7096,7 +7109,7 @@ target_link_libraries(test_core_iomgr_time_averaged_stats_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_iomgr_timer_heap_test
+add_grpc_test(test_core_iomgr_timer_heap_test
   test/core/iomgr/timer_heap_test.cc
 )
 
@@ -7123,7 +7136,7 @@ target_link_libraries(test_core_iomgr_timer_heap_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_iomgr_timer_list_test
+add_grpc_test(test_core_iomgr_timer_list_test
   test/core/iomgr/timer_list_test.cc
 )
 
@@ -7150,7 +7163,7 @@ target_link_libraries(test_core_iomgr_timer_list_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(thd_test
+add_grpc_test(thd_test
   test/core/gprpp/thd_test.cc
 )
 
@@ -7177,7 +7190,7 @@ target_link_libraries(thd_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(threadpool_test
+add_grpc_test(threadpool_test
   test/core/iomgr/threadpool_test.cc
 )
 
@@ -7204,7 +7217,7 @@ target_link_libraries(threadpool_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(transport_security_common_api_test
+add_grpc_test(transport_security_common_api_test
   test/core/tsi/alts/handshaker/transport_security_common_api_test.cc
 )
 
@@ -7231,7 +7244,7 @@ target_link_libraries(transport_security_common_api_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(transport_security_test
+add_grpc_test(transport_security_test
   test/core/tsi/transport_security_test.cc
 )
 
@@ -7258,7 +7271,7 @@ target_link_libraries(transport_security_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(varint_test
+add_grpc_test(varint_test
   test/core/transport/chttp2/varint_test.cc
 )
 
@@ -7285,7 +7298,7 @@ target_link_libraries(varint_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(activity_test
+add_grpc_test(activity_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -7381,7 +7394,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(address_sorting_test
+  add_grpc_test(address_sorting_test
     test/cpp/naming/address_sorting_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -7419,7 +7432,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(address_sorting_test_unsecure
+  add_grpc_test(address_sorting_test_unsecure
     test/cpp/naming/address_sorting_test.cc
     test/cpp/util/byte_buffer_proto_helper.cc
     test/cpp/util/string_ref_helper.cc
@@ -7460,7 +7473,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(admin_services_end2end_test
+add_grpc_test(admin_services_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/base.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/base.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/base.pb.h
@@ -7516,7 +7529,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(alarm_test
+  add_grpc_test(alarm_test
     test/cpp/common/alarm_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -7554,7 +7567,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(alts_concurrent_connectivity_test
+  add_grpc_test(alts_concurrent_connectivity_test
     ${_gRPC_PROTO_GENS_DIR}/test/core/tsi/alts/fake_handshaker/handshaker.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/tsi/alts/fake_handshaker/handshaker.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/tsi/alts/fake_handshaker/handshaker.pb.h
@@ -7602,7 +7615,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(alts_util_test
+add_grpc_test(alts_util_test
   test/cpp/common/alts_util_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7638,7 +7651,7 @@ target_link_libraries(alts_util_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(arena_promise_test
+add_grpc_test(arena_promise_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -7699,7 +7712,7 @@ target_link_libraries(arena_promise_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(async_end2end_test
+add_grpc_test(async_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.h
@@ -7758,7 +7771,7 @@ target_link_libraries(async_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(auth_property_iterator_test
+add_grpc_test(auth_property_iterator_test
   test/cpp/common/auth_property_iterator_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7793,7 +7806,7 @@ target_link_libraries(auth_property_iterator_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(authorization_matchers_test
+add_grpc_test(authorization_matchers_test
   test/core/security/authorization_matchers_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7828,7 +7841,7 @@ target_link_libraries(authorization_matchers_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(authorization_policy_provider_test
+add_grpc_test(authorization_policy_provider_test
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   src/cpp/server/authorization_policy_provider.cc
@@ -7867,7 +7880,7 @@ target_link_libraries(authorization_policy_provider_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(avl_test
+add_grpc_test(avl_test
   test/core/avl/avl_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7901,7 +7914,7 @@ target_link_libraries(avl_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(aws_request_signer_test
+add_grpc_test(aws_request_signer_test
   test/core/security/aws_request_signer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7936,7 +7949,7 @@ target_link_libraries(aws_request_signer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(backoff_test
+add_grpc_test(backoff_test
   test/core/backoff/backoff_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -7971,7 +7984,7 @@ target_link_libraries(backoff_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(bad_streaming_id_bad_client_test
+add_grpc_test(bad_streaming_id_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/bad_streaming_id.cc
   test/core/end2end/cq_verifier.cc
@@ -8008,7 +8021,7 @@ target_link_libraries(bad_streaming_id_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(badreq_bad_client_test
+add_grpc_test(badreq_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/badreq.cc
   test/core/end2end/cq_verifier.cc
@@ -8046,7 +8059,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(bdp_estimator_test
+  add_grpc_test(bdp_estimator_test
     test/core/transport/bdp_estimator_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -8082,7 +8095,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(binder_resolver_test
+add_grpc_test(binder_resolver_test
   test/core/client_channel/resolvers/binder_resolver_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8117,7 +8130,7 @@ target_link_libraries(binder_resolver_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(binder_server_test
+add_grpc_test(binder_server_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -8170,7 +8183,7 @@ target_link_libraries(binder_server_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(binder_transport_test
+add_grpc_test(binder_transport_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -8263,7 +8276,7 @@ target_link_libraries(binder_transport_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(bitset_test
+add_grpc_test(bitset_test
   test/core/gprpp/bitset_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8297,7 +8310,7 @@ target_link_libraries(bitset_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(byte_buffer_test
+add_grpc_test(byte_buffer_test
   test/cpp/util/byte_buffer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8332,7 +8345,7 @@ target_link_libraries(byte_buffer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(call_finalization_test
+add_grpc_test(call_finalization_test
   test/core/channel/call_finalization_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8367,7 +8380,7 @@ target_link_libraries(call_finalization_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(call_push_pull_test
+add_grpc_test(call_push_pull_test
   test/core/promise/call_push_pull_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8405,7 +8418,7 @@ target_link_libraries(call_push_pull_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cancel_ares_query_test
+add_grpc_test(cancel_ares_query_test
   test/core/end2end/cq_verifier.cc
   test/core/util/fake_udp_and_tcp_server.cc
   test/cpp/naming/cancel_ares_query_test.cc
@@ -8443,7 +8456,7 @@ target_link_libraries(cancel_ares_query_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cel_authorization_engine_test
+add_grpc_test(cel_authorization_engine_test
   src/core/ext/upb-generated/google/type/expr.upb.c
   src/core/lib/security/authorization/cel_authorization_engine.cc
   test/core/security/cel_authorization_engine_test.cc
@@ -8480,7 +8493,7 @@ target_link_libraries(cel_authorization_engine_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(certificate_provider_registry_test
+add_grpc_test(certificate_provider_registry_test
   test/core/client_channel/certificate_provider_registry_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8515,7 +8528,7 @@ target_link_libraries(certificate_provider_registry_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(certificate_provider_store_test
+add_grpc_test(certificate_provider_store_test
   test/core/xds/certificate_provider_store_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8550,7 +8563,7 @@ target_link_libraries(certificate_provider_store_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cfstream_test
+add_grpc_test(cfstream_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -8602,7 +8615,7 @@ target_link_libraries(cfstream_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_args_test
+add_grpc_test(channel_args_test
   test/core/channel/channel_args_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8637,7 +8650,7 @@ target_link_libraries(channel_args_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_arguments_test
+add_grpc_test(channel_arguments_test
   test/cpp/common/channel_arguments_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8673,7 +8686,7 @@ target_link_libraries(channel_arguments_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_creds_registry_test
+add_grpc_test(channel_creds_registry_test
   test/core/security/channel_creds_registry_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8708,7 +8721,7 @@ target_link_libraries(channel_creds_registry_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_filter_test
+add_grpc_test(channel_filter_test
   test/cpp/common/channel_filter_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8744,7 +8757,7 @@ target_link_libraries(channel_filter_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_stack_builder_test
+add_grpc_test(channel_stack_builder_test
   test/core/channel/channel_stack_builder_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8779,7 +8792,7 @@ target_link_libraries(channel_stack_builder_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channel_trace_test
+add_grpc_test(channel_trace_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.h
@@ -8820,7 +8833,7 @@ target_link_libraries(channel_trace_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channelz_registry_test
+add_grpc_test(channelz_registry_test
   test/core/channel/channelz_registry_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -8856,7 +8869,7 @@ target_link_libraries(channelz_registry_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channelz_service_test
+add_grpc_test(channelz_service_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -8909,7 +8922,7 @@ target_link_libraries(channelz_service_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(channelz_test
+add_grpc_test(channelz_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/channelz/channelz.pb.h
@@ -8950,7 +8963,7 @@ target_link_libraries(channelz_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(chunked_vector_test
+add_grpc_test(chunked_vector_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -9011,7 +9024,7 @@ target_link_libraries(chunked_vector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cli_call_test
+add_grpc_test(cli_call_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.h
@@ -9072,7 +9085,7 @@ target_link_libraries(cli_call_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(client_authority_filter_test
+add_grpc_test(client_authority_filter_test
   test/core/filters/client_authority_filter_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9107,7 +9120,7 @@ target_link_libraries(client_authority_filter_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(client_callback_end2end_test
+add_grpc_test(client_callback_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9161,7 +9174,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(client_channel_stress_test
+  add_grpc_test(client_channel_stress_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.h
@@ -9222,7 +9235,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(client_context_test_peer_test
+add_grpc_test(client_context_test_peer_test
   test/cpp/test/client_context_test_peer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9258,7 +9271,7 @@ target_link_libraries(client_context_test_peer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(client_interceptors_end2end_test
+add_grpc_test(client_interceptors_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9312,7 +9325,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(client_lb_end2end_test
+  add_grpc_test(client_lb_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -9373,7 +9386,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(codegen_test_full
+add_grpc_test(codegen_test_full
   test/cpp/codegen/codegen_test_full.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9409,7 +9422,7 @@ target_link_libraries(codegen_test_full
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(codegen_test_minimal
+add_grpc_test(codegen_test_minimal
   test/cpp/codegen/codegen_test_minimal.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9445,7 +9458,7 @@ target_link_libraries(codegen_test_minimal
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(connection_prefix_bad_client_test
+add_grpc_test(connection_prefix_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/connection_prefix.cc
   test/core/end2end/cq_verifier.cc
@@ -9482,7 +9495,7 @@ target_link_libraries(connection_prefix_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(connectivity_state_test
+add_grpc_test(connectivity_state_test
   test/core/transport/connectivity_state_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9517,7 +9530,7 @@ target_link_libraries(connectivity_state_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(context_allocator_end2end_test
+add_grpc_test(context_allocator_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9569,7 +9582,7 @@ target_link_libraries(context_allocator_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(context_list_test
+add_grpc_test(context_list_test
   test/core/transport/chttp2/context_list_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9604,7 +9617,7 @@ target_link_libraries(context_list_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(context_test
+add_grpc_test(context_test
   test/core/promise/context_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9638,7 +9651,7 @@ target_link_libraries(context_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(core_configuration_test
+add_grpc_test(core_configuration_test
   test/core/config/core_configuration_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9673,7 +9686,7 @@ target_link_libraries(core_configuration_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(cpp_impl_of_test
+add_grpc_test(cpp_impl_of_test
   test/core/gprpp/cpp_impl_of_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9708,7 +9721,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(crl_ssl_transport_security_test
+  add_grpc_test(crl_ssl_transport_security_test
     test/core/tsi/crl_ssl_transport_security_test.cc
     test/core/tsi/transport_security_test_lib.cc
     third_party/googletest/googletest/src/gtest-all.cc
@@ -9745,7 +9758,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(delegating_channel_test
+add_grpc_test(delegating_channel_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9797,7 +9810,7 @@ target_link_libraries(delegating_channel_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(destroy_grpclb_channel_with_active_connect_stress_test
+add_grpc_test(destroy_grpclb_channel_with_active_connect_stress_test
   test/cpp/client/destroy_grpclb_channel_with_active_connect_stress_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9832,7 +9845,7 @@ target_link_libraries(destroy_grpclb_channel_with_active_connect_stress_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(dual_ref_counted_test
+add_grpc_test(dual_ref_counted_test
   test/core/gprpp/dual_ref_counted_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -9867,7 +9880,7 @@ target_link_libraries(dual_ref_counted_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(duplicate_header_bad_client_test
+add_grpc_test(duplicate_header_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/duplicate_header.cc
   test/core/end2end/cq_verifier.cc
@@ -9904,7 +9917,7 @@ target_link_libraries(duplicate_header_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(end2end_binder_transport_test
+add_grpc_test(end2end_binder_transport_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -9958,7 +9971,7 @@ target_link_libraries(end2end_binder_transport_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(end2end_test
+add_grpc_test(end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -10016,7 +10029,7 @@ target_link_libraries(end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(endpoint_binder_pool_test
+add_grpc_test(endpoint_binder_pool_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -10109,7 +10122,7 @@ target_link_libraries(endpoint_binder_pool_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(endpoint_config_test
+add_grpc_test(endpoint_config_test
   test/core/event_engine/endpoint_config_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10144,7 +10157,7 @@ target_link_libraries(endpoint_config_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(error_details_test
+add_grpc_test(error_details_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/status/status.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/status/status.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/status/status.pb.h
@@ -10192,7 +10205,7 @@ target_link_libraries(error_details_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(error_test
+add_grpc_test(error_test
   test/core/iomgr/endpoint_tests.cc
   test/core/iomgr/error_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -10228,7 +10241,7 @@ target_link_libraries(error_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(error_utils_test
+add_grpc_test(error_utils_test
   test/core/transport/error_utils_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10263,7 +10276,7 @@ target_link_libraries(error_utils_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(evaluate_args_test
+add_grpc_test(evaluate_args_test
   test/core/security/evaluate_args_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10299,7 +10312,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(examine_stack_test
+  add_grpc_test(examine_stack_test
     test/core/gprpp/examine_stack_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -10335,7 +10348,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(exception_test
+add_grpc_test(exception_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -10386,7 +10399,7 @@ target_link_libraries(exception_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(exec_ctx_wakeup_scheduler_test
+add_grpc_test(exec_ctx_wakeup_scheduler_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -10441,7 +10454,7 @@ target_link_libraries(exec_ctx_wakeup_scheduler_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(fake_binder_test
+add_grpc_test(fake_binder_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -10534,7 +10547,7 @@ target_link_libraries(fake_binder_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(file_watcher_certificate_provider_factory_test
+add_grpc_test(file_watcher_certificate_provider_factory_test
   test/core/xds/file_watcher_certificate_provider_factory_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10569,7 +10582,7 @@ target_link_libraries(file_watcher_certificate_provider_factory_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(filter_end2end_test
+add_grpc_test(filter_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -10624,7 +10637,7 @@ target_link_libraries(filter_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(flaky_network_test
+add_grpc_test(flaky_network_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -10676,7 +10689,7 @@ target_link_libraries(flaky_network_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(flow_control_test
+add_grpc_test(flow_control_test
   src/core/ext/transport/chttp2/transport/flow_control.cc
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
@@ -10740,7 +10753,7 @@ target_link_libraries(flow_control_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(for_each_test
+add_grpc_test(for_each_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -10803,7 +10816,7 @@ target_link_libraries(for_each_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(forkable_test
+add_grpc_test(forkable_test
   test/core/event_engine/forkable_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -10839,7 +10852,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(fuzzing_event_engine_test
+  add_grpc_test(fuzzing_event_engine_test
     ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.pb.h
@@ -10883,7 +10896,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(generic_end2end_test
+add_grpc_test(generic_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -10939,7 +10952,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(global_config_env_test
+  add_grpc_test(global_config_env_test
     test/core/gprpp/global_config_env_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -10975,7 +10988,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(global_config_test
+add_grpc_test(global_config_test
   test/core/gprpp/global_config_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11010,7 +11023,7 @@ target_link_libraries(global_config_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(google_c2p_resolver_test
+add_grpc_test(google_c2p_resolver_test
   test/core/client_channel/resolvers/google_c2p_resolver_test.cc
   test/core/util/fake_udp_and_tcp_server.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -11046,7 +11059,7 @@ target_link_libraries(google_c2p_resolver_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(google_mesh_ca_certificate_provider_factory_test
+add_grpc_test(google_mesh_ca_certificate_provider_factory_test
   src/core/ext/xds/google_mesh_ca_certificate_provider_factory.cc
   test/core/xds/google_mesh_ca_certificate_provider_factory_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -11082,7 +11095,7 @@ target_link_libraries(google_mesh_ca_certificate_provider_factory_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(graceful_shutdown_test
+add_grpc_test(graceful_shutdown_test
   test/core/end2end/cq_verifier.cc
   test/core/transport/chttp2/graceful_shutdown_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -11118,7 +11131,7 @@ target_link_libraries(graceful_shutdown_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_authorization_engine_test
+add_grpc_test(grpc_authorization_engine_test
   test/core/security/grpc_authorization_engine_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11153,7 +11166,7 @@ target_link_libraries(grpc_authorization_engine_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_authorization_policy_provider_test
+add_grpc_test(grpc_authorization_policy_provider_test
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   test/core/security/grpc_authorization_policy_provider_test.cc
@@ -11190,7 +11203,7 @@ target_link_libraries(grpc_authorization_policy_provider_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_authz_end2end_test
+add_grpc_test(grpc_authz_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -11245,7 +11258,7 @@ target_link_libraries(grpc_authz_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_cli
+add_grpc_test(grpc_cli
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.h
@@ -11572,7 +11585,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_tls_certificate_distributor_test
+add_grpc_test(grpc_tls_certificate_distributor_test
   test/core/security/grpc_tls_certificate_distributor_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11607,7 +11620,7 @@ target_link_libraries(grpc_tls_certificate_distributor_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_tls_certificate_provider_test
+add_grpc_test(grpc_tls_certificate_provider_test
   test/core/security/grpc_tls_certificate_provider_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11642,7 +11655,7 @@ target_link_libraries(grpc_tls_certificate_provider_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_tls_certificate_verifier_test
+add_grpc_test(grpc_tls_certificate_verifier_test
   test/core/security/grpc_tls_certificate_verifier_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11677,7 +11690,7 @@ target_link_libraries(grpc_tls_certificate_verifier_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_tls_credentials_options_comparator_test
+add_grpc_test(grpc_tls_credentials_options_comparator_test
   test/core/security/grpc_tls_credentials_options_comparator_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11712,7 +11725,7 @@ target_link_libraries(grpc_tls_credentials_options_comparator_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpc_tls_credentials_options_test
+add_grpc_test(grpc_tls_credentials_options_test
   test/core/security/grpc_tls_credentials_options_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11748,7 +11761,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(grpc_tool_test
+  add_grpc_test(grpc_tool_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -11808,7 +11821,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(grpclb_api_test
+add_grpc_test(grpclb_api_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.h
@@ -11848,7 +11861,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(grpclb_end2end_test
+  add_grpc_test(grpclb_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lb/v1/load_balancer.pb.h
@@ -11910,7 +11923,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(h2_ssl_session_reuse_test
+add_grpc_test(h2_ssl_session_reuse_test
   test/core/end2end/h2_ssl_session_reuse_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -11945,7 +11958,7 @@ target_link_libraries(h2_ssl_session_reuse_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(head_of_line_blocking_bad_client_test
+add_grpc_test(head_of_line_blocking_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/head_of_line_blocking.cc
   test/core/end2end/cq_verifier.cc
@@ -11982,7 +11995,7 @@ target_link_libraries(head_of_line_blocking_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(headers_bad_client_test
+add_grpc_test(headers_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/headers.cc
   test/core/end2end/cq_verifier.cc
@@ -12019,7 +12032,7 @@ target_link_libraries(headers_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(health_service_end2end_test
+add_grpc_test(health_service_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.h
@@ -12080,7 +12093,7 @@ target_link_libraries(health_service_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(hpack_parser_table_test
+add_grpc_test(hpack_parser_table_test
   test/core/transport/chttp2/hpack_parser_table_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12115,7 +12128,7 @@ target_link_libraries(hpack_parser_table_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(hpack_parser_test
+add_grpc_test(hpack_parser_test
   test/core/transport/chttp2/hpack_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12150,7 +12163,7 @@ target_link_libraries(hpack_parser_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(http2_client
+add_grpc_test(http2_client
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -12198,7 +12211,7 @@ target_link_libraries(http2_client
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(http_proxy_mapper_test
+add_grpc_test(http_proxy_mapper_test
   test/core/client_channel/http_proxy_mapper_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12234,7 +12247,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(httpcli_test
+  add_grpc_test(httpcli_test
     test/core/http/httpcli_test.cc
     test/core/http/httpcli_test_util.cc
     test/core/util/fake_udp_and_tcp_server.cc
@@ -12273,7 +12286,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(httpscli_test
+  add_grpc_test(httpscli_test
     test/core/http/httpcli_test_util.cc
     test/core/http/httpscli_test.cc
     test/core/util/fake_udp_and_tcp_server.cc
@@ -12311,7 +12324,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(hybrid_end2end_test
+add_grpc_test(hybrid_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -12367,7 +12380,7 @@ target_link_libraries(hybrid_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(idle_filter_state_test
+add_grpc_test(idle_filter_state_test
   src/core/ext/filters/channel_idle/idle_filter_state.cc
   test/core/client_idle/idle_filter_state_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -12402,7 +12415,7 @@ target_link_libraries(idle_filter_state_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(if_test
+add_grpc_test(if_test
   test/core/promise/if_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12439,7 +12452,7 @@ target_link_libraries(if_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(init_test
+add_grpc_test(init_test
   test/core/surface/init_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12474,7 +12487,7 @@ target_link_libraries(init_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(initial_settings_frame_bad_client_test
+add_grpc_test(initial_settings_frame_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/initial_settings_frame.cc
   test/core/end2end/cq_verifier.cc
@@ -12511,7 +12524,7 @@ target_link_libraries(initial_settings_frame_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(insecure_security_connector_test
+add_grpc_test(insecure_security_connector_test
   test/core/security/insecure_security_connector_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12546,7 +12559,7 @@ target_link_libraries(insecure_security_connector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(interop_client
+add_grpc_test(interop_client
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -12597,7 +12610,7 @@ target_link_libraries(interop_client
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(interop_server
+add_grpc_test(interop_server
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -12647,7 +12660,7 @@ target_link_libraries(interop_server
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(iomgr_event_engine_test
+add_grpc_test(iomgr_event_engine_test
   test/core/event_engine/test_suite/event_engine_test.cc
   test/core/event_engine/test_suite/event_engine_test_utils.cc
   test/core/event_engine/test_suite/iomgr_event_engine_test.cc
@@ -12685,7 +12698,7 @@ target_link_libraries(iomgr_event_engine_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(istio_echo_server_test
+add_grpc_test(istio_echo_server_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/istio_echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/istio_echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/istio_echo.pb.h
@@ -12727,7 +12740,7 @@ target_link_libraries(istio_echo_server_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(join_test
+add_grpc_test(join_test
   test/core/promise/join_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12764,7 +12777,7 @@ target_link_libraries(join_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(json_test
+add_grpc_test(json_test
   test/core/json/json_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -12799,7 +12812,7 @@ target_link_libraries(json_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(large_metadata_bad_client_test
+add_grpc_test(large_metadata_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/large_metadata.cc
   test/core/end2end/cq_verifier.cc
@@ -12836,7 +12849,7 @@ target_link_libraries(large_metadata_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(latch_test
+add_grpc_test(latch_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -12929,7 +12942,7 @@ target_link_libraries(latch_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(lb_get_cpu_stats_test
+add_grpc_test(lb_get_cpu_stats_test
   src/cpp/server/load_reporter/get_cpu_stats_linux.cc
   src/cpp/server/load_reporter/get_cpu_stats_macos.cc
   src/cpp/server/load_reporter/get_cpu_stats_unsupported.cc
@@ -12969,7 +12982,7 @@ target_link_libraries(lb_get_cpu_stats_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(lb_load_data_store_test
+add_grpc_test(lb_load_data_store_test
   src/cpp/server/load_reporter/load_data_store.cc
   test/cpp/server/load_reporter/load_data_store_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -13006,7 +13019,7 @@ target_link_libraries(lb_load_data_store_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(log_test
+add_grpc_test(log_test
   test/core/gpr/log_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13041,7 +13054,7 @@ target_link_libraries(log_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(loop_test
+add_grpc_test(loop_test
   test/core/promise/loop_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13080,7 +13093,7 @@ target_link_libraries(loop_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(match_test
+add_grpc_test(match_test
   test/core/gprpp/match_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13115,7 +13128,7 @@ target_link_libraries(match_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(matchers_test
+add_grpc_test(matchers_test
   test/core/security/matchers_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13150,7 +13163,7 @@ target_link_libraries(matchers_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(memory_quota_test
+add_grpc_test(memory_quota_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -13208,7 +13221,7 @@ target_link_libraries(memory_quota_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(message_allocator_end2end_test
+add_grpc_test(message_allocator_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -13260,7 +13273,7 @@ target_link_libraries(message_allocator_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(metadata_map_test
+add_grpc_test(metadata_map_test
   test/core/transport/metadata_map_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13295,7 +13308,7 @@ target_link_libraries(metadata_map_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(miscompile_with_no_unique_address_test
+add_grpc_test(miscompile_with_no_unique_address_test
   test/core/compiler_bugs/miscompile_with_no_unique_address_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13329,7 +13342,7 @@ target_link_libraries(miscompile_with_no_unique_address_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(mock_stream_test
+add_grpc_test(mock_stream_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -13381,7 +13394,7 @@ target_link_libraries(mock_stream_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(mock_test
+add_grpc_test(mock_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -13437,7 +13450,7 @@ target_link_libraries(mock_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(no_destruct_test
+add_grpc_test(no_destruct_test
   test/core/gprpp/no_destruct_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13472,7 +13485,7 @@ target_link_libraries(no_destruct_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(nonblocking_test
+add_grpc_test(nonblocking_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -13523,7 +13536,7 @@ target_link_libraries(nonblocking_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(observable_test
+add_grpc_test(observable_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -13619,7 +13632,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(oracle_event_engine_posix_test
+  add_grpc_test(oracle_event_engine_posix_test
     test/core/event_engine/test_suite/client_test.cc
     test/core/event_engine/test_suite/event_engine_test.cc
     test/core/event_engine/test_suite/event_engine_test_utils.cc
@@ -13659,7 +13672,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(orca_service_end2end_test
+add_grpc_test(orca_service_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/orca_load_report.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/orca_load_report.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/xds/v3/orca_load_report.pb.h
@@ -13703,7 +13716,7 @@ target_link_libraries(orca_service_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(orphanable_test
+add_grpc_test(orphanable_test
   test/core/gprpp/orphanable_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13738,7 +13751,7 @@ target_link_libraries(orphanable_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(out_of_bounds_bad_client_test
+add_grpc_test(out_of_bounds_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/out_of_bounds.cc
   test/core/end2end/cq_verifier.cc
@@ -13775,7 +13788,7 @@ target_link_libraries(out_of_bounds_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(overload_test
+add_grpc_test(overload_test
   test/core/gprpp/overload_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13809,7 +13822,7 @@ target_link_libraries(overload_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(parsed_metadata_test
+add_grpc_test(parsed_metadata_test
   test/core/transport/parsed_metadata_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13844,7 +13857,7 @@ target_link_libraries(parsed_metadata_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(periodic_update_test
+add_grpc_test(periodic_update_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -13896,7 +13909,7 @@ target_link_libraries(periodic_update_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(pid_controller_test
+add_grpc_test(pid_controller_test
   test/core/transport/pid_controller_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -13931,7 +13944,7 @@ target_link_libraries(pid_controller_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(pipe_test
+add_grpc_test(pipe_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -13992,7 +14005,7 @@ target_link_libraries(pipe_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(poll_test
+add_grpc_test(poll_test
   test/core/promise/poll_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14027,7 +14040,7 @@ target_link_libraries(poll_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(port_sharing_end2end_test
+add_grpc_test(port_sharing_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -14079,7 +14092,7 @@ target_link_libraries(port_sharing_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(promise_factory_test
+add_grpc_test(promise_factory_test
   test/core/promise/promise_factory_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14118,7 +14131,7 @@ target_link_libraries(promise_factory_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(promise_map_test
+add_grpc_test(promise_map_test
   test/core/promise/map_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14156,7 +14169,7 @@ target_link_libraries(promise_map_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(promise_test
+add_grpc_test(promise_test
   test/core/promise/promise_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14194,7 +14207,7 @@ target_link_libraries(promise_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(proto_server_reflection_test
+add_grpc_test(proto_server_reflection_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -14252,7 +14265,7 @@ target_link_libraries(proto_server_reflection_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(proto_utils_test
+add_grpc_test(proto_utils_test
   test/cpp/codegen/proto_utils_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14288,7 +14301,7 @@ target_link_libraries(proto_utils_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(qps_json_driver
+add_grpc_test(qps_json_driver
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.h
@@ -14370,7 +14383,7 @@ target_link_libraries(qps_json_driver
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(qps_worker
+add_grpc_test(qps_worker
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/core/stats.pb.h
@@ -14444,7 +14457,7 @@ target_link_libraries(qps_worker
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(race_test
+add_grpc_test(race_test
   test/core/promise/race_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14479,7 +14492,7 @@ target_link_libraries(race_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(raw_end2end_test
+add_grpc_test(raw_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -14535,7 +14548,7 @@ target_link_libraries(raw_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(rbac_service_config_parser_test
+add_grpc_test(rbac_service_config_parser_test
   test/core/ext/filters/rbac/rbac_service_config_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14570,7 +14583,7 @@ target_link_libraries(rbac_service_config_parser_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(rbac_translator_test
+add_grpc_test(rbac_translator_test
   src/core/lib/security/authorization/grpc_authorization_policy_provider.cc
   src/core/lib/security/authorization/rbac_translator.cc
   test/core/security/rbac_translator_test.cc
@@ -14607,7 +14620,7 @@ target_link_libraries(rbac_translator_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(ref_counted_ptr_test
+add_grpc_test(ref_counted_ptr_test
   test/core/gprpp/ref_counted_ptr_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14642,7 +14655,7 @@ target_link_libraries(ref_counted_ptr_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(ref_counted_test
+add_grpc_test(ref_counted_test
   test/core/gprpp/ref_counted_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14678,7 +14691,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(remove_stream_from_stalled_lists_test
+  add_grpc_test(remove_stream_from_stalled_lists_test
     test/core/transport/chttp2/remove_stream_from_stalled_lists_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -14714,7 +14727,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(resolve_address_using_ares_resolver_test
+add_grpc_test(resolve_address_using_ares_resolver_test
   test/core/iomgr/resolve_address_test.cc
   test/core/util/fake_udp_and_tcp_server.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -14751,7 +14764,7 @@ target_link_libraries(resolve_address_using_ares_resolver_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(resolve_address_using_native_resolver_test
+add_grpc_test(resolve_address_using_native_resolver_test
   test/core/iomgr/resolve_address_test.cc
   test/core/util/fake_udp_and_tcp_server.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -14788,7 +14801,7 @@ target_link_libraries(resolve_address_using_native_resolver_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(resource_quota_test
+add_grpc_test(resource_quota_test
   src/core/ext/upb-generated/google/protobuf/any.upb.c
   src/core/ext/upb-generated/google/rpc/status.upb.c
   src/core/lib/debug/trace.cc
@@ -14848,7 +14861,7 @@ target_link_libraries(resource_quota_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(retry_throttle_test
+add_grpc_test(retry_throttle_test
   test/core/client_channel/retry_throttle_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14883,7 +14896,7 @@ target_link_libraries(retry_throttle_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(rls_end2end_test
+add_grpc_test(rls_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.h
@@ -14946,7 +14959,7 @@ target_link_libraries(rls_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(rls_lb_config_parser_test
+add_grpc_test(rls_lb_config_parser_test
   test/core/client_channel/rls_lb_config_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -14981,7 +14994,7 @@ target_link_libraries(rls_lb_config_parser_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(secure_auth_context_test
+add_grpc_test(secure_auth_context_test
   test/cpp/common/secure_auth_context_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15016,7 +15029,7 @@ target_link_libraries(secure_auth_context_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(seq_test
+add_grpc_test(seq_test
   test/core/promise/seq_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15053,7 +15066,7 @@ target_link_libraries(seq_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_builder_plugin_test
+add_grpc_test(server_builder_plugin_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -15110,7 +15123,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(server_builder_test
+  add_grpc_test(server_builder_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15164,7 +15177,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(server_builder_with_socket_mutator_test
+  add_grpc_test(server_builder_with_socket_mutator_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15217,7 +15230,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_chttp2_test
+add_grpc_test(server_chttp2_test
   test/core/surface/server_chttp2_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15252,7 +15265,7 @@ target_link_libraries(server_chttp2_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_config_selector_test
+add_grpc_test(server_config_selector_test
   test/core/server_config_selector/server_config_selector_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15287,7 +15300,7 @@ target_link_libraries(server_config_selector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_context_test_spouse_test
+add_grpc_test(server_context_test_spouse_test
   test/cpp/test/server_context_test_spouse_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15323,7 +15336,7 @@ target_link_libraries(server_context_test_spouse_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_early_return_test
+add_grpc_test(server_early_return_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15374,7 +15387,7 @@ target_link_libraries(server_early_return_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_interceptors_end2end_test
+add_grpc_test(server_interceptors_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15427,7 +15440,7 @@ target_link_libraries(server_interceptors_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(server_registered_method_bad_client_test
+add_grpc_test(server_registered_method_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/server_registered_method.cc
   test/core/end2end/cq_verifier.cc
@@ -15465,7 +15478,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(server_request_call_test
+  add_grpc_test(server_request_call_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -15518,7 +15531,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(service_config_end2end_test
+add_grpc_test(service_config_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -15574,7 +15587,7 @@ target_link_libraries(service_config_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(service_config_test
+add_grpc_test(service_config_test
   test/core/client_channel/service_config_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15609,7 +15622,7 @@ target_link_libraries(service_config_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(settings_timeout_test
+add_grpc_test(settings_timeout_test
   test/core/transport/chttp2/settings_timeout_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15644,7 +15657,7 @@ target_link_libraries(settings_timeout_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(shutdown_test
+add_grpc_test(shutdown_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -15699,7 +15712,7 @@ target_link_libraries(shutdown_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(simple_request_bad_client_test
+add_grpc_test(simple_request_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/simple_request.cc
   test/core/end2end/cq_verifier.cc
@@ -15736,7 +15749,7 @@ target_link_libraries(simple_request_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(single_set_ptr_test
+add_grpc_test(single_set_ptr_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -15824,7 +15837,7 @@ target_link_libraries(single_set_ptr_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(sleep_test
+add_grpc_test(sleep_test
   test/core/promise/sleep_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15859,7 +15872,7 @@ target_link_libraries(sleep_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(smoke_test
+add_grpc_test(smoke_test
   test/core/event_engine/smoke_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15894,7 +15907,7 @@ target_link_libraries(smoke_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(sockaddr_utils_test
+add_grpc_test(sockaddr_utils_test
   test/core/address_utils/sockaddr_utils_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -15930,7 +15943,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(stack_tracer_test
+  add_grpc_test(stack_tracer_test
     test/core/util/stack_tracer_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -15966,7 +15979,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(stat_test
+add_grpc_test(stat_test
   test/core/gprpp/stat_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16001,7 +16014,7 @@ target_link_libraries(stat_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(stats_test
+add_grpc_test(stats_test
   test/core/debug/stats_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16036,7 +16049,7 @@ target_link_libraries(stats_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(status_helper_test
+add_grpc_test(status_helper_test
   test/core/gprpp/status_helper_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16071,7 +16084,7 @@ target_link_libraries(status_helper_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(status_util_test
+add_grpc_test(status_util_test
   test/core/channel/status_util_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16107,7 +16120,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(stranded_event_test
+  add_grpc_test(stranded_event_test
     test/core/end2end/cq_verifier.cc
     test/core/iomgr/stranded_event_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
@@ -16145,7 +16158,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(streaming_throughput_test
+  add_grpc_test(streaming_throughput_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -16201,7 +16214,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(streams_not_seen_test
+add_grpc_test(streams_not_seen_test
   test/core/end2end/cq_verifier.cc
   test/core/transport/chttp2/streams_not_seen_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16237,7 +16250,7 @@ target_link_libraries(streams_not_seen_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(string_ref_test
+add_grpc_test(string_ref_test
   test/cpp/util/string_ref_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16273,7 +16286,7 @@ target_link_libraries(string_ref_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(system_roots_test
+add_grpc_test(system_roots_test
   test/core/security/system_roots_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16308,7 +16321,7 @@ target_link_libraries(system_roots_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(table_test
+add_grpc_test(table_test
   test/core/gprpp/table_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16345,7 +16358,7 @@ target_link_libraries(table_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_event_engine_iomgr_event_engine_time_averaged_stats_test
+add_grpc_test(test_core_event_engine_iomgr_event_engine_time_averaged_stats_test
   src/core/lib/event_engine/iomgr_engine/time_averaged_stats.cc
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
@@ -16434,7 +16447,7 @@ target_link_libraries(test_core_event_engine_iomgr_event_engine_time_averaged_st
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_event_engine_iomgr_event_engine_timer_heap_test
+add_grpc_test(test_core_event_engine_iomgr_event_engine_timer_heap_test
   src/core/lib/event_engine/iomgr_engine/time_averaged_stats.cc
   src/core/lib/event_engine/iomgr_engine/timer.cc
   src/core/lib/event_engine/iomgr_engine/timer_heap.cc
@@ -16527,7 +16540,7 @@ target_link_libraries(test_core_event_engine_iomgr_event_engine_timer_heap_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_event_engine_iomgr_event_engine_timer_list_test
+add_grpc_test(test_core_event_engine_iomgr_event_engine_timer_list_test
   src/core/lib/event_engine/iomgr_engine/time_averaged_stats.cc
   src/core/lib/event_engine/iomgr_engine/timer.cc
   src/core/lib/event_engine/iomgr_engine/timer_heap.cc
@@ -16620,7 +16633,7 @@ target_link_libraries(test_core_event_engine_iomgr_event_engine_timer_list_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_event_engine_slice_buffer_test
+add_grpc_test(test_core_event_engine_slice_buffer_test
   test/core/event_engine/slice_buffer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16655,7 +16668,7 @@ target_link_libraries(test_core_event_engine_slice_buffer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_gprpp_time_test
+add_grpc_test(test_core_gprpp_time_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -16745,7 +16758,7 @@ target_link_libraries(test_core_gprpp_time_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_security_credentials_test
+add_grpc_test(test_core_security_credentials_test
   test/core/security/credentials_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16780,7 +16793,7 @@ target_link_libraries(test_core_security_credentials_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_slice_slice_buffer_test
+add_grpc_test(test_core_slice_slice_buffer_test
   test/core/slice/slice_buffer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16815,7 +16828,7 @@ target_link_libraries(test_core_slice_slice_buffer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_core_slice_slice_test
+add_grpc_test(test_core_slice_slice_test
   test/core/slice/slice_test.cc
   test/core/util/build.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16851,7 +16864,7 @@ target_link_libraries(test_core_slice_slice_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_cpp_client_credentials_test
+add_grpc_test(test_cpp_client_credentials_test
   test/cpp/client/credentials_test.cc
   test/cpp/util/tls_test_utils.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16888,7 +16901,7 @@ target_link_libraries(test_cpp_client_credentials_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_cpp_server_credentials_test
+add_grpc_test(test_cpp_server_credentials_test
   test/cpp/server/credentials_test.cc
   test/cpp/util/tls_test_utils.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -16925,7 +16938,7 @@ target_link_libraries(test_cpp_server_credentials_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_cpp_util_slice_test
+add_grpc_test(test_cpp_util_slice_test
   test/cpp/util/slice_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16960,7 +16973,7 @@ target_link_libraries(test_cpp_util_slice_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(test_cpp_util_time_test
+add_grpc_test(test_cpp_util_time_test
   test/cpp/util/time_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -16995,7 +17008,7 @@ target_link_libraries(test_cpp_util_time_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(thread_manager_test
+add_grpc_test(thread_manager_test
   test/cpp/thread_manager/thread_manager_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17031,7 +17044,7 @@ target_link_libraries(thread_manager_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(thread_quota_test
+add_grpc_test(thread_quota_test
   src/core/lib/gpr/alloc.cc
   src/core/lib/gpr/atm.cc
   src/core/lib/gpr/cpu_iphone.cc
@@ -17121,7 +17134,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(thread_stress_test
+  add_grpc_test(thread_stress_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -17178,7 +17191,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(time_jump_test
+  add_grpc_test(time_jump_test
     test/cpp/common/time_jump_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -17215,7 +17228,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(time_util_test
+add_grpc_test(time_util_test
   test/core/gprpp/time_util_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17250,7 +17263,7 @@ target_link_libraries(time_util_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(timeout_encoding_test
+add_grpc_test(timeout_encoding_test
   test/core/transport/timeout_encoding_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17285,7 +17298,7 @@ target_link_libraries(timeout_encoding_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(timer_test
+add_grpc_test(timer_test
   test/cpp/common/timer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17321,7 +17334,7 @@ target_link_libraries(timer_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(tls_certificate_verifier_test
+add_grpc_test(tls_certificate_verifier_test
   test/cpp/security/tls_certificate_verifier_test.cc
   test/cpp/util/tls_test_utils.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -17358,7 +17371,7 @@ target_link_libraries(tls_certificate_verifier_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(tls_key_export_test
+add_grpc_test(tls_key_export_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -17409,7 +17422,7 @@ target_link_libraries(tls_key_export_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(tls_security_connector_test
+add_grpc_test(tls_security_connector_test
   test/core/security/tls_security_connector_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17444,7 +17457,7 @@ target_link_libraries(tls_security_connector_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(tls_test
+add_grpc_test(tls_test
   test/core/gpr/tls_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17479,7 +17492,7 @@ target_link_libraries(tls_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(too_many_pings_test
+add_grpc_test(too_many_pings_test
   test/core/end2end/cq_verifier.cc
   test/core/transport/chttp2/too_many_pings_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
@@ -17516,7 +17529,7 @@ target_link_libraries(too_many_pings_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(transport_stream_receiver_test
+add_grpc_test(transport_stream_receiver_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -17608,7 +17621,7 @@ target_link_libraries(transport_stream_receiver_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(try_join_test
+add_grpc_test(try_join_test
   test/core/promise/try_join_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17647,7 +17660,7 @@ target_link_libraries(try_join_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(try_seq_metadata_test
+add_grpc_test(try_seq_metadata_test
   test/core/promise/try_seq_metadata_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17682,7 +17695,7 @@ target_link_libraries(try_seq_metadata_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(try_seq_test
+add_grpc_test(try_seq_test
   test/core/promise/try_seq_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17721,7 +17734,7 @@ target_link_libraries(try_seq_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(unique_type_name_test
+add_grpc_test(unique_type_name_test
   test/core/gprpp/unique_type_name_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17757,7 +17770,7 @@ target_link_libraries(unique_type_name_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(unknown_frame_bad_client_test
+add_grpc_test(unknown_frame_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/unknown_frame.cc
   test/core/end2end/cq_verifier.cc
@@ -17794,7 +17807,7 @@ target_link_libraries(unknown_frame_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(uri_parser_test
+add_grpc_test(uri_parser_test
   test/core/uri/uri_parser_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17829,7 +17842,7 @@ target_link_libraries(uri_parser_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(useful_test
+add_grpc_test(useful_test
   test/core/gpr/useful_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -17863,7 +17876,7 @@ target_link_libraries(useful_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(window_overflow_bad_client_test
+add_grpc_test(window_overflow_bad_client_test
   test/core/bad_client/bad_client.cc
   test/core/bad_client/tests/window_overflow.cc
   test/core/end2end/cq_verifier.cc
@@ -17900,7 +17913,7 @@ target_link_libraries(window_overflow_bad_client_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(wire_reader_test
+add_grpc_test(wire_reader_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -17993,7 +18006,7 @@ target_link_libraries(wire_reader_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(wire_writer_test
+add_grpc_test(wire_writer_test
   src/core/ext/transport/binder/client/binder_connector.cc
   src/core/ext/transport/binder/client/channel_create.cc
   src/core/ext/transport/binder/client/channel_create_impl.cc
@@ -18087,7 +18100,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(work_serializer_test
+  add_grpc_test(work_serializer_test
     test/core/iomgr/work_serializer_test.cc
     third_party/googletest/googletest/src/gtest-all.cc
     third_party/googletest/googlemock/src/gmock-all.cc
@@ -18124,7 +18137,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(writes_per_rpc_test
+  add_grpc_test(writes_per_rpc_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -18200,7 +18213,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_bootstrap_test
+add_grpc_test(xds_bootstrap_test
   test/core/xds/xds_bootstrap_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -18235,7 +18248,7 @@ target_link_libraries(xds_bootstrap_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_certificate_provider_test
+add_grpc_test(xds_certificate_provider_test
   test/core/xds/xds_certificate_provider_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -18271,7 +18284,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_cluster_end2end_test
+  add_grpc_test(xds_cluster_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -18444,7 +18457,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_cluster_type_end2end_test
+  add_grpc_test(xds_cluster_type_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -18622,7 +18635,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_core_end2end_test
+  add_grpc_test(xds_core_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -18794,7 +18807,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_credentials_end2end_test
+add_grpc_test(xds_credentials_end2end_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/echo.pb.h
@@ -18846,7 +18859,7 @@ target_link_libraries(xds_credentials_end2end_test
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_credentials_test
+add_grpc_test(xds_credentials_test
   test/core/security/xds_credentials_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
   third_party/googletest/googlemock/src/gmock-all.cc
@@ -18882,7 +18895,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_csds_end2end_test
+  add_grpc_test(xds_csds_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19064,7 +19077,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_end2end_test
+  add_grpc_test(xds_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19262,7 +19275,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_fault_injection_end2end_test
+  add_grpc_test(xds_fault_injection_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19442,7 +19455,7 @@ endif()
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_interop_client
+add_grpc_test(xds_interop_client
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/empty.pb.h
@@ -19511,7 +19524,7 @@ target_link_libraries(xds_interop_client
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_interop_server
+add_grpc_test(xds_interop_server
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/health/v1/health.pb.h
@@ -19585,7 +19598,7 @@ target_link_libraries(xds_interop_server
 endif()
 if(gRPC_BUILD_TESTS)
 
-add_executable(xds_lb_policy_registry_test
+add_grpc_test(xds_lb_policy_registry_test
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.grpc.pb.cc
   ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/reflection/v1alpha/reflection.pb.h
@@ -19684,7 +19697,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_outlier_detection_end2end_test
+  add_grpc_test(xds_outlier_detection_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -19865,7 +19878,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_ring_hash_end2end_test
+  add_grpc_test(xds_ring_hash_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
@@ -20043,7 +20056,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_rls_end2end_test
+  add_grpc_test(xds_rls_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/lookup/v1/rls.pb.h
@@ -20225,7 +20238,7 @@ endif()
 if(gRPC_BUILD_TESTS)
 if(_gRPC_PLATFORM_LINUX OR _gRPC_PLATFORM_MAC OR _gRPC_PLATFORM_POSIX)
 
-  add_executable(xds_routing_end2end_test
+  add_grpc_test(xds_routing_end2end_test
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.grpc.pb.cc
     ${_gRPC_PROTO_GENS_DIR}/src/proto/grpc/testing/duplicate/echo_duplicate.pb.h
