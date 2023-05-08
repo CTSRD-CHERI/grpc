@@ -34,7 +34,6 @@
 #include "python/map.h"
 #include "python/message.h"
 #include "python/repeated.h"
-#include "python/unknown_fields.h"
 
 static void PyUpb_ModuleDealloc(void* module) {
   PyUpb_ModuleState* s = PyModule_GetState(module);
@@ -131,14 +130,10 @@ PyUpb_WeakMap* PyUpb_WeakMap_New(void) {
 
 void PyUpb_WeakMap_Free(PyUpb_WeakMap* map) { upb_Arena_Free(map->arena); }
 
-// To give better entropy in the table key, we shift away low bits that are
-// always zero.
-static const int PyUpb_PtrShift = (sizeof(void*) == 4) ? 2 : 3;
-
 uintptr_t PyUpb_WeakMap_GetKey(const void* key) {
   uintptr_t n = (uintptr_t)key;
-  assert((n & ((1 << PyUpb_PtrShift) - 1)) == 0);
-  return n >> PyUpb_PtrShift;
+  assert((n & 7) == 0);
+  return n >> 3;
 }
 
 void PyUpb_WeakMap_Add(PyUpb_WeakMap* map, const void* key, PyObject* py_obj) {
@@ -174,7 +169,7 @@ bool PyUpb_WeakMap_Next(PyUpb_WeakMap* map, const void** key, PyObject** obj,
   uintptr_t u_key;
   upb_value val;
   if (!upb_inttable_next2(&map->table, &u_key, &val, iter)) return false;
-  *key = (void*)(u_key << PyUpb_PtrShift);
+  *key = (void*)(u_key << 3);
   *obj = upb_value_getptr(val);
   return true;
 }
@@ -326,7 +321,7 @@ PyObject* PyUpb_Forbidden_New(PyObject* cls, PyObject* args, PyObject* kwds) {
 // Module Entry Point
 // -----------------------------------------------------------------------------
 
-__attribute__((visibility("default"))) PyMODINIT_FUNC PyInit__message(void) {
+PyMODINIT_FUNC PyInit__message(void) {
   PyObject* m = PyModule_Create(&module_def);
   if (!m) return NULL;
 
@@ -340,8 +335,7 @@ __attribute__((visibility("default"))) PyMODINIT_FUNC PyInit__message(void) {
   if (!PyUpb_InitDescriptorContainers(m) || !PyUpb_InitDescriptorPool(m) ||
       !PyUpb_InitDescriptor(m) || !PyUpb_InitArena(m) ||
       !PyUpb_InitExtensionDict(m) || !PyUpb_Map_Init(m) ||
-      !PyUpb_InitMessage(m) || !PyUpb_Repeated_Init(m) ||
-      !PyUpb_UnknownFields_Init(m)) {
+      !PyUpb_InitMessage(m) || !PyUpb_Repeated_Init(m)) {
     Py_DECREF(m);
     return NULL;
   }

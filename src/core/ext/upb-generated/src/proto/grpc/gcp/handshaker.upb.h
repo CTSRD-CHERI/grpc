@@ -98,43 +98,39 @@ UPB_INLINE grpc_gcp_Endpoint* grpc_gcp_Endpoint_parse_ex(const char* buf, size_t
   return ret;
 }
 UPB_INLINE char* grpc_gcp_Endpoint_serialize(const grpc_gcp_Endpoint* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_Endpoint_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_Endpoint_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_Endpoint_serialize_ex(const grpc_gcp_Endpoint* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_Endpoint_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_Endpoint_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_Endpoint_clear_ip_address(const grpc_gcp_Endpoint* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_Endpoint_ip_address(const grpc_gcp_Endpoint* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView);
 }
 UPB_INLINE void grpc_gcp_Endpoint_clear_port(const grpc_gcp_Endpoint* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = 0;
 }
 UPB_INLINE int32_t grpc_gcp_Endpoint_port(const grpc_gcp_Endpoint* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE void grpc_gcp_Endpoint_clear_protocol(const grpc_gcp_Endpoint* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = 0;
 }
 UPB_INLINE int32_t grpc_gcp_Endpoint_protocol(const grpc_gcp_Endpoint* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 
 UPB_INLINE void grpc_gcp_Endpoint_set_ip_address(grpc_gcp_Endpoint *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_Endpoint_set_port(grpc_gcp_Endpoint *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = value;
 }
 UPB_INLINE void grpc_gcp_Endpoint_set_protocol(grpc_gcp_Endpoint *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = value;
 }
 
 /* grpc.gcp.Identity */
@@ -162,15 +158,11 @@ UPB_INLINE grpc_gcp_Identity* grpc_gcp_Identity_parse_ex(const char* buf, size_t
   return ret;
 }
 UPB_INLINE char* grpc_gcp_Identity_serialize(const grpc_gcp_Identity* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_Identity_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_Identity_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_Identity_serialize_ex(const grpc_gcp_Identity* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_Identity_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_Identity_msginit, options, arena, len);
 }
 typedef enum {
   grpc_gcp_Identity_identity_oneof_service_account = 1,
@@ -178,57 +170,57 @@ typedef enum {
   grpc_gcp_Identity_identity_oneof_NOT_SET = 0
 } grpc_gcp_Identity_identity_oneof_oneofcases;
 UPB_INLINE grpc_gcp_Identity_identity_oneof_oneofcases grpc_gcp_Identity_identity_oneof_case(const grpc_gcp_Identity* msg) {
-  return (grpc_gcp_Identity_identity_oneof_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return (grpc_gcp_Identity_identity_oneof_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE bool grpc_gcp_Identity_has_service_account(const grpc_gcp_Identity* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 1;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 1;
 }
 UPB_INLINE void grpc_gcp_Identity_clear_service_account(const grpc_gcp_Identity* msg) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(0, 0), grpc_gcp_Identity_identity_oneof_NOT_SET);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8, 16), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(0, 0, 0), grpc_gcp_Identity_identity_oneof_NOT_SET);
 }
 UPB_INLINE upb_StringView grpc_gcp_Identity_service_account(const grpc_gcp_Identity* msg) {
-  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 1, upb_StringView_FromString(""));
+  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 1, upb_StringView_FromString(""));
 }
 UPB_INLINE bool grpc_gcp_Identity_has_hostname(const grpc_gcp_Identity* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 2;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 2;
 }
 UPB_INLINE void grpc_gcp_Identity_clear_hostname(const grpc_gcp_Identity* msg) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(0, 0), grpc_gcp_Identity_identity_oneof_NOT_SET);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8, 16), upb_StringView_FromDataAndSize(NULL, 0), UPB_SIZE(0, 0, 0), grpc_gcp_Identity_identity_oneof_NOT_SET);
 }
 UPB_INLINE upb_StringView grpc_gcp_Identity_hostname(const grpc_gcp_Identity* msg) {
-  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 2, upb_StringView_FromString(""));
+  return UPB_READ_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 2, upb_StringView_FromString(""));
 }
 UPB_INLINE bool grpc_gcp_Identity_has_attributes(const grpc_gcp_Identity* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(12, 24));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(12, 24, 48));
 }
 UPB_INLINE void grpc_gcp_Identity_clear_attributes(const grpc_gcp_Identity* msg) {
-  _upb_array_detach(msg, UPB_SIZE(12, 24));
+  _upb_array_detach(msg, UPB_SIZE(12, 24, 48));
 }
 UPB_INLINE size_t grpc_gcp_Identity_attributes_size(const grpc_gcp_Identity* msg) {
-  return _upb_msg_map_size(msg, UPB_SIZE(12, 24));
+  return _upb_msg_map_size(msg, UPB_SIZE(12, 24, 48));
 }
 UPB_INLINE bool grpc_gcp_Identity_attributes_get(const grpc_gcp_Identity* msg, upb_StringView key, upb_StringView* val) {
-  return _upb_msg_map_get(msg, UPB_SIZE(12, 24), &key, 0, val, 0);
+  return _upb_msg_map_get(msg, UPB_SIZE(12, 24, 48), &key, 0, val, 0);
 }
 UPB_INLINE const grpc_gcp_Identity_AttributesEntry* grpc_gcp_Identity_attributes_next(const grpc_gcp_Identity* msg, size_t* iter) {
-  return (const grpc_gcp_Identity_AttributesEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 24), iter);
+  return (const grpc_gcp_Identity_AttributesEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 24, 48), iter);
 }
 
 UPB_INLINE void grpc_gcp_Identity_set_service_account(grpc_gcp_Identity *msg, upb_StringView value) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 1);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 1);
 }
 UPB_INLINE void grpc_gcp_Identity_set_hostname(grpc_gcp_Identity *msg, upb_StringView value) {
-  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 2);
+  UPB_WRITE_ONEOF(msg, upb_StringView, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 2);
 }
-UPB_INLINE void grpc_gcp_Identity_attributes_clear(grpc_gcp_Identity* msg) { _upb_msg_map_clear(msg, UPB_SIZE(12, 24)); }
+UPB_INLINE void grpc_gcp_Identity_attributes_clear(grpc_gcp_Identity* msg) { _upb_msg_map_clear(msg, UPB_SIZE(12, 24, 48)); }
 UPB_INLINE bool grpc_gcp_Identity_attributes_set(grpc_gcp_Identity* msg, upb_StringView key, upb_StringView val, upb_Arena* a) {
-  return _upb_msg_map_set(msg, UPB_SIZE(12, 24), &key, 0, &val, 0, a);
+  return _upb_msg_map_set(msg, UPB_SIZE(12, 24, 48), &key, 0, &val, 0, a);
 }
 UPB_INLINE bool grpc_gcp_Identity_attributes_delete(grpc_gcp_Identity* msg, upb_StringView key) {
-  return _upb_msg_map_delete(msg, UPB_SIZE(12, 24), &key, 0);
+  return _upb_msg_map_delete(msg, UPB_SIZE(12, 24, 48), &key, 0);
 }
 UPB_INLINE grpc_gcp_Identity_AttributesEntry* grpc_gcp_Identity_attributes_nextmutable(grpc_gcp_Identity* msg, size_t* iter) {
-  return (grpc_gcp_Identity_AttributesEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 24), iter);
+  return (grpc_gcp_Identity_AttributesEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 24, 48), iter);
 }
 
 /* grpc.gcp.Identity.AttributesEntry */
@@ -273,128 +265,124 @@ UPB_INLINE grpc_gcp_StartClientHandshakeReq* grpc_gcp_StartClientHandshakeReq_pa
   return ret;
 }
 UPB_INLINE char* grpc_gcp_StartClientHandshakeReq_serialize(const grpc_gcp_StartClientHandshakeReq* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_StartClientHandshakeReq_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_StartClientHandshakeReq_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_StartClientHandshakeReq_serialize_ex(const grpc_gcp_StartClientHandshakeReq* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_StartClientHandshakeReq_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_StartClientHandshakeReq_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_handshake_security_protocol(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = 0;
 }
 UPB_INLINE int32_t grpc_gcp_StartClientHandshakeReq_handshake_security_protocol(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_application_protocols(const grpc_gcp_StartClientHandshakeReq* msg) {
-  _upb_array_detach(msg, UPB_SIZE(12, 16));
+  _upb_array_detach(msg, UPB_SIZE(12, 16, 16));
 }
 UPB_INLINE upb_StringView const* grpc_gcp_StartClientHandshakeReq_application_protocols(const grpc_gcp_StartClientHandshakeReq* msg, size_t* len) {
-  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(12, 16), len);
+  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(12, 16, 16), len);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_record_protocols(const grpc_gcp_StartClientHandshakeReq* msg) {
-  _upb_array_detach(msg, UPB_SIZE(16, 24));
+  _upb_array_detach(msg, UPB_SIZE(16, 24, 32));
 }
 UPB_INLINE upb_StringView const* grpc_gcp_StartClientHandshakeReq_record_protocols(const grpc_gcp_StartClientHandshakeReq* msg, size_t* len) {
-  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(16, 24), len);
+  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(16, 24, 32), len);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_has_target_identities(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(20, 32));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(20, 32, 48));
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_target_identities(const grpc_gcp_StartClientHandshakeReq* msg) {
-  _upb_array_detach(msg, UPB_SIZE(20, 32));
+  _upb_array_detach(msg, UPB_SIZE(20, 32, 48));
 }
 UPB_INLINE const grpc_gcp_Identity* const* grpc_gcp_StartClientHandshakeReq_target_identities(const grpc_gcp_StartClientHandshakeReq* msg, size_t* len) {
-  return (const grpc_gcp_Identity* const*)_upb_array_accessor(msg, UPB_SIZE(20, 32), len);
+  return (const grpc_gcp_Identity* const*)_upb_array_accessor(msg, UPB_SIZE(20, 32, 48), len);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_has_local_identity(const grpc_gcp_StartClientHandshakeReq* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_local_identity(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 64), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Identity* grpc_gcp_StartClientHandshakeReq_local_identity(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40), const grpc_gcp_Identity*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 64), const grpc_gcp_Identity*);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_has_local_endpoint(const grpc_gcp_StartClientHandshakeReq* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_local_endpoint(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(28, 48), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(28, 48, 80), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Endpoint* grpc_gcp_StartClientHandshakeReq_local_endpoint(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(28, 48), const grpc_gcp_Endpoint*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(28, 48, 80), const grpc_gcp_Endpoint*);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_has_remote_endpoint(const grpc_gcp_StartClientHandshakeReq* msg) {
   return _upb_hasbit(msg, 3);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_remote_endpoint(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 96), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Endpoint* grpc_gcp_StartClientHandshakeReq_remote_endpoint(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const grpc_gcp_Endpoint*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 96), const grpc_gcp_Endpoint*);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_target_name(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(36, 64), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(36, 64, 112), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_StartClientHandshakeReq_target_name(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(36, 64), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(36, 64, 112), upb_StringView);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_has_rpc_versions(const grpc_gcp_StartClientHandshakeReq* msg) {
   return _upb_hasbit(msg, 4);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_rpc_versions(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(44, 80), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(44, 80, 144), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct grpc_gcp_RpcProtocolVersions* grpc_gcp_StartClientHandshakeReq_rpc_versions(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(44, 80), const struct grpc_gcp_RpcProtocolVersions*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(44, 80, 144), const struct grpc_gcp_RpcProtocolVersions*);
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_clear_max_frame_size(const grpc_gcp_StartClientHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint32_t) = 0;
 }
 UPB_INLINE uint32_t grpc_gcp_StartClientHandshakeReq_max_frame_size(const grpc_gcp_StartClientHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint32_t);
 }
 
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_handshake_security_protocol(grpc_gcp_StartClientHandshakeReq *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = value;
 }
 UPB_INLINE upb_StringView* grpc_gcp_StartClientHandshakeReq_mutable_application_protocols(grpc_gcp_StartClientHandshakeReq* msg, size_t* len) {
-  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(12, 16), len);
+  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(12, 16, 16), len);
 }
 UPB_INLINE upb_StringView* grpc_gcp_StartClientHandshakeReq_resize_application_protocols(grpc_gcp_StartClientHandshakeReq* msg, size_t len, upb_Arena* arena) {
-  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(12, 16), len, UPB_SIZE(3, 4), arena);
+  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(12, 16, 16), len, UPB_SIZE(3, 4, 5), arena);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_add_application_protocols(grpc_gcp_StartClientHandshakeReq* msg, upb_StringView val, upb_Arena* arena) {
-  return _upb_Array_Append_accessor2(msg, UPB_SIZE(12, 16), UPB_SIZE(3, 4), &val, arena);
+  return _upb_Array_Append_accessor2(msg, UPB_SIZE(12, 16, 16), UPB_SIZE(3, 4, 5), &val, arena);
 }
 UPB_INLINE upb_StringView* grpc_gcp_StartClientHandshakeReq_mutable_record_protocols(grpc_gcp_StartClientHandshakeReq* msg, size_t* len) {
-  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(16, 24), len);
+  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(16, 24, 32), len);
 }
 UPB_INLINE upb_StringView* grpc_gcp_StartClientHandshakeReq_resize_record_protocols(grpc_gcp_StartClientHandshakeReq* msg, size_t len, upb_Arena* arena) {
-  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(16, 24), len, UPB_SIZE(3, 4), arena);
+  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(16, 24, 32), len, UPB_SIZE(3, 4, 5), arena);
 }
 UPB_INLINE bool grpc_gcp_StartClientHandshakeReq_add_record_protocols(grpc_gcp_StartClientHandshakeReq* msg, upb_StringView val, upb_Arena* arena) {
-  return _upb_Array_Append_accessor2(msg, UPB_SIZE(16, 24), UPB_SIZE(3, 4), &val, arena);
+  return _upb_Array_Append_accessor2(msg, UPB_SIZE(16, 24, 32), UPB_SIZE(3, 4, 5), &val, arena);
 }
 UPB_INLINE grpc_gcp_Identity** grpc_gcp_StartClientHandshakeReq_mutable_target_identities(grpc_gcp_StartClientHandshakeReq* msg, size_t* len) {
-  return (grpc_gcp_Identity**)_upb_array_mutable_accessor(msg, UPB_SIZE(20, 32), len);
+  return (grpc_gcp_Identity**)_upb_array_mutable_accessor(msg, UPB_SIZE(20, 32, 48), len);
 }
 UPB_INLINE grpc_gcp_Identity** grpc_gcp_StartClientHandshakeReq_resize_target_identities(grpc_gcp_StartClientHandshakeReq* msg, size_t len, upb_Arena* arena) {
-  return (grpc_gcp_Identity**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(20, 32), len, UPB_SIZE(2, 3), arena);
+  return (grpc_gcp_Identity**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(20, 32, 48), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_StartClientHandshakeReq_add_target_identities(grpc_gcp_StartClientHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_Identity* sub = (struct grpc_gcp_Identity*)_upb_Message_New(&grpc_gcp_Identity_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(20, 32), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(20, 32, 48), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_local_identity(grpc_gcp_StartClientHandshakeReq *msg, grpc_gcp_Identity* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), grpc_gcp_Identity*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 64), grpc_gcp_Identity*) = value;
 }
 UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_StartClientHandshakeReq_mutable_local_identity(grpc_gcp_StartClientHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_Identity* sub = (struct grpc_gcp_Identity*)grpc_gcp_StartClientHandshakeReq_local_identity(msg);
@@ -407,7 +395,7 @@ UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_StartClientHandshakeReq_mutable_lo
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_local_endpoint(grpc_gcp_StartClientHandshakeReq *msg, grpc_gcp_Endpoint* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(28, 48), grpc_gcp_Endpoint*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(28, 48, 80), grpc_gcp_Endpoint*) = value;
 }
 UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartClientHandshakeReq_mutable_local_endpoint(grpc_gcp_StartClientHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_Endpoint* sub = (struct grpc_gcp_Endpoint*)grpc_gcp_StartClientHandshakeReq_local_endpoint(msg);
@@ -420,7 +408,7 @@ UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartClientHandshakeReq_mutable_lo
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_remote_endpoint(grpc_gcp_StartClientHandshakeReq *msg, grpc_gcp_Endpoint* value) {
   _upb_sethas(msg, 3);
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), grpc_gcp_Endpoint*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 96), grpc_gcp_Endpoint*) = value;
 }
 UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartClientHandshakeReq_mutable_remote_endpoint(grpc_gcp_StartClientHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_Endpoint* sub = (struct grpc_gcp_Endpoint*)grpc_gcp_StartClientHandshakeReq_remote_endpoint(msg);
@@ -432,11 +420,11 @@ UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartClientHandshakeReq_mutable_re
   return sub;
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_target_name(grpc_gcp_StartClientHandshakeReq *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(36, 64), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(36, 64, 112), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_rpc_versions(grpc_gcp_StartClientHandshakeReq *msg, struct grpc_gcp_RpcProtocolVersions* value) {
   _upb_sethas(msg, 4);
-  *UPB_PTR_AT(msg, UPB_SIZE(44, 80), struct grpc_gcp_RpcProtocolVersions*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(44, 80, 144), struct grpc_gcp_RpcProtocolVersions*) = value;
 }
 UPB_INLINE struct grpc_gcp_RpcProtocolVersions* grpc_gcp_StartClientHandshakeReq_mutable_rpc_versions(grpc_gcp_StartClientHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_RpcProtocolVersions* sub = (struct grpc_gcp_RpcProtocolVersions*)grpc_gcp_StartClientHandshakeReq_rpc_versions(msg);
@@ -448,7 +436,7 @@ UPB_INLINE struct grpc_gcp_RpcProtocolVersions* grpc_gcp_StartClientHandshakeReq
   return sub;
 }
 UPB_INLINE void grpc_gcp_StartClientHandshakeReq_set_max_frame_size(grpc_gcp_StartClientHandshakeReq *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint32_t) = value;
 }
 
 /* grpc.gcp.ServerHandshakeParameters */
@@ -476,50 +464,46 @@ UPB_INLINE grpc_gcp_ServerHandshakeParameters* grpc_gcp_ServerHandshakeParameter
   return ret;
 }
 UPB_INLINE char* grpc_gcp_ServerHandshakeParameters_serialize(const grpc_gcp_ServerHandshakeParameters* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_ServerHandshakeParameters_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_ServerHandshakeParameters_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_ServerHandshakeParameters_serialize_ex(const grpc_gcp_ServerHandshakeParameters* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_ServerHandshakeParameters_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_ServerHandshakeParameters_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_ServerHandshakeParameters_clear_record_protocols(const grpc_gcp_ServerHandshakeParameters* msg) {
-  _upb_array_detach(msg, UPB_SIZE(0, 0));
+  _upb_array_detach(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE upb_StringView const* grpc_gcp_ServerHandshakeParameters_record_protocols(const grpc_gcp_ServerHandshakeParameters* msg, size_t* len) {
-  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(0, 0), len);
+  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 UPB_INLINE bool grpc_gcp_ServerHandshakeParameters_has_local_identities(const grpc_gcp_ServerHandshakeParameters* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE void grpc_gcp_ServerHandshakeParameters_clear_local_identities(const grpc_gcp_ServerHandshakeParameters* msg) {
-  _upb_array_detach(msg, UPB_SIZE(4, 8));
+  _upb_array_detach(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE const grpc_gcp_Identity* const* grpc_gcp_ServerHandshakeParameters_local_identities(const grpc_gcp_ServerHandshakeParameters* msg, size_t* len) {
-  return (const grpc_gcp_Identity* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8), len);
+  return (const grpc_gcp_Identity* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 
 UPB_INLINE upb_StringView* grpc_gcp_ServerHandshakeParameters_mutable_record_protocols(grpc_gcp_ServerHandshakeParameters* msg, size_t* len) {
-  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0), len);
+  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 UPB_INLINE upb_StringView* grpc_gcp_ServerHandshakeParameters_resize_record_protocols(grpc_gcp_ServerHandshakeParameters* msg, size_t len, upb_Arena* arena) {
-  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0), len, UPB_SIZE(3, 4), arena);
+  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0, 0), len, UPB_SIZE(3, 4, 5), arena);
 }
 UPB_INLINE bool grpc_gcp_ServerHandshakeParameters_add_record_protocols(grpc_gcp_ServerHandshakeParameters* msg, upb_StringView val, upb_Arena* arena) {
-  return _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0), UPB_SIZE(3, 4), &val, arena);
+  return _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0, 0), UPB_SIZE(3, 4, 5), &val, arena);
 }
 UPB_INLINE grpc_gcp_Identity** grpc_gcp_ServerHandshakeParameters_mutable_local_identities(grpc_gcp_ServerHandshakeParameters* msg, size_t* len) {
-  return (grpc_gcp_Identity**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8), len);
+  return (grpc_gcp_Identity**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE grpc_gcp_Identity** grpc_gcp_ServerHandshakeParameters_resize_local_identities(grpc_gcp_ServerHandshakeParameters* msg, size_t len, upb_Arena* arena) {
-  return (grpc_gcp_Identity**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8), len, UPB_SIZE(2, 3), arena);
+  return (grpc_gcp_Identity**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8, 16), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_ServerHandshakeParameters_add_local_identities(grpc_gcp_ServerHandshakeParameters* msg, upb_Arena* arena) {
   struct grpc_gcp_Identity* sub = (struct grpc_gcp_Identity*)_upb_Message_New(&grpc_gcp_Identity_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8, 16), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
@@ -549,102 +533,98 @@ UPB_INLINE grpc_gcp_StartServerHandshakeReq* grpc_gcp_StartServerHandshakeReq_pa
   return ret;
 }
 UPB_INLINE char* grpc_gcp_StartServerHandshakeReq_serialize(const grpc_gcp_StartServerHandshakeReq* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_StartServerHandshakeReq_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_StartServerHandshakeReq_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_StartServerHandshakeReq_serialize_ex(const grpc_gcp_StartServerHandshakeReq* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_StartServerHandshakeReq_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_StartServerHandshakeReq_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_application_protocols(const grpc_gcp_StartServerHandshakeReq* msg) {
-  _upb_array_detach(msg, UPB_SIZE(8, 8));
+  _upb_array_detach(msg, UPB_SIZE(8, 8, 16));
 }
 UPB_INLINE upb_StringView const* grpc_gcp_StartServerHandshakeReq_application_protocols(const grpc_gcp_StartServerHandshakeReq* msg, size_t* len) {
-  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(8, 8), len);
+  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(8, 8, 16), len);
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_has_handshake_parameters(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(12, 16));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(12, 16, 32));
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_handshake_parameters(const grpc_gcp_StartServerHandshakeReq* msg) {
-  _upb_array_detach(msg, UPB_SIZE(12, 16));
+  _upb_array_detach(msg, UPB_SIZE(12, 16, 32));
 }
 UPB_INLINE size_t grpc_gcp_StartServerHandshakeReq_handshake_parameters_size(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return _upb_msg_map_size(msg, UPB_SIZE(12, 16));
+  return _upb_msg_map_size(msg, UPB_SIZE(12, 16, 32));
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_handshake_parameters_get(const grpc_gcp_StartServerHandshakeReq* msg, int32_t key, grpc_gcp_ServerHandshakeParameters** val) {
-  return _upb_msg_map_get(msg, UPB_SIZE(12, 16), &key, sizeof(key), val, sizeof(*val));
+  return _upb_msg_map_get(msg, UPB_SIZE(12, 16, 32), &key, sizeof(key), val, sizeof(*val));
 }
 UPB_INLINE const grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry* grpc_gcp_StartServerHandshakeReq_handshake_parameters_next(const grpc_gcp_StartServerHandshakeReq* msg, size_t* iter) {
-  return (const grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 16), iter);
+  return (const grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 16, 32), iter);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_in_bytes(const grpc_gcp_StartServerHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_StartServerHandshakeReq_in_bytes(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView);
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_has_local_endpoint(const grpc_gcp_StartServerHandshakeReq* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_local_endpoint(const grpc_gcp_StartServerHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Endpoint* grpc_gcp_StartServerHandshakeReq_local_endpoint(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40), const grpc_gcp_Endpoint*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), const grpc_gcp_Endpoint*);
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_has_remote_endpoint(const grpc_gcp_StartServerHandshakeReq* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_remote_endpoint(const grpc_gcp_StartServerHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(28, 48), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(28, 48, 96), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Endpoint* grpc_gcp_StartServerHandshakeReq_remote_endpoint(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(28, 48), const grpc_gcp_Endpoint*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(28, 48, 96), const grpc_gcp_Endpoint*);
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_has_rpc_versions(const grpc_gcp_StartServerHandshakeReq* msg) {
   return _upb_hasbit(msg, 3);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_rpc_versions(const grpc_gcp_StartServerHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct grpc_gcp_RpcProtocolVersions* grpc_gcp_StartServerHandshakeReq_rpc_versions(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const struct grpc_gcp_RpcProtocolVersions*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), const struct grpc_gcp_RpcProtocolVersions*);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_clear_max_frame_size(const grpc_gcp_StartServerHandshakeReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = 0;
 }
 UPB_INLINE uint32_t grpc_gcp_StartServerHandshakeReq_max_frame_size(const grpc_gcp_StartServerHandshakeReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t);
 }
 
 UPB_INLINE upb_StringView* grpc_gcp_StartServerHandshakeReq_mutable_application_protocols(grpc_gcp_StartServerHandshakeReq* msg, size_t* len) {
-  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(8, 8), len);
+  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(8, 8, 16), len);
 }
 UPB_INLINE upb_StringView* grpc_gcp_StartServerHandshakeReq_resize_application_protocols(grpc_gcp_StartServerHandshakeReq* msg, size_t len, upb_Arena* arena) {
-  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(8, 8), len, UPB_SIZE(3, 4), arena);
+  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(8, 8, 16), len, UPB_SIZE(3, 4, 5), arena);
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_add_application_protocols(grpc_gcp_StartServerHandshakeReq* msg, upb_StringView val, upb_Arena* arena) {
-  return _upb_Array_Append_accessor2(msg, UPB_SIZE(8, 8), UPB_SIZE(3, 4), &val, arena);
+  return _upb_Array_Append_accessor2(msg, UPB_SIZE(8, 8, 16), UPB_SIZE(3, 4, 5), &val, arena);
 }
-UPB_INLINE void grpc_gcp_StartServerHandshakeReq_handshake_parameters_clear(grpc_gcp_StartServerHandshakeReq* msg) { _upb_msg_map_clear(msg, UPB_SIZE(12, 16)); }
+UPB_INLINE void grpc_gcp_StartServerHandshakeReq_handshake_parameters_clear(grpc_gcp_StartServerHandshakeReq* msg) { _upb_msg_map_clear(msg, UPB_SIZE(12, 16, 32)); }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_handshake_parameters_set(grpc_gcp_StartServerHandshakeReq* msg, int32_t key, grpc_gcp_ServerHandshakeParameters* val, upb_Arena* a) {
-  return _upb_msg_map_set(msg, UPB_SIZE(12, 16), &key, sizeof(key), &val, sizeof(val), a);
+  return _upb_msg_map_set(msg, UPB_SIZE(12, 16, 32), &key, sizeof(key), &val, sizeof(val), a);
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_handshake_parameters_delete(grpc_gcp_StartServerHandshakeReq* msg, int32_t key) {
-  return _upb_msg_map_delete(msg, UPB_SIZE(12, 16), &key, sizeof(key));
+  return _upb_msg_map_delete(msg, UPB_SIZE(12, 16, 32), &key, sizeof(key));
 }
 UPB_INLINE grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry* grpc_gcp_StartServerHandshakeReq_handshake_parameters_nextmutable(grpc_gcp_StartServerHandshakeReq* msg, size_t* iter) {
-  return (grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 16), iter);
+  return (grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry*)_upb_msg_map_next(msg, UPB_SIZE(12, 16, 32), iter);
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_set_in_bytes(grpc_gcp_StartServerHandshakeReq *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_set_local_endpoint(grpc_gcp_StartServerHandshakeReq *msg, grpc_gcp_Endpoint* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), grpc_gcp_Endpoint*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), grpc_gcp_Endpoint*) = value;
 }
 UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartServerHandshakeReq_mutable_local_endpoint(grpc_gcp_StartServerHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_Endpoint* sub = (struct grpc_gcp_Endpoint*)grpc_gcp_StartServerHandshakeReq_local_endpoint(msg);
@@ -657,7 +637,7 @@ UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartServerHandshakeReq_mutable_lo
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_set_remote_endpoint(grpc_gcp_StartServerHandshakeReq *msg, grpc_gcp_Endpoint* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(28, 48), grpc_gcp_Endpoint*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(28, 48, 96), grpc_gcp_Endpoint*) = value;
 }
 UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartServerHandshakeReq_mutable_remote_endpoint(grpc_gcp_StartServerHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_Endpoint* sub = (struct grpc_gcp_Endpoint*)grpc_gcp_StartServerHandshakeReq_remote_endpoint(msg);
@@ -670,7 +650,7 @@ UPB_INLINE struct grpc_gcp_Endpoint* grpc_gcp_StartServerHandshakeReq_mutable_re
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_set_rpc_versions(grpc_gcp_StartServerHandshakeReq *msg, struct grpc_gcp_RpcProtocolVersions* value) {
   _upb_sethas(msg, 3);
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), struct grpc_gcp_RpcProtocolVersions*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), struct grpc_gcp_RpcProtocolVersions*) = value;
 }
 UPB_INLINE struct grpc_gcp_RpcProtocolVersions* grpc_gcp_StartServerHandshakeReq_mutable_rpc_versions(grpc_gcp_StartServerHandshakeReq* msg, upb_Arena* arena) {
   struct grpc_gcp_RpcProtocolVersions* sub = (struct grpc_gcp_RpcProtocolVersions*)grpc_gcp_StartServerHandshakeReq_rpc_versions(msg);
@@ -682,7 +662,7 @@ UPB_INLINE struct grpc_gcp_RpcProtocolVersions* grpc_gcp_StartServerHandshakeReq
   return sub;
 }
 UPB_INLINE void grpc_gcp_StartServerHandshakeReq_set_max_frame_size(grpc_gcp_StartServerHandshakeReq *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = value;
 }
 
 /* grpc.gcp.StartServerHandshakeReq.HandshakeParametersEntry */
@@ -693,7 +673,7 @@ UPB_INLINE int32_t grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry_key
   return ret;
 }
 UPB_INLINE bool grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry_has_value(const grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(8, 16));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(8, 16, 32));
 }
 UPB_INLINE const grpc_gcp_ServerHandshakeParameters* grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry_value(const grpc_gcp_StartServerHandshakeReq_HandshakeParametersEntry* msg) {
   grpc_gcp_ServerHandshakeParameters* ret;
@@ -730,25 +710,21 @@ UPB_INLINE grpc_gcp_NextHandshakeMessageReq* grpc_gcp_NextHandshakeMessageReq_pa
   return ret;
 }
 UPB_INLINE char* grpc_gcp_NextHandshakeMessageReq_serialize(const grpc_gcp_NextHandshakeMessageReq* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_NextHandshakeMessageReq_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_NextHandshakeMessageReq_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_NextHandshakeMessageReq_serialize_ex(const grpc_gcp_NextHandshakeMessageReq* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_NextHandshakeMessageReq_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_NextHandshakeMessageReq_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_NextHandshakeMessageReq_clear_in_bytes(const grpc_gcp_NextHandshakeMessageReq* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_NextHandshakeMessageReq_in_bytes(const grpc_gcp_NextHandshakeMessageReq* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void grpc_gcp_NextHandshakeMessageReq_set_in_bytes(grpc_gcp_NextHandshakeMessageReq *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 /* grpc.gcp.HandshakerReq */
@@ -776,15 +752,11 @@ UPB_INLINE grpc_gcp_HandshakerReq* grpc_gcp_HandshakerReq_parse_ex(const char* b
   return ret;
 }
 UPB_INLINE char* grpc_gcp_HandshakerReq_serialize(const grpc_gcp_HandshakerReq* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerReq_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerReq_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_HandshakerReq_serialize_ex(const grpc_gcp_HandshakerReq* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerReq_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerReq_msginit, options, arena, len);
 }
 typedef enum {
   grpc_gcp_HandshakerReq_req_oneof_client_start = 1,
@@ -793,38 +765,38 @@ typedef enum {
   grpc_gcp_HandshakerReq_req_oneof_NOT_SET = 0
 } grpc_gcp_HandshakerReq_req_oneof_oneofcases;
 UPB_INLINE grpc_gcp_HandshakerReq_req_oneof_oneofcases grpc_gcp_HandshakerReq_req_oneof_case(const grpc_gcp_HandshakerReq* msg) {
-  return (grpc_gcp_HandshakerReq_req_oneof_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return (grpc_gcp_HandshakerReq_req_oneof_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE bool grpc_gcp_HandshakerReq_has_client_start(const grpc_gcp_HandshakerReq* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 1;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 1;
 }
 UPB_INLINE void grpc_gcp_HandshakerReq_clear_client_start(const grpc_gcp_HandshakerReq* msg) {
-  UPB_WRITE_ONEOF(msg, grpc_gcp_StartClientHandshakeReq*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), grpc_gcp_HandshakerReq_req_oneof_NOT_SET);
+  UPB_WRITE_ONEOF(msg, grpc_gcp_StartClientHandshakeReq*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), grpc_gcp_HandshakerReq_req_oneof_NOT_SET);
 }
 UPB_INLINE const grpc_gcp_StartClientHandshakeReq* grpc_gcp_HandshakerReq_client_start(const grpc_gcp_HandshakerReq* msg) {
-  return UPB_READ_ONEOF(msg, const grpc_gcp_StartClientHandshakeReq*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 1, NULL);
+  return UPB_READ_ONEOF(msg, const grpc_gcp_StartClientHandshakeReq*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 1, NULL);
 }
 UPB_INLINE bool grpc_gcp_HandshakerReq_has_server_start(const grpc_gcp_HandshakerReq* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 2;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 2;
 }
 UPB_INLINE void grpc_gcp_HandshakerReq_clear_server_start(const grpc_gcp_HandshakerReq* msg) {
-  UPB_WRITE_ONEOF(msg, grpc_gcp_StartServerHandshakeReq*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), grpc_gcp_HandshakerReq_req_oneof_NOT_SET);
+  UPB_WRITE_ONEOF(msg, grpc_gcp_StartServerHandshakeReq*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), grpc_gcp_HandshakerReq_req_oneof_NOT_SET);
 }
 UPB_INLINE const grpc_gcp_StartServerHandshakeReq* grpc_gcp_HandshakerReq_server_start(const grpc_gcp_HandshakerReq* msg) {
-  return UPB_READ_ONEOF(msg, const grpc_gcp_StartServerHandshakeReq*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 2, NULL);
+  return UPB_READ_ONEOF(msg, const grpc_gcp_StartServerHandshakeReq*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 2, NULL);
 }
 UPB_INLINE bool grpc_gcp_HandshakerReq_has_next(const grpc_gcp_HandshakerReq* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 3;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 3;
 }
 UPB_INLINE void grpc_gcp_HandshakerReq_clear_next(const grpc_gcp_HandshakerReq* msg) {
-  UPB_WRITE_ONEOF(msg, grpc_gcp_NextHandshakeMessageReq*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), grpc_gcp_HandshakerReq_req_oneof_NOT_SET);
+  UPB_WRITE_ONEOF(msg, grpc_gcp_NextHandshakeMessageReq*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), grpc_gcp_HandshakerReq_req_oneof_NOT_SET);
 }
 UPB_INLINE const grpc_gcp_NextHandshakeMessageReq* grpc_gcp_HandshakerReq_next(const grpc_gcp_HandshakerReq* msg) {
-  return UPB_READ_ONEOF(msg, const grpc_gcp_NextHandshakeMessageReq*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 3, NULL);
+  return UPB_READ_ONEOF(msg, const grpc_gcp_NextHandshakeMessageReq*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 3, NULL);
 }
 
 UPB_INLINE void grpc_gcp_HandshakerReq_set_client_start(grpc_gcp_HandshakerReq *msg, grpc_gcp_StartClientHandshakeReq* value) {
-  UPB_WRITE_ONEOF(msg, grpc_gcp_StartClientHandshakeReq*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 1);
+  UPB_WRITE_ONEOF(msg, grpc_gcp_StartClientHandshakeReq*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 1);
 }
 UPB_INLINE struct grpc_gcp_StartClientHandshakeReq* grpc_gcp_HandshakerReq_mutable_client_start(grpc_gcp_HandshakerReq* msg, upb_Arena* arena) {
   struct grpc_gcp_StartClientHandshakeReq* sub = (struct grpc_gcp_StartClientHandshakeReq*)grpc_gcp_HandshakerReq_client_start(msg);
@@ -836,7 +808,7 @@ UPB_INLINE struct grpc_gcp_StartClientHandshakeReq* grpc_gcp_HandshakerReq_mutab
   return sub;
 }
 UPB_INLINE void grpc_gcp_HandshakerReq_set_server_start(grpc_gcp_HandshakerReq *msg, grpc_gcp_StartServerHandshakeReq* value) {
-  UPB_WRITE_ONEOF(msg, grpc_gcp_StartServerHandshakeReq*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 2);
+  UPB_WRITE_ONEOF(msg, grpc_gcp_StartServerHandshakeReq*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 2);
 }
 UPB_INLINE struct grpc_gcp_StartServerHandshakeReq* grpc_gcp_HandshakerReq_mutable_server_start(grpc_gcp_HandshakerReq* msg, upb_Arena* arena) {
   struct grpc_gcp_StartServerHandshakeReq* sub = (struct grpc_gcp_StartServerHandshakeReq*)grpc_gcp_HandshakerReq_server_start(msg);
@@ -848,7 +820,7 @@ UPB_INLINE struct grpc_gcp_StartServerHandshakeReq* grpc_gcp_HandshakerReq_mutab
   return sub;
 }
 UPB_INLINE void grpc_gcp_HandshakerReq_set_next(grpc_gcp_HandshakerReq *msg, grpc_gcp_NextHandshakeMessageReq* value) {
-  UPB_WRITE_ONEOF(msg, grpc_gcp_NextHandshakeMessageReq*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 3);
+  UPB_WRITE_ONEOF(msg, grpc_gcp_NextHandshakeMessageReq*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 3);
 }
 UPB_INLINE struct grpc_gcp_NextHandshakeMessageReq* grpc_gcp_HandshakerReq_mutable_next(grpc_gcp_HandshakerReq* msg, upb_Arena* arena) {
   struct grpc_gcp_NextHandshakeMessageReq* sub = (struct grpc_gcp_NextHandshakeMessageReq*)grpc_gcp_HandshakerReq_next(msg);
@@ -885,86 +857,82 @@ UPB_INLINE grpc_gcp_HandshakerResult* grpc_gcp_HandshakerResult_parse_ex(const c
   return ret;
 }
 UPB_INLINE char* grpc_gcp_HandshakerResult_serialize(const grpc_gcp_HandshakerResult* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerResult_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerResult_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_HandshakerResult_serialize_ex(const grpc_gcp_HandshakerResult* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerResult_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerResult_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_application_protocol(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_HandshakerResult_application_protocol(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_record_protocol(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_HandshakerResult_record_protocol(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_key_data(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_HandshakerResult_key_data(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), upb_StringView);
 }
 UPB_INLINE bool grpc_gcp_HandshakerResult_has_peer_identity(const grpc_gcp_HandshakerResult* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_peer_identity(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Identity* grpc_gcp_HandshakerResult_peer_identity(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56), const grpc_gcp_Identity*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), const grpc_gcp_Identity*);
 }
 UPB_INLINE bool grpc_gcp_HandshakerResult_has_local_identity(const grpc_gcp_HandshakerResult* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_local_identity(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(36, 64), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(36, 64, 128), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_Identity* grpc_gcp_HandshakerResult_local_identity(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(36, 64), const grpc_gcp_Identity*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(36, 64, 128), const grpc_gcp_Identity*);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_keep_channel_open(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(1, 1), bool) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(1, 1, 1), bool) = 0;
 }
 UPB_INLINE bool grpc_gcp_HandshakerResult_keep_channel_open(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(1, 1), bool);
+  return *UPB_PTR_AT(msg, UPB_SIZE(1, 1, 1), bool);
 }
 UPB_INLINE bool grpc_gcp_HandshakerResult_has_peer_rpc_versions(const grpc_gcp_HandshakerResult* msg) {
   return _upb_hasbit(msg, 3);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_peer_rpc_versions(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(40, 72), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(40, 72, 144), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct grpc_gcp_RpcProtocolVersions* grpc_gcp_HandshakerResult_peer_rpc_versions(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(40, 72), const struct grpc_gcp_RpcProtocolVersions*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(40, 72, 144), const struct grpc_gcp_RpcProtocolVersions*);
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_clear_max_frame_size(const grpc_gcp_HandshakerResult* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = 0;
 }
 UPB_INLINE uint32_t grpc_gcp_HandshakerResult_max_frame_size(const grpc_gcp_HandshakerResult* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t);
 }
 
 UPB_INLINE void grpc_gcp_HandshakerResult_set_application_protocol(grpc_gcp_HandshakerResult *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_record_protocol(grpc_gcp_HandshakerResult *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_key_data(grpc_gcp_HandshakerResult *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 40), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 40, 80), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_peer_identity(grpc_gcp_HandshakerResult *msg, grpc_gcp_Identity* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(32, 56), grpc_gcp_Identity*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(32, 56, 112), grpc_gcp_Identity*) = value;
 }
 UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_HandshakerResult_mutable_peer_identity(grpc_gcp_HandshakerResult* msg, upb_Arena* arena) {
   struct grpc_gcp_Identity* sub = (struct grpc_gcp_Identity*)grpc_gcp_HandshakerResult_peer_identity(msg);
@@ -977,7 +945,7 @@ UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_HandshakerResult_mutable_peer_iden
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_local_identity(grpc_gcp_HandshakerResult *msg, grpc_gcp_Identity* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(36, 64), grpc_gcp_Identity*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(36, 64, 128), grpc_gcp_Identity*) = value;
 }
 UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_HandshakerResult_mutable_local_identity(grpc_gcp_HandshakerResult* msg, upb_Arena* arena) {
   struct grpc_gcp_Identity* sub = (struct grpc_gcp_Identity*)grpc_gcp_HandshakerResult_local_identity(msg);
@@ -989,11 +957,11 @@ UPB_INLINE struct grpc_gcp_Identity* grpc_gcp_HandshakerResult_mutable_local_ide
   return sub;
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_keep_channel_open(grpc_gcp_HandshakerResult *msg, bool value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(1, 1), bool) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(1, 1, 1), bool) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_peer_rpc_versions(grpc_gcp_HandshakerResult *msg, struct grpc_gcp_RpcProtocolVersions* value) {
   _upb_sethas(msg, 3);
-  *UPB_PTR_AT(msg, UPB_SIZE(40, 72), struct grpc_gcp_RpcProtocolVersions*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(40, 72, 144), struct grpc_gcp_RpcProtocolVersions*) = value;
 }
 UPB_INLINE struct grpc_gcp_RpcProtocolVersions* grpc_gcp_HandshakerResult_mutable_peer_rpc_versions(grpc_gcp_HandshakerResult* msg, upb_Arena* arena) {
   struct grpc_gcp_RpcProtocolVersions* sub = (struct grpc_gcp_RpcProtocolVersions*)grpc_gcp_HandshakerResult_peer_rpc_versions(msg);
@@ -1005,7 +973,7 @@ UPB_INLINE struct grpc_gcp_RpcProtocolVersions* grpc_gcp_HandshakerResult_mutabl
   return sub;
 }
 UPB_INLINE void grpc_gcp_HandshakerResult_set_max_frame_size(grpc_gcp_HandshakerResult *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = value;
 }
 
 /* grpc.gcp.HandshakerStatus */
@@ -1033,34 +1001,30 @@ UPB_INLINE grpc_gcp_HandshakerStatus* grpc_gcp_HandshakerStatus_parse_ex(const c
   return ret;
 }
 UPB_INLINE char* grpc_gcp_HandshakerStatus_serialize(const grpc_gcp_HandshakerStatus* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerStatus_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerStatus_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_HandshakerStatus_serialize_ex(const grpc_gcp_HandshakerStatus* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerStatus_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerStatus_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_HandshakerStatus_clear_code(const grpc_gcp_HandshakerStatus* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t) = 0;
 }
 UPB_INLINE uint32_t grpc_gcp_HandshakerStatus_code(const grpc_gcp_HandshakerStatus* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t);
 }
 UPB_INLINE void grpc_gcp_HandshakerStatus_clear_details(const grpc_gcp_HandshakerStatus* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_HandshakerStatus_details(const grpc_gcp_HandshakerStatus* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 
 UPB_INLINE void grpc_gcp_HandshakerStatus_set_code(grpc_gcp_HandshakerStatus *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerStatus_set_details(grpc_gcp_HandshakerStatus *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 
 /* grpc.gcp.HandshakerResp */
@@ -1088,56 +1052,52 @@ UPB_INLINE grpc_gcp_HandshakerResp* grpc_gcp_HandshakerResp_parse_ex(const char*
   return ret;
 }
 UPB_INLINE char* grpc_gcp_HandshakerResp_serialize(const grpc_gcp_HandshakerResp* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerResp_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerResp_msginit, 0, arena, len);
 }
 UPB_INLINE char* grpc_gcp_HandshakerResp_serialize_ex(const grpc_gcp_HandshakerResp* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &grpc_gcp_HandshakerResp_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &grpc_gcp_HandshakerResp_msginit, options, arena, len);
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_clear_out_frames(const grpc_gcp_HandshakerResp* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView grpc_gcp_HandshakerResp_out_frames(const grpc_gcp_HandshakerResp* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView);
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_clear_bytes_consumed(const grpc_gcp_HandshakerResp* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = 0;
 }
 UPB_INLINE uint32_t grpc_gcp_HandshakerResp_bytes_consumed(const grpc_gcp_HandshakerResp* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t);
 }
 UPB_INLINE bool grpc_gcp_HandshakerResp_has_result(const grpc_gcp_HandshakerResp* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_clear_result(const grpc_gcp_HandshakerResp* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_HandshakerResult* grpc_gcp_HandshakerResp_result(const grpc_gcp_HandshakerResp* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24), const grpc_gcp_HandshakerResult*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), const grpc_gcp_HandshakerResult*);
 }
 UPB_INLINE bool grpc_gcp_HandshakerResp_has_status(const grpc_gcp_HandshakerResp* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_clear_status(const grpc_gcp_HandshakerResp* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(20, 32), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(20, 32, 64), const upb_Message*) = NULL;
 }
 UPB_INLINE const grpc_gcp_HandshakerStatus* grpc_gcp_HandshakerResp_status(const grpc_gcp_HandshakerResp* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(20, 32), const grpc_gcp_HandshakerStatus*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(20, 32, 64), const grpc_gcp_HandshakerStatus*);
 }
 
 UPB_INLINE void grpc_gcp_HandshakerResp_set_out_frames(grpc_gcp_HandshakerResp *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_set_bytes_consumed(grpc_gcp_HandshakerResp *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = value;
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_set_result(grpc_gcp_HandshakerResp *msg, grpc_gcp_HandshakerResult* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), grpc_gcp_HandshakerResult*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 48), grpc_gcp_HandshakerResult*) = value;
 }
 UPB_INLINE struct grpc_gcp_HandshakerResult* grpc_gcp_HandshakerResp_mutable_result(grpc_gcp_HandshakerResp* msg, upb_Arena* arena) {
   struct grpc_gcp_HandshakerResult* sub = (struct grpc_gcp_HandshakerResult*)grpc_gcp_HandshakerResp_result(msg);
@@ -1150,7 +1110,7 @@ UPB_INLINE struct grpc_gcp_HandshakerResult* grpc_gcp_HandshakerResp_mutable_res
 }
 UPB_INLINE void grpc_gcp_HandshakerResp_set_status(grpc_gcp_HandshakerResp *msg, grpc_gcp_HandshakerStatus* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(20, 32), grpc_gcp_HandshakerStatus*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(20, 32, 64), grpc_gcp_HandshakerStatus*) = value;
 }
 UPB_INLINE struct grpc_gcp_HandshakerStatus* grpc_gcp_HandshakerResp_mutable_status(grpc_gcp_HandshakerResp* msg, upb_Arena* arena) {
   struct grpc_gcp_HandshakerStatus* sub = (struct grpc_gcp_HandshakerStatus*)grpc_gcp_HandshakerResp_status(msg);

@@ -60,53 +60,49 @@ UPB_INLINE envoy_config_trace_v3_XRayConfig* envoy_config_trace_v3_XRayConfig_pa
   return ret;
 }
 UPB_INLINE char* envoy_config_trace_v3_XRayConfig_serialize(const envoy_config_trace_v3_XRayConfig* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_msginit, 0, arena, len);
 }
 UPB_INLINE char* envoy_config_trace_v3_XRayConfig_serialize_ex(const envoy_config_trace_v3_XRayConfig* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_msginit, options, arena, len);
 }
 UPB_INLINE bool envoy_config_trace_v3_XRayConfig_has_daemon_endpoint(const envoy_config_trace_v3_XRayConfig* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_clear_daemon_endpoint(const envoy_config_trace_v3_XRayConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_config_core_v3_SocketAddress* envoy_config_trace_v3_XRayConfig_daemon_endpoint(const envoy_config_trace_v3_XRayConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct envoy_config_core_v3_SocketAddress*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct envoy_config_core_v3_SocketAddress*);
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_clear_segment_name(const envoy_config_trace_v3_XRayConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_trace_v3_XRayConfig_segment_name(const envoy_config_trace_v3_XRayConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView);
 }
 UPB_INLINE bool envoy_config_trace_v3_XRayConfig_has_sampling_rule_manifest(const envoy_config_trace_v3_XRayConfig* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_clear_sampling_rule_manifest(const envoy_config_trace_v3_XRayConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 32), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_config_core_v3_DataSource* envoy_config_trace_v3_XRayConfig_sampling_rule_manifest(const envoy_config_trace_v3_XRayConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 32), const struct envoy_config_core_v3_DataSource*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), const struct envoy_config_core_v3_DataSource*);
 }
 UPB_INLINE bool envoy_config_trace_v3_XRayConfig_has_segment_fields(const envoy_config_trace_v3_XRayConfig* msg) {
   return _upb_hasbit(msg, 3);
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_clear_segment_fields(const envoy_config_trace_v3_XRayConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(20, 40), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(20, 40, 80), const upb_Message*) = NULL;
 }
 UPB_INLINE const envoy_config_trace_v3_XRayConfig_SegmentFields* envoy_config_trace_v3_XRayConfig_segment_fields(const envoy_config_trace_v3_XRayConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(20, 40), const envoy_config_trace_v3_XRayConfig_SegmentFields*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(20, 40, 80), const envoy_config_trace_v3_XRayConfig_SegmentFields*);
 }
 
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_set_daemon_endpoint(envoy_config_trace_v3_XRayConfig *msg, struct envoy_config_core_v3_SocketAddress* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct envoy_config_core_v3_SocketAddress*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct envoy_config_core_v3_SocketAddress*) = value;
 }
 UPB_INLINE struct envoy_config_core_v3_SocketAddress* envoy_config_trace_v3_XRayConfig_mutable_daemon_endpoint(envoy_config_trace_v3_XRayConfig* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_SocketAddress* sub = (struct envoy_config_core_v3_SocketAddress*)envoy_config_trace_v3_XRayConfig_daemon_endpoint(msg);
@@ -118,11 +114,11 @@ UPB_INLINE struct envoy_config_core_v3_SocketAddress* envoy_config_trace_v3_XRay
   return sub;
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_set_segment_name(envoy_config_trace_v3_XRayConfig *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_set_sampling_rule_manifest(envoy_config_trace_v3_XRayConfig *msg, struct envoy_config_core_v3_DataSource* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 32), struct envoy_config_core_v3_DataSource*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), struct envoy_config_core_v3_DataSource*) = value;
 }
 UPB_INLINE struct envoy_config_core_v3_DataSource* envoy_config_trace_v3_XRayConfig_mutable_sampling_rule_manifest(envoy_config_trace_v3_XRayConfig* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_DataSource* sub = (struct envoy_config_core_v3_DataSource*)envoy_config_trace_v3_XRayConfig_sampling_rule_manifest(msg);
@@ -135,7 +131,7 @@ UPB_INLINE struct envoy_config_core_v3_DataSource* envoy_config_trace_v3_XRayCon
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_set_segment_fields(envoy_config_trace_v3_XRayConfig *msg, envoy_config_trace_v3_XRayConfig_SegmentFields* value) {
   _upb_sethas(msg, 3);
-  *UPB_PTR_AT(msg, UPB_SIZE(20, 40), envoy_config_trace_v3_XRayConfig_SegmentFields*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(20, 40, 80), envoy_config_trace_v3_XRayConfig_SegmentFields*) = value;
 }
 UPB_INLINE struct envoy_config_trace_v3_XRayConfig_SegmentFields* envoy_config_trace_v3_XRayConfig_mutable_segment_fields(envoy_config_trace_v3_XRayConfig* msg, upb_Arena* arena) {
   struct envoy_config_trace_v3_XRayConfig_SegmentFields* sub = (struct envoy_config_trace_v3_XRayConfig_SegmentFields*)envoy_config_trace_v3_XRayConfig_segment_fields(msg);
@@ -172,38 +168,34 @@ UPB_INLINE envoy_config_trace_v3_XRayConfig_SegmentFields* envoy_config_trace_v3
   return ret;
 }
 UPB_INLINE char* envoy_config_trace_v3_XRayConfig_SegmentFields_serialize(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_SegmentFields_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_SegmentFields_msginit, 0, arena, len);
 }
 UPB_INLINE char* envoy_config_trace_v3_XRayConfig_SegmentFields_serialize_ex(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_SegmentFields_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_trace_v3_XRayConfig_SegmentFields_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_SegmentFields_clear_origin(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_trace_v3_XRayConfig_SegmentFields_origin(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 UPB_INLINE bool envoy_config_trace_v3_XRayConfig_SegmentFields_has_aws(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_SegmentFields_clear_aws(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_Struct* envoy_config_trace_v3_XRayConfig_SegmentFields_aws(const envoy_config_trace_v3_XRayConfig_SegmentFields* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const struct google_protobuf_Struct*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const struct google_protobuf_Struct*);
 }
 
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_SegmentFields_set_origin(envoy_config_trace_v3_XRayConfig_SegmentFields *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_trace_v3_XRayConfig_SegmentFields_set_aws(envoy_config_trace_v3_XRayConfig_SegmentFields *msg, struct google_protobuf_Struct* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), struct google_protobuf_Struct*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), struct google_protobuf_Struct*) = value;
 }
 UPB_INLINE struct google_protobuf_Struct* envoy_config_trace_v3_XRayConfig_SegmentFields_mutable_aws(envoy_config_trace_v3_XRayConfig_SegmentFields* msg, upb_Arena* arena) {
   struct google_protobuf_Struct* sub = (struct google_protobuf_Struct*)envoy_config_trace_v3_XRayConfig_SegmentFields_aws(msg);

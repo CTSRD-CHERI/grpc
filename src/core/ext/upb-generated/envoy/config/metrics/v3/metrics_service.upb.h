@@ -55,50 +55,46 @@ UPB_INLINE envoy_config_metrics_v3_MetricsServiceConfig* envoy_config_metrics_v3
   return ret;
 }
 UPB_INLINE char* envoy_config_metrics_v3_MetricsServiceConfig_serialize(const envoy_config_metrics_v3_MetricsServiceConfig* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_metrics_v3_MetricsServiceConfig_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_metrics_v3_MetricsServiceConfig_msginit, 0, arena, len);
 }
 UPB_INLINE char* envoy_config_metrics_v3_MetricsServiceConfig_serialize_ex(const envoy_config_metrics_v3_MetricsServiceConfig* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_metrics_v3_MetricsServiceConfig_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_metrics_v3_MetricsServiceConfig_msginit, options, arena, len);
 }
 UPB_INLINE bool envoy_config_metrics_v3_MetricsServiceConfig_has_grpc_service(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_clear_grpc_service(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 16, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_config_core_v3_GrpcService* envoy_config_metrics_v3_MetricsServiceConfig_grpc_service(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(12, 16), const struct envoy_config_core_v3_GrpcService*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 16, 16), const struct envoy_config_core_v3_GrpcService*);
 }
 UPB_INLINE bool envoy_config_metrics_v3_MetricsServiceConfig_has_report_counters_as_deltas(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
   return _upb_hasbit(msg, 2);
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_clear_report_counters_as_deltas(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_BoolValue* envoy_config_metrics_v3_MetricsServiceConfig_report_counters_as_deltas(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24), const struct google_protobuf_BoolValue*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 32), const struct google_protobuf_BoolValue*);
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_clear_transport_api_version(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = 0;
 }
 UPB_INLINE int32_t envoy_config_metrics_v3_MetricsServiceConfig_transport_api_version(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t);
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_clear_emit_tags_as_labels(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), bool) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), bool) = 0;
 }
 UPB_INLINE bool envoy_config_metrics_v3_MetricsServiceConfig_emit_tags_as_labels(const envoy_config_metrics_v3_MetricsServiceConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), bool);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), bool);
 }
 
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_set_grpc_service(envoy_config_metrics_v3_MetricsServiceConfig *msg, struct envoy_config_core_v3_GrpcService* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 16), struct envoy_config_core_v3_GrpcService*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 16, 16), struct envoy_config_core_v3_GrpcService*) = value;
 }
 UPB_INLINE struct envoy_config_core_v3_GrpcService* envoy_config_metrics_v3_MetricsServiceConfig_mutable_grpc_service(envoy_config_metrics_v3_MetricsServiceConfig* msg, upb_Arena* arena) {
   struct envoy_config_core_v3_GrpcService* sub = (struct envoy_config_core_v3_GrpcService*)envoy_config_metrics_v3_MetricsServiceConfig_grpc_service(msg);
@@ -111,7 +107,7 @@ UPB_INLINE struct envoy_config_core_v3_GrpcService* envoy_config_metrics_v3_Metr
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_set_report_counters_as_deltas(envoy_config_metrics_v3_MetricsServiceConfig *msg, struct google_protobuf_BoolValue* value) {
   _upb_sethas(msg, 2);
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 24), struct google_protobuf_BoolValue*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 24, 32), struct google_protobuf_BoolValue*) = value;
 }
 UPB_INLINE struct google_protobuf_BoolValue* envoy_config_metrics_v3_MetricsServiceConfig_mutable_report_counters_as_deltas(envoy_config_metrics_v3_MetricsServiceConfig* msg, upb_Arena* arena) {
   struct google_protobuf_BoolValue* sub = (struct google_protobuf_BoolValue*)envoy_config_metrics_v3_MetricsServiceConfig_report_counters_as_deltas(msg);
@@ -123,10 +119,10 @@ UPB_INLINE struct google_protobuf_BoolValue* envoy_config_metrics_v3_MetricsServ
   return sub;
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_set_transport_api_version(envoy_config_metrics_v3_MetricsServiceConfig *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), int32_t) = value;
 }
 UPB_INLINE void envoy_config_metrics_v3_MetricsServiceConfig_set_emit_tags_as_labels(envoy_config_metrics_v3_MetricsServiceConfig *msg, bool value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), bool) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), bool) = value;
 }
 
 extern const upb_MiniTable_File envoy_config_metrics_v3_metrics_service_proto_upb_file_layout;

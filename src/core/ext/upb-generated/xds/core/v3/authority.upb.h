@@ -51,25 +51,21 @@ UPB_INLINE xds_core_v3_Authority* xds_core_v3_Authority_parse_ex(const char* buf
   return ret;
 }
 UPB_INLINE char* xds_core_v3_Authority_serialize(const xds_core_v3_Authority* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &xds_core_v3_Authority_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &xds_core_v3_Authority_msginit, 0, arena, len);
 }
 UPB_INLINE char* xds_core_v3_Authority_serialize_ex(const xds_core_v3_Authority* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &xds_core_v3_Authority_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &xds_core_v3_Authority_msginit, options, arena, len);
 }
 UPB_INLINE void xds_core_v3_Authority_clear_name(const xds_core_v3_Authority* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView xds_core_v3_Authority_name(const xds_core_v3_Authority* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void xds_core_v3_Authority_set_name(xds_core_v3_Authority *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 extern const upb_MiniTable_File xds_core_v3_authority_proto_upb_file_layout;

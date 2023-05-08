@@ -54,25 +54,21 @@ UPB_INLINE xds_annotations_v3_VersioningAnnotation* xds_annotations_v3_Versionin
   return ret;
 }
 UPB_INLINE char* xds_annotations_v3_VersioningAnnotation_serialize(const xds_annotations_v3_VersioningAnnotation* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &xds_annotations_v3_VersioningAnnotation_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &xds_annotations_v3_VersioningAnnotation_msginit, 0, arena, len);
 }
 UPB_INLINE char* xds_annotations_v3_VersioningAnnotation_serialize_ex(const xds_annotations_v3_VersioningAnnotation* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &xds_annotations_v3_VersioningAnnotation_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &xds_annotations_v3_VersioningAnnotation_msginit, options, arena, len);
 }
 UPB_INLINE void xds_annotations_v3_VersioningAnnotation_clear_previous_message_type(const xds_annotations_v3_VersioningAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView xds_annotations_v3_VersioningAnnotation_previous_message_type(const xds_annotations_v3_VersioningAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 
 UPB_INLINE void xds_annotations_v3_VersioningAnnotation_set_previous_message_type(xds_annotations_v3_VersioningAnnotation *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 
 UPB_INLINE bool xds_annotations_v3_has_versioning(const struct google_protobuf_MessageOptions* msg) {
@@ -88,7 +84,7 @@ UPB_INLINE const xds_annotations_v3_VersioningAnnotation* xds_annotations_v3_ver
 }
 UPB_INLINE void xds_annotations_v3_set_versioning(struct google_protobuf_MessageOptions* msg, const xds_annotations_v3_VersioningAnnotation* ext, upb_Arena* arena) {
   const upb_Message_Extension* msg_ext =
-      _upb_Message_GetOrCreateExtension(msg, &xds_annotations_v3_versioning_ext, arena);
+      _upb_Message_Getorcreateext(msg, &xds_annotations_v3_versioning_ext, arena);
   UPB_ASSERT(msg_ext);
   *UPB_PTR_AT(&msg_ext->data, 0, const xds_annotations_v3_VersioningAnnotation*) = ext;
 }

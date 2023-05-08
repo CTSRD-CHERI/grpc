@@ -53,38 +53,34 @@ UPB_INLINE envoy_config_trace_v3_DynamicOtConfig* envoy_config_trace_v3_DynamicO
   return ret;
 }
 UPB_INLINE char* envoy_config_trace_v3_DynamicOtConfig_serialize(const envoy_config_trace_v3_DynamicOtConfig* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_trace_v3_DynamicOtConfig_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_trace_v3_DynamicOtConfig_msginit, 0, arena, len);
 }
 UPB_INLINE char* envoy_config_trace_v3_DynamicOtConfig_serialize_ex(const envoy_config_trace_v3_DynamicOtConfig* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_config_trace_v3_DynamicOtConfig_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_config_trace_v3_DynamicOtConfig_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_config_trace_v3_DynamicOtConfig_clear_library(const envoy_config_trace_v3_DynamicOtConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_trace_v3_DynamicOtConfig_library(const envoy_config_trace_v3_DynamicOtConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 UPB_INLINE bool envoy_config_trace_v3_DynamicOtConfig_has_config(const envoy_config_trace_v3_DynamicOtConfig* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_config_trace_v3_DynamicOtConfig_clear_config(const envoy_config_trace_v3_DynamicOtConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_Struct* envoy_config_trace_v3_DynamicOtConfig_config(const envoy_config_trace_v3_DynamicOtConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const struct google_protobuf_Struct*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const struct google_protobuf_Struct*);
 }
 
 UPB_INLINE void envoy_config_trace_v3_DynamicOtConfig_set_library(envoy_config_trace_v3_DynamicOtConfig *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void envoy_config_trace_v3_DynamicOtConfig_set_config(envoy_config_trace_v3_DynamicOtConfig *msg, struct google_protobuf_Struct* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), struct google_protobuf_Struct*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), struct google_protobuf_Struct*) = value;
 }
 UPB_INLINE struct google_protobuf_Struct* envoy_config_trace_v3_DynamicOtConfig_mutable_config(envoy_config_trace_v3_DynamicOtConfig* msg, upb_Arena* arena) {
   struct google_protobuf_Struct* sub = (struct google_protobuf_Struct*)envoy_config_trace_v3_DynamicOtConfig_config(msg);

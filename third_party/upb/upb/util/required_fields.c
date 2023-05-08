@@ -32,7 +32,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include "upb/internal/vsnprintf_compat.h"
 #include "upb/reflection.h"
 
 // Must be last.
@@ -56,7 +55,7 @@ static void upb_FieldPath_Printf(upb_PrintfAppender* a, const char* fmt, ...) {
   va_list args;
 
   va_start(args, fmt);
-  n = _upb_vsnprintf(a->ptr, have, fmt, args);
+  n = vsnprintf(a->ptr, have, fmt, args);
   va_end(args);
 
   if (UPB_LIKELY(have > n)) {

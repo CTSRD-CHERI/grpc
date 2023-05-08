@@ -79,7 +79,6 @@ enum {
   kUpb_EncodedValue_FieldSeparator = '|',
   kUpb_EncodedValue_MinOneofField = ' ',
   kUpb_EncodedValue_MaxOneofField = 'b',
-  kUpb_EncodedValue_MaxEnumMask = 'A',
 };
 
 char upb_ToBase92(int8_t ch) {
@@ -125,31 +124,18 @@ bool upb_IsTypePackable(upb_FieldType type) {
 /** upb_MtDataEncoder *********************************************************/
 
 typedef struct {
-  uint64_t present_values_mask;
-  uint32_t last_written_value;
-} upb_MtDataEncoderInternal_EnumState;
-
-typedef struct {
-  uint64_t msg_modifiers;
+  char* buf_start;  // Only for checking kUpb_MtDataEncoder_MinSize.
+  uint64_t msg_mod;
   uint32_t last_field_num;
   enum {
     kUpb_OneofState_NotStarted,
     kUpb_OneofState_StartedOneof,
     kUpb_OneofState_EmittedOneofField,
   } oneof_state;
-} upb_MtDataEncoderInternal_MsgState;
-
-typedef struct {
-  char* buf_start;  // Only for checking kUpb_MtDataEncoder_MinSize.
-  union {
-    upb_MtDataEncoderInternal_EnumState enum_state;
-    upb_MtDataEncoderInternal_MsgState msg_state;
-  } state;
 } upb_MtDataEncoderInternal;
 
 static upb_MtDataEncoderInternal* upb_MtDataEncoder_GetInternal(
     upb_MtDataEncoder* e, char* buf_start) {
-  UPB_ASSERT(sizeof(upb_MtDataEncoderInternal) <= sizeof(e->internal));
   upb_MtDataEncoderInternal* ret = (upb_MtDataEncoderInternal*)e->internal;
   ret->buf_start = buf_start;
   return ret;
@@ -190,9 +176,9 @@ char* upb_MtDataEncoder_PutModifier(upb_MtDataEncoder* e, char* ptr,
 char* upb_MtDataEncoder_StartMessage(upb_MtDataEncoder* e, char* ptr,
                                      uint64_t msg_mod) {
   upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, ptr);
-  in->state.msg_state.msg_modifiers = msg_mod;
-  in->state.msg_state.last_field_num = 0;
-  in->state.msg_state.oneof_state = kUpb_OneofState_NotStarted;
+  in->msg_mod = msg_mod;
+  in->last_field_num = 0;
+  in->oneof_state = kUpb_OneofState_NotStarted;
   return upb_MtDataEncoder_PutModifier(e, ptr, msg_mod);
 }
 
@@ -221,16 +207,16 @@ char* upb_MtDataEncoder_PutField(upb_MtDataEncoder* e, char* ptr,
   };
 
   upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, ptr);
-  if (field_num <= in->state.msg_state.last_field_num) return NULL;
-  if (in->state.msg_state.last_field_num + 1 != field_num) {
+  if (field_num <= in->last_field_num) return NULL;
+  if (in->last_field_num + 1 != field_num) {
     // Put skip.
-    UPB_ASSERT(field_num > in->state.msg_state.last_field_num);
-    uint32_t skip = field_num - in->state.msg_state.last_field_num;
+    UPB_ASSERT(field_num > in->last_field_num);
+    uint32_t skip = field_num - in->last_field_num;
     ptr = upb_MtDataEncoder_PutBase92Varint(
         e, ptr, skip, kUpb_EncodedValue_MinSkip, kUpb_EncodedValue_MaxSkip);
     if (!ptr) return NULL;
   }
-  in->state.msg_state.last_field_num = field_num;
+  in->last_field_num = field_num;
 
   uint32_t encoded_modifiers = 0;
 
@@ -248,8 +234,8 @@ char* upb_MtDataEncoder_PutField(upb_MtDataEncoder* e, char* ptr,
 
     if (upb_IsTypePackable(type)) {
       bool field_is_packed = field_mod & kUpb_FieldModifier_IsPacked;
-      bool default_is_packed = in->state.msg_state.msg_modifiers &
-                               kUpb_MessageModifier_DefaultIsPacked;
+      bool default_is_packed =
+          in->msg_mod & kUpb_MessageModifier_DefaultIsPacked;
       if (field_is_packed != default_is_packed) {
         encoded_modifiers |= kUpb_EncodedFieldModifier_FlipPacked;
       }
@@ -269,75 +255,28 @@ char* upb_MtDataEncoder_PutField(upb_MtDataEncoder* e, char* ptr,
 
 char* upb_MtDataEncoder_StartOneof(upb_MtDataEncoder* e, char* ptr) {
   upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, ptr);
-  if (in->state.msg_state.oneof_state == kUpb_OneofState_NotStarted) {
+  if (in->oneof_state == kUpb_OneofState_NotStarted) {
     ptr = upb_MtDataEncoder_Put(e, ptr, upb_FromBase92(kUpb_EncodedValue_End));
   } else {
     ptr = upb_MtDataEncoder_Put(
         e, ptr, upb_FromBase92(kUpb_EncodedValue_OneofSeparator));
   }
-  in->state.msg_state.oneof_state = kUpb_OneofState_StartedOneof;
+  in->oneof_state = kUpb_OneofState_StartedOneof;
   return ptr;
 }
 
 char* upb_MtDataEncoder_PutOneofField(upb_MtDataEncoder* e, char* ptr,
                                       uint32_t field_num) {
   upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, ptr);
-  if (in->state.msg_state.oneof_state == kUpb_OneofState_EmittedOneofField) {
+  if (in->oneof_state == kUpb_OneofState_EmittedOneofField) {
     ptr = upb_MtDataEncoder_Put(
         e, ptr, upb_FromBase92(kUpb_EncodedValue_FieldSeparator));
     if (!ptr) return NULL;
   }
   ptr = upb_MtDataEncoder_PutBase92Varint(e, ptr, field_num, upb_ToBase92(0),
                                           upb_ToBase92(63));
-  in->state.msg_state.oneof_state = kUpb_OneofState_EmittedOneofField;
+  in->oneof_state = kUpb_OneofState_EmittedOneofField;
   return ptr;
-}
-
-void upb_MtDataEncoder_StartEnum(upb_MtDataEncoder* e) {
-  upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, NULL);
-  in->state.enum_state.present_values_mask = 0;
-  in->state.enum_state.last_written_value = 0;
-}
-
-static char* upb_MtDataEncoder_FlushDenseEnumMask(upb_MtDataEncoder* e,
-                                                  char* ptr) {
-  upb_MtDataEncoderInternal* in = (upb_MtDataEncoderInternal*)e->internal;
-  ptr = upb_MtDataEncoder_Put(e, ptr, in->state.enum_state.present_values_mask);
-  in->state.enum_state.present_values_mask = 0;
-  in->state.enum_state.last_written_value += 5;
-  return ptr;
-}
-
-char* upb_MtDataEncoder_PutEnumValue(upb_MtDataEncoder* e, char* ptr,
-                                     uint32_t val) {
-  // TODO(b/229641772): optimize this encoding.
-  upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, ptr);
-  UPB_ASSERT(val >= in->state.enum_state.last_written_value);
-  uint32_t delta = val - in->state.enum_state.last_written_value;
-  if (delta >= 5 && in->state.enum_state.present_values_mask) {
-    ptr = upb_MtDataEncoder_FlushDenseEnumMask(e, ptr);
-    if (!ptr) {
-      return NULL;
-    }
-    delta -= 5;
-  }
-
-  if (delta >= 5) {
-    ptr = upb_MtDataEncoder_PutBase92Varint(
-        e, ptr, delta, kUpb_EncodedValue_MinSkip, kUpb_EncodedValue_MaxSkip);
-    in->state.enum_state.last_written_value += delta;
-    delta = 0;
-  }
-
-  UPB_ASSERT((in->state.enum_state.present_values_mask >> delta) == 0);
-  in->state.enum_state.present_values_mask |= 1ULL << delta;
-  return ptr;
-}
-
-char* upb_MtDataEncoder_EndEnum(upb_MtDataEncoder* e, char* ptr) {
-  upb_MtDataEncoderInternal* in = upb_MtDataEncoder_GetInternal(e, ptr);
-  if (!in->state.enum_state.present_values_mask) return ptr;
-  return upb_MtDataEncoder_FlushDenseEnumMask(e, ptr);
 }
 
 const upb_MiniTable_Field* upb_MiniTable_FindFieldByNumber(
@@ -428,7 +367,7 @@ static const char* upb_MiniTable_DecodeBase92Varint(upb_MtDecoder* d,
   char ch = first_ch;
   while (1) {
     uint32_t bits = upb_FromBase92(ch) - upb_FromBase92(min);
-    UPB_ASSERT(shift < 32);
+    UPB_ASSERT(shift < 32 - bits_per_char);
     val |= bits << shift;
     if (ptr == d->end || *ptr < min || max < *ptr) {
       *out_val = val;
@@ -616,10 +555,28 @@ size_t upb_MtDecoder_SizeOfRep(upb_FieldRep rep,
       [kUpb_FieldRep_Pointer] = 8, [kUpb_FieldRep_StringView] = 16,
       [kUpb_FieldRep_8Byte] = 8,
   };
+#if defined(UPB_CHERI_SUPPORT)
+  static const uint8_t kRepToSizeCheri[] = {
+      [kUpb_FieldRep_1Byte] = 1,    [kUpb_FieldRep_4Byte] = 4,
+      [kUpb_FieldRep_Pointer] = 16, [kUpb_FieldRep_StringView] = 32,
+      [kUpb_FieldRep_8Byte] = 8,
+  };
+  UPB_ASSERT(sizeof(upb_StringView) ==
+             UPB_SIZE(kRepToSize32, kRepToSize64,
+                      kRepToSizeCheri)[kUpb_FieldRep_StringView]);
+  if (platform == kUpb_MiniTablePlatform_32Bit) {
+    return kRepToSize32[rep];
+  } else if (platform == kUpb_MiniTablePlatform_cheri) {
+    return kRepToSizeCheri[rep];
+  } else {
+    return kRepToSize64[rep];
+  }
+#else
   UPB_ASSERT(sizeof(upb_StringView) ==
              UPB_SIZE(kRepToSize32, kRepToSize64)[kUpb_FieldRep_StringView]);
   return platform == kUpb_MiniTablePlatform_32Bit ? kRepToSize32[rep]
                                                   : kRepToSize64[rep];
+#endif
 }
 
 size_t upb_MtDecoder_AlignOfRep(upb_FieldRep rep,
@@ -634,10 +591,28 @@ size_t upb_MtDecoder_AlignOfRep(upb_FieldRep rep,
       [kUpb_FieldRep_Pointer] = 8, [kUpb_FieldRep_StringView] = 8,
       [kUpb_FieldRep_8Byte] = 8,
   };
+#if defined(UPB_CHERI_SUPPORT)
+  static const uint8_t kRepToAlignCheri[] = {
+      [kUpb_FieldRep_1Byte] = 1,    [kUpb_FieldRep_4Byte] = 4,
+      [kUpb_FieldRep_Pointer] = 16, [kUpb_FieldRep_StringView] = 16,
+      [kUpb_FieldRep_8Byte] = 8,
+  };
+  UPB_ASSERT(UPB_ALIGN_OF(upb_StringView) ==
+             UPB_SIZE(kRepToAlign32, kRepToAlign64,
+                      kRepToAlignCheri)[kUpb_FieldRep_StringView]);
+  if (platform == kUpb_MiniTablePlatform_32Bit) {
+    return kRepToAlign32[rep];
+  } else if (platform == kUpb_MiniTablePlatform_cheri) {
+    return kRepToAlignCheri[rep];
+  } else {
+    return kRepToAlign64[rep];
+  }
+#else
   UPB_ASSERT(UPB_ALIGN_OF(upb_StringView) ==
              UPB_SIZE(kRepToAlign32, kRepToAlign64)[kUpb_FieldRep_StringView]);
   return platform == kUpb_MiniTablePlatform_32Bit ? kRepToAlign32[rep]
                                                   : kRepToAlign64[rep];
+#endif
 }
 
 static const char* upb_MtDecoder_DecodeOneofField(upb_MtDecoder* d,
@@ -750,9 +725,6 @@ static void upb_MtDecoder_Parse(upb_MtDecoder* d, const char* ptr, size_t len,
     } else if (kUpb_EncodedValue_MinModifier <= ch &&
                ch <= kUpb_EncodedValue_MaxModifier) {
       ptr = upb_MtDecoder_ParseModifier(d, ptr, ch, last_field, &msg_modifiers);
-      if (msg_modifiers & kUpb_MessageModifier_IsExtendable) {
-        d->table->ext |= kUpb_ExtMode_Extendable;
-      }
     } else if (ch == kUpb_EncodedValue_End) {
       if (!d->table) {
         upb_MtDecoder_ErrorFormat(d, "Extensions cannot have oneofs.");
@@ -918,12 +890,18 @@ static void upb_MtDecoder_AssignOffsets(upb_MtDecoder* d) {
     }
   }
 
-  // The fasttable parser (supported on 64-bit only) depends on this being a
-  // multiple of 8 in order to satisfy UPB_MALLOC_ALIGN, which is also 8.
-  //
-  // On 32-bit we could potentially make this smaller, but there is no
-  // compelling reason to optimize this right now.
-  d->table->size = UPB_ALIGN_UP(d->table->size, 8);
+  if (d->platform == kUpb_MiniTablePlatform_64Bit) {
+    // For compatibility with fast table parsing, we have to align this up to a
+    // multiple of 16 + 8.  This is because arena alloc size must be a multiple
+    // of 16, but we will add sizeof(upb_Message_Internal) at runtime, as the
+    // table size does not include this value.
+    //
+    // This is a bit convoluted and should probably be simplified.
+    d->table->size = UPB_ALIGN_UP(d->table->size, 8);
+    if (UPB_ALIGN_UP(d->table->size, 16) == d->table->size) {
+      d->table->size += 8;
+    }
+  }
 }
 
 upb_MiniTable* upb_MiniTable_BuildWithBuf(const char* data, size_t len,
@@ -1026,67 +1004,48 @@ upb_MiniTable* upb_MiniTable_BuildMapEntry(upb_FieldType key_type,
   return ret;
 }
 
-static bool upb_MiniTable_BuildEnumValue(upb_MtDecoder* d,
-                                         upb_MiniTable_Enum* table,
-                                         uint32_t val, upb_Arena* arena) {
-  if (val < 64) {
-    table->mask |= 1ULL << val;
-    return true;
-  }
-
-  int32_t* values = (void*)table->values;
-  values = upb_Arena_Realloc(arena, values, table->value_count * 4,
-                             (table->value_count + 1) * 4);
-  upb_MtDecoder_CheckOutOfMemory(d, values);
-  values[table->value_count++] = (int32_t)val;
-  table->values = values;
-  return true;
-}
-
 upb_MiniTable_Enum* upb_MiniTable_BuildEnum(const char* data, size_t len,
                                             upb_Arena* arena,
                                             upb_Status* status) {
-  upb_MtDecoder d = {
+  upb_MtDecoder decoder = {
       .status = status,
-      .end = UPB_PTRADD(data, len),
   };
 
-  if (UPB_SETJMP(d.err)) {
+  if (UPB_SETJMP(decoder.err)) {
     return NULL;
   }
 
   upb_MiniTable_Enum* table = upb_Arena_Malloc(arena, sizeof(*table));
-  upb_MtDecoder_CheckOutOfMemory(&d, table);
+  upb_MtDecoder_CheckOutOfMemory(&decoder, table);
 
   table->mask = 0;
   table->value_count = 0;
   table->values = NULL;
 
   const char* ptr = data;
-  uint32_t base = 0;
+  const char* end = UPB_PTRADD(data, len);
 
-  while (ptr < d.end) {
-    char ch = *ptr++;
-    if (ch <= kUpb_EncodedValue_MaxEnumMask) {
-      uint32_t mask = upb_FromBase92(ch);
-      for (int i = 0; i < 5; i++, base++, mask >>= 1) {
-        if (mask & 1) {
-          if (!upb_MiniTable_BuildEnumValue(&d, table, base, arena)) {
-            return NULL;
-          }
-        }
-      }
-    } else if (kUpb_EncodedValue_MinSkip <= ch &&
-               ch <= kUpb_EncodedValue_MaxSkip) {
-      uint32_t skip;
-      ptr = upb_MiniTable_DecodeBase92Varint(&d, ptr, ch,
-                                             kUpb_EncodedValue_MinSkip,
-                                             kUpb_EncodedValue_MaxSkip, &skip);
-      base += skip;
-    } else {
-      upb_Status_SetErrorFormat(status, "Unexpected character: %c", ch);
-      return NULL;
+  // Currently we do minimal validation of invariants (eg. that values are in
+  // order).  We may want to add these, but more likely, we will want the format
+  // to be a more compact variation where these errors are not possible.
+  while (end - ptr >= 4) {
+    uint32_t val;
+    memcpy(&val, ptr, 4);
+    if (val >= 64) break;
+    table->mask |= 1ULL << val;
+    ptr += 4;
+  }
+
+  if (ptr != end) {
+    size_t bytes = end - ptr;
+    if (bytes % 4 != 0) {
+      upb_MtDecoder_ErrorFormat(&decoder, "Bytes should be a multiple of 4");
+      UPB_UNREACHABLE();
     }
+    table->values = upb_Arena_Malloc(arena, end - ptr);
+    upb_MtDecoder_CheckOutOfMemory(&decoder, table);
+    memcpy((void*)table->values, ptr, end - ptr);
+    table->value_count = bytes / 4;
   }
 
   return table;

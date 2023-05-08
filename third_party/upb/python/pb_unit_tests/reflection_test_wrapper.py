@@ -23,23 +23,25 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from google.protobuf.internal.reflection_test import *
+from google.protobuf.internal import reflection_test
 import unittest
 
 # These tests depend on a specific iteration order for extensions, which is not
 # reasonable to guarantee.
-Proto2ReflectionTest.testExtensionIter.__unittest_expecting_failure__ = True
+reflection_test.Proto2ReflectionTest.testExtensionIter.__unittest_expecting_failure__ = True
 
 # These tests depend on a specific serialization order for extensions, which is
 # not reasonable to guarantee.
-SerializationTest.testCanonicalSerializationOrder.__unittest_expecting_failure__ = True
-SerializationTest.testCanonicalSerializationOrderSameAsCpp.__unittest_expecting_failure__ = True
+reflection_test.SerializationTest.testCanonicalSerializationOrder.__unittest_expecting_failure__ = True
+reflection_test.SerializationTest.testCanonicalSerializationOrderSameAsCpp.__unittest_expecting_failure__ = True
 
 # This test relies on the internal implementation using Python descriptors.
 # This is an implementation detail that users should not depend on.
-SerializationTest.testFieldDataDescriptor.__unittest_expecting_failure__ = True
+reflection_test.SerializationTest.testFieldDataDescriptor.__unittest_expecting_failure__ = True
 
-SerializationTest.testFieldProperties.__unittest_expecting_failure__ = True
+reflection_test.ReflectionTest.testDeepCopy_proto2.__unittest_expecting_failure__ = True
+reflection_test.ReflectionTest.testDeepCopy_proto3.__unittest_expecting_failure__ = True
+reflection_test.SerializationTest.testFieldProperties.__unittest_expecting_failure__ = True
 
 if __name__ == '__main__':
-  unittest.main(verbosity=2)
+  unittest.main(module=reflection_test, verbosity=2)

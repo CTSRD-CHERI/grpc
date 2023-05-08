@@ -54,34 +54,30 @@ UPB_INLINE udpa_annotations_FieldSecurityAnnotation* udpa_annotations_FieldSecur
   return ret;
 }
 UPB_INLINE char* udpa_annotations_FieldSecurityAnnotation_serialize(const udpa_annotations_FieldSecurityAnnotation* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &udpa_annotations_FieldSecurityAnnotation_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &udpa_annotations_FieldSecurityAnnotation_msginit, 0, arena, len);
 }
 UPB_INLINE char* udpa_annotations_FieldSecurityAnnotation_serialize_ex(const udpa_annotations_FieldSecurityAnnotation* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &udpa_annotations_FieldSecurityAnnotation_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &udpa_annotations_FieldSecurityAnnotation_msginit, options, arena, len);
 }
 UPB_INLINE void udpa_annotations_FieldSecurityAnnotation_clear_configure_for_untrusted_downstream(const udpa_annotations_FieldSecurityAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool) = 0;
 }
 UPB_INLINE bool udpa_annotations_FieldSecurityAnnotation_configure_for_untrusted_downstream(const udpa_annotations_FieldSecurityAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool);
 }
 UPB_INLINE void udpa_annotations_FieldSecurityAnnotation_clear_configure_for_untrusted_upstream(const udpa_annotations_FieldSecurityAnnotation* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(1, 1), bool) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(1, 1, 1), bool) = 0;
 }
 UPB_INLINE bool udpa_annotations_FieldSecurityAnnotation_configure_for_untrusted_upstream(const udpa_annotations_FieldSecurityAnnotation* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(1, 1), bool);
+  return *UPB_PTR_AT(msg, UPB_SIZE(1, 1, 1), bool);
 }
 
 UPB_INLINE void udpa_annotations_FieldSecurityAnnotation_set_configure_for_untrusted_downstream(udpa_annotations_FieldSecurityAnnotation *msg, bool value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), bool) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), bool) = value;
 }
 UPB_INLINE void udpa_annotations_FieldSecurityAnnotation_set_configure_for_untrusted_upstream(udpa_annotations_FieldSecurityAnnotation *msg, bool value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(1, 1), bool) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(1, 1, 1), bool) = value;
 }
 
 UPB_INLINE bool udpa_annotations_has_security(const struct google_protobuf_FieldOptions* msg) {
@@ -97,7 +93,7 @@ UPB_INLINE const udpa_annotations_FieldSecurityAnnotation* udpa_annotations_secu
 }
 UPB_INLINE void udpa_annotations_set_security(struct google_protobuf_FieldOptions* msg, const udpa_annotations_FieldSecurityAnnotation* ext, upb_Arena* arena) {
   const upb_Message_Extension* msg_ext =
-      _upb_Message_GetOrCreateExtension(msg, &udpa_annotations_security_ext, arena);
+      _upb_Message_Getorcreateext(msg, &udpa_annotations_security_ext, arena);
   UPB_ASSERT(msg_ext);
   *UPB_PTR_AT(&msg_ext->data, 0, const udpa_annotations_FieldSecurityAnnotation*) = ext;
 }

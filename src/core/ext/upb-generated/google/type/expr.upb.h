@@ -51,52 +51,48 @@ UPB_INLINE google_type_Expr* google_type_Expr_parse_ex(const char* buf, size_t s
   return ret;
 }
 UPB_INLINE char* google_type_Expr_serialize(const google_type_Expr* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &google_type_Expr_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &google_type_Expr_msginit, 0, arena, len);
 }
 UPB_INLINE char* google_type_Expr_serialize_ex(const google_type_Expr* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &google_type_Expr_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &google_type_Expr_msginit, options, arena, len);
 }
 UPB_INLINE void google_type_Expr_clear_expression(const google_type_Expr* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView google_type_Expr_expression(const google_type_Expr* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 UPB_INLINE void google_type_Expr_clear_title(const google_type_Expr* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView google_type_Expr_title(const google_type_Expr* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView);
 }
 UPB_INLINE void google_type_Expr_clear_description(const google_type_Expr* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 32), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView google_type_Expr_description(const google_type_Expr* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(16, 32), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), upb_StringView);
 }
 UPB_INLINE void google_type_Expr_clear_location(const google_type_Expr* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 48), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 48, 96), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView google_type_Expr_location(const google_type_Expr* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(24, 48), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(24, 48, 96), upb_StringView);
 }
 
 UPB_INLINE void google_type_Expr_set_expression(google_type_Expr *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 UPB_INLINE void google_type_Expr_set_title(google_type_Expr *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView) = value;
 }
 UPB_INLINE void google_type_Expr_set_description(google_type_Expr *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(16, 32), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(16, 32, 64), upb_StringView) = value;
 }
 UPB_INLINE void google_type_Expr_set_location(google_type_Expr *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(24, 48), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(24, 48, 96), upb_StringView) = value;
 }
 
 extern const upb_MiniTable_File google_type_expr_proto_upb_file_layout;

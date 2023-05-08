@@ -17,7 +17,7 @@
 extern const upb_MiniTable google_api_HttpRule_msginit;
 extern const upb_MiniTable google_protobuf_MethodOptions_msginit;
 const upb_MiniTable_Extension google_api_http_ext = {
-  {72295728, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Scalar | kUpb_LabelFlags_IsExtension | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {72295728, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Scalar | kUpb_LabelFlags_IsExtension | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
   &google_protobuf_MethodOptions_msginit,
   {.submsg = &google_api_HttpRule_msginit},
 

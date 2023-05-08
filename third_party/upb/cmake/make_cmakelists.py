@@ -192,9 +192,6 @@ class BuildFileFunctions(object):
   def map_dep(self, arg):
     return arg
 
-  def package_group(self, **kwargs):
-    pass
-
 
 class WorkspaceFileFunctions(object):
   def __init__(self, converter):
@@ -235,12 +232,6 @@ class WorkspaceFileFunctions(object):
     pass
 
   def register_toolchains(self, toolchain):
-    pass
-
-  def python_source_archive(self, **kwargs):
-    pass
-
-  def python_nuget_package(self, **kwargs):
     pass
 
 

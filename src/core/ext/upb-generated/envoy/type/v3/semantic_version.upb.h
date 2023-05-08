@@ -51,43 +51,39 @@ UPB_INLINE envoy_type_v3_SemanticVersion* envoy_type_v3_SemanticVersion_parse_ex
   return ret;
 }
 UPB_INLINE char* envoy_type_v3_SemanticVersion_serialize(const envoy_type_v3_SemanticVersion* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_type_v3_SemanticVersion_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_type_v3_SemanticVersion_msginit, 0, arena, len);
 }
 UPB_INLINE char* envoy_type_v3_SemanticVersion_serialize_ex(const envoy_type_v3_SemanticVersion* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_type_v3_SemanticVersion_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_type_v3_SemanticVersion_msginit, options, arena, len);
 }
 UPB_INLINE void envoy_type_v3_SemanticVersion_clear_major_number(const envoy_type_v3_SemanticVersion* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t) = 0;
 }
 UPB_INLINE uint32_t envoy_type_v3_SemanticVersion_major_number(const envoy_type_v3_SemanticVersion* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t);
 }
 UPB_INLINE void envoy_type_v3_SemanticVersion_clear_minor_number(const envoy_type_v3_SemanticVersion* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = 0;
 }
 UPB_INLINE uint32_t envoy_type_v3_SemanticVersion_minor_number(const envoy_type_v3_SemanticVersion* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t);
 }
 UPB_INLINE void envoy_type_v3_SemanticVersion_clear_patch(const envoy_type_v3_SemanticVersion* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint32_t) = 0;
 }
 UPB_INLINE uint32_t envoy_type_v3_SemanticVersion_patch(const envoy_type_v3_SemanticVersion* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint32_t);
 }
 
 UPB_INLINE void envoy_type_v3_SemanticVersion_set_major_number(envoy_type_v3_SemanticVersion *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t) = value;
 }
 UPB_INLINE void envoy_type_v3_SemanticVersion_set_minor_number(envoy_type_v3_SemanticVersion *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 4), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = value;
 }
 UPB_INLINE void envoy_type_v3_SemanticVersion_set_patch(envoy_type_v3_SemanticVersion *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint32_t) = value;
 }
 
 extern const upb_MiniTable_File envoy_type_v3_semantic_version_proto_upb_file_layout;

@@ -53,29 +53,25 @@ UPB_INLINE envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality*
   return ret;
 }
 UPB_INLINE char* envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_serialize(const envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_msginit, 0, arena, len);
 }
 UPB_INLINE char* envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_serialize_ex(const envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_msginit, options, arena, len);
 }
 UPB_INLINE bool envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_has_endpoint_picking_policy(const envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_clear_endpoint_picking_policy(const envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_config_cluster_v3_LoadBalancingPolicy* envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_endpoint_picking_policy(const envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct envoy_config_cluster_v3_LoadBalancingPolicy*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct envoy_config_cluster_v3_LoadBalancingPolicy*);
 }
 
 UPB_INLINE void envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_set_endpoint_picking_policy(envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality *msg, struct envoy_config_cluster_v3_LoadBalancingPolicy* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct envoy_config_cluster_v3_LoadBalancingPolicy*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct envoy_config_cluster_v3_LoadBalancingPolicy*) = value;
 }
 UPB_INLINE struct envoy_config_cluster_v3_LoadBalancingPolicy* envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_mutable_endpoint_picking_policy(envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality* msg, upb_Arena* arena) {
   struct envoy_config_cluster_v3_LoadBalancingPolicy* sub = (struct envoy_config_cluster_v3_LoadBalancingPolicy*)envoy_extensions_load_balancing_policies_wrr_locality_v3_WrrLocality_endpoint_picking_policy(msg);

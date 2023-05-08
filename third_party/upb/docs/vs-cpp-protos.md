@@ -1,4 +1,3 @@
-<?% config.freshness.reviewed = '2022-04-12' %?>
 
 # upb vs. C++ Protobuf Design
 

@@ -39,9 +39,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "upb/extension_registry.h"
-#include "upb/internal/table.h"
 #include "upb/msg.h"
+#include "upb/table_internal.h"
 #include "upb/upb.h"
 
 /* Must be last. */
@@ -140,6 +139,18 @@ typedef struct {
   int value_count;
 } upb_MiniTable_Enum;
 
+UPB_INLINE bool upb_MiniTable_Enum_CheckValue(const upb_MiniTable_Enum* e,
+                                              int32_t val) {
+  uint32_t uval = (uint32_t)val;
+  if (uval < 64) return e->mask & (1 << uval);
+  // OPT: binary search long lists?
+  int n = e->value_count;
+  for (int i = 0; i < n; i++) {
+    if (e->values[i] == val) return true;
+  }
+  return false;
+}
+
 typedef union {
   const struct upb_MiniTable* submsg;
   const upb_MiniTable_Enum* subenum;
@@ -161,7 +172,7 @@ typedef enum {
  *   message MessageSet {
  *     repeated group Item = 1 {
  *       required int32 type_id = 2;
- *       required bytes message = 3;
+ *       required string message = 3;
  *     }
  *   }
  */
@@ -276,7 +287,7 @@ UPB_INLINE size_t upb_msg_sizeof(const upb_MiniTable* l) {
 UPB_INLINE upb_Message* _upb_Message_New_inl(const upb_MiniTable* l,
                                              upb_Arena* a) {
   size_t size = upb_msg_sizeof(l);
-  void* mem = upb_Arena_Malloc(a, size + sizeof(upb_Message_Internal));
+  void* mem = upb_Arena_Malloc(a, size);
   upb_Message* msg;
   if (UPB_UNLIKELY(!mem)) return NULL;
   msg = UPB_PTR_AT(mem, sizeof(upb_Message_Internal), upb_Message);
@@ -325,7 +336,7 @@ typedef struct {
 /* Adds the given extension data to the given message. |ext| is copied into the
  * message instance. This logically replaces any previously-added extension with
  * this number */
-upb_Message_Extension* _upb_Message_GetOrCreateExtension(
+upb_Message_Extension* _upb_Message_Getorcreateext(
     upb_Message* msg, const upb_MiniTable_Extension* ext, upb_Arena* arena);
 
 /* Returns an array of extensions for this message. Note: the array is
@@ -418,12 +429,20 @@ typedef struct {
 } upb_Array;
 
 UPB_INLINE const void* _upb_array_constptr(const upb_Array* arr) {
+#if defined(UPB_CHERI_SUPPORT)
+  UPB_ASSERT((arr->data & 7) <= 5);
+#else
   UPB_ASSERT((arr->data & 7) <= 4);
+#endif
   return (void*)(arr->data & ~(uintptr_t)7);
 }
 
 UPB_INLINE uintptr_t _upb_array_tagptr(void* ptr, int elem_size_lg2) {
+#if defined(UPB_CHERI_SUPPORT)
+  UPB_ASSERT(elem_size_lg2 <= 5);
+#else
   UPB_ASSERT(elem_size_lg2 <= 4);
+#endif
   return (uintptr_t)ptr | elem_size_lg2;
 }
 
@@ -432,14 +451,22 @@ UPB_INLINE void* _upb_array_ptr(upb_Array* arr) {
 }
 
 UPB_INLINE uintptr_t _upb_tag_arrptr(void* ptr, int elem_size_lg2) {
+#if defined(UPB_CHERI_SUPPORT)
+  UPB_ASSERT(elem_size_lg2 <= 5);
+#else
   UPB_ASSERT(elem_size_lg2 <= 4);
+#endif
   UPB_ASSERT(((uintptr_t)ptr & 7) == 0);
   return (uintptr_t)ptr | (unsigned)elem_size_lg2;
 }
 
 UPB_INLINE upb_Array* _upb_Array_New(upb_Arena* a, size_t init_size,
                                      int elem_size_lg2) {
+#if defined(UPB_CHERI_SUPPORT)
+  const size_t arr_size = UPB_ALIGN_UP(sizeof(upb_Array), 16);
+#else
   const size_t arr_size = UPB_ALIGN_UP(sizeof(upb_Array), 8);
+#endif
   const size_t bytes = sizeof(upb_Array) + (init_size << elem_size_lg2);
   upb_Array* arr = (upb_Array*)upb_Arena_Malloc(a, bytes);
   if (!arr) return NULL;
@@ -539,14 +566,22 @@ UPB_INLINE int _upb_sizelg2(upb_CType type) {
     case kUpb_CType_Enum:
       return 2;
     case kUpb_CType_Message:
+#if defined(UPB_CHERI_SUPPORT)
+      return UPB_SIZE(2, 3, 4);
+#else
       return UPB_SIZE(2, 3);
+#endif
     case kUpb_CType_Double:
     case kUpb_CType_Int64:
     case kUpb_CType_UInt64:
       return 3;
     case kUpb_CType_String:
     case kUpb_CType_Bytes:
+#if defined(UPB_CHERI_SUPPORT)
+      return UPB_SIZE(3, 4, 5);
+#else
       return UPB_SIZE(3, 4);
+#endif
   }
   UPB_UNREACHABLE();
 }
@@ -668,31 +703,15 @@ UPB_INLINE void* _upb_map_next(const upb_Map* map, size_t* iter) {
   return (void*)str_tabent(&it);
 }
 
-typedef enum {
-  // LINT.IfChange
-  _kUpb_MapInsertStatus_Inserted = 0,
-  _kUpb_MapInsertStatus_Replaced = 1,
-  _kUpb_MapInsertStatus_OutOfMemory = 2,
-  // LINT.ThenChange(//depot/google3/third_party/upb/upb/map.h)
-} _upb_MapInsertStatus;
-
-UPB_INLINE _upb_MapInsertStatus _upb_Map_Insert(upb_Map* map, const void* key,
-                                                size_t key_size, void* val,
-                                                size_t val_size, upb_Arena* a) {
+UPB_INLINE bool _upb_Map_Set(upb_Map* map, const void* key, size_t key_size,
+                             void* val, size_t val_size, upb_Arena* a) {
   upb_StringView strkey = _upb_map_tokey(key, key_size);
   upb_value tabval = {0};
-  if (!_upb_map_tovalue(val, val_size, &tabval, a)) {
-    return _kUpb_MapInsertStatus_OutOfMemory;
-  }
+  if (!_upb_map_tovalue(val, val_size, &tabval, a)) return false;
 
   /* TODO(haberman): add overwrite operation to minimize number of lookups. */
-  bool removed =
-      upb_strtable_remove2(&map->table, strkey.data, strkey.size, NULL);
-  if (!upb_strtable_insert(&map->table, strkey.data, strkey.size, tabval, a)) {
-    return _kUpb_MapInsertStatus_OutOfMemory;
-  }
-  return removed ? _kUpb_MapInsertStatus_Replaced
-                 : _kUpb_MapInsertStatus_Inserted;
+  upb_strtable_remove2(&map->table, strkey.data, strkey.size, NULL);
+  return upb_strtable_insert(&map->table, strkey.data, strkey.size, tabval, a);
 }
 
 UPB_INLINE bool _upb_Map_Delete(upb_Map* map, const void* key,
@@ -734,8 +753,7 @@ UPB_INLINE bool _upb_msg_map_set(upb_Message* msg, size_t ofs, const void* key,
   if (!*map) {
     *map = _upb_Map_New(arena, key_size, val_size);
   }
-  return _upb_Map_Insert(*map, key, key_size, val, val_size, arena) !=
-         _kUpb_MapInsertStatus_OutOfMemory;
+  return _upb_Map_Set(*map, key, key_size, val, val_size, arena);
 }
 
 UPB_INLINE bool _upb_msg_map_delete(upb_Message* msg, size_t ofs,

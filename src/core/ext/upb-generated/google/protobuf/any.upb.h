@@ -51,34 +51,30 @@ UPB_INLINE google_protobuf_Any* google_protobuf_Any_parse_ex(const char* buf, si
   return ret;
 }
 UPB_INLINE char* google_protobuf_Any_serialize(const google_protobuf_Any* msg, upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &google_protobuf_Any_msginit, 0, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &google_protobuf_Any_msginit, 0, arena, len);
 }
 UPB_INLINE char* google_protobuf_Any_serialize_ex(const google_protobuf_Any* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  char* ptr;
-  (void)upb_Encode(msg, &google_protobuf_Any_msginit, options, arena, &ptr, len);
-  return ptr;
+  return upb_Encode(msg, &google_protobuf_Any_msginit, options, arena, len);
 }
 UPB_INLINE void google_protobuf_Any_clear_type_url(const google_protobuf_Any* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView google_protobuf_Any_type_url(const google_protobuf_Any* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView);
 }
 UPB_INLINE void google_protobuf_Any_clear_value(const google_protobuf_Any* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView google_protobuf_Any_value(const google_protobuf_Any* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView);
 }
 
 UPB_INLINE void google_protobuf_Any_set_type_url(google_protobuf_Any *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), upb_StringView) = value;
 }
 UPB_INLINE void google_protobuf_Any_set_value(google_protobuf_Any *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), upb_StringView) = value;
 }
 
 extern const upb_MiniTable_File google_protobuf_any_proto_upb_file_layout;
