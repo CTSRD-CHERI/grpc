@@ -188,7 +188,7 @@ absl::Status StatusCreate(absl::StatusCode code, absl::string_view msg,
 
 void StatusSetInt(absl::Status* status, StatusIntProperty key, intptr_t value) {
   status->SetPayload(GetStatusIntPropertyUrl(key),
-                     absl::Cord(std::to_string(value)));
+                     absl::Cord(std::to_string(static_cast<ptraddr_t>(value))));
 }
 
 absl::optional<intptr_t> StatusGetInt(const absl::Status& status,
