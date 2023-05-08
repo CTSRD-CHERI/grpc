@@ -22,6 +22,7 @@
 #ifdef GRPC_POSIX_SOCKET_UTILS_COMMON
 
 #include <errno.h>
+#include <sys/types.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <string.h>

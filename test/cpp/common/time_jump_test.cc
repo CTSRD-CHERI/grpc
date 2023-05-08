@@ -20,6 +20,7 @@
 
 #include <sstream>
 #include <string>
+#include <sys/wait.h>
 #include <thread>
 #include <vector>
 
