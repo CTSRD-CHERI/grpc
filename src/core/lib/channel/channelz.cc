@@ -204,7 +204,7 @@ void ChannelNode::PopulateChildRefs(Json::Object* json) {
   MutexLock lock(&child_mu_);
   if (!child_subchannels_.empty()) {
     Json::Array array;
-    for (intptr_t subchannel_uuid : child_subchannels_) {
+    for (uuid_t subchannel_uuid : child_subchannels_) {
       array.emplace_back(Json::Object{
           {"subchannelId", std::to_string(subchannel_uuid)},
       });
@@ -213,7 +213,7 @@ void ChannelNode::PopulateChildRefs(Json::Object* json) {
   }
   if (!child_channels_.empty()) {
     Json::Array array;
-    for (intptr_t channel_uuid : child_channels_) {
+    for (uuid_t channel_uuid : child_channels_) {
       array.emplace_back(Json::Object{
           {"channelId", std::to_string(channel_uuid)},
       });
@@ -228,22 +228,22 @@ void ChannelNode::SetConnectivityState(grpc_connectivity_state state) {
   connectivity_state_.store(state_field, std::memory_order_relaxed);
 }
 
-void ChannelNode::AddChildChannel(intptr_t child_uuid) {
+void ChannelNode::AddChildChannel(uuid_t child_uuid) {
   MutexLock lock(&child_mu_);
   child_channels_.insert(child_uuid);
 }
 
-void ChannelNode::RemoveChildChannel(intptr_t child_uuid) {
+void ChannelNode::RemoveChildChannel(uuid_t child_uuid) {
   MutexLock lock(&child_mu_);
   child_channels_.erase(child_uuid);
 }
 
-void ChannelNode::AddChildSubchannel(intptr_t child_uuid) {
+void ChannelNode::AddChildSubchannel(uuid_t child_uuid) {
   MutexLock lock(&child_mu_);
   child_subchannels_.insert(child_uuid);
 }
 
-void ChannelNode::RemoveChildSubchannel(intptr_t child_uuid) {
+void ChannelNode::RemoveChildSubchannel(uuid_t child_uuid) {
   MutexLock lock(&child_mu_);
   child_subchannels_.erase(child_uuid);
 }
@@ -262,7 +262,7 @@ void ServerNode::AddChildSocket(RefCountedPtr<SocketNode> node) {
   child_sockets_.insert(std::make_pair(node->uuid(), std::move(node)));
 }
 
-void ServerNode::RemoveChildSocket(intptr_t child_uuid) {
+void ServerNode::RemoveChildSocket(uuid_t child_uuid) {
   MutexLock lock(&child_mu_);
   child_sockets_.erase(child_uuid);
 }
@@ -272,13 +272,13 @@ void ServerNode::AddChildListenSocket(RefCountedPtr<ListenSocketNode> node) {
   child_listen_sockets_.insert(std::make_pair(node->uuid(), std::move(node)));
 }
 
-void ServerNode::RemoveChildListenSocket(intptr_t child_uuid) {
+void ServerNode::RemoveChildListenSocket(uuid_t child_uuid) {
   MutexLock lock(&child_mu_);
   child_listen_sockets_.erase(child_uuid);
 }
 
-std::string ServerNode::RenderServerSockets(intptr_t start_socket_id,
-                                            intptr_t max_results) {
+std::string ServerNode::RenderServerSockets(uuid_t start_socket_id,
+                                            size_t max_results) {
   GPR_ASSERT(start_socket_id >= 0);
   GPR_ASSERT(max_results >= 0);
   // If user does not set max_results, we choose 500.
