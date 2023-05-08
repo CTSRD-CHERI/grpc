@@ -75,6 +75,13 @@ class CallCountingHelperPeer;
 class ChannelNodePeer;
 }  // namespace testing
 
+// Type of node identifiers
+#if defined(__CHERI_PURE_CAPABILITY__)
+using uuid_t = size_t;
+#else
+using uuid_t = intptr_t;
+#endif
+
 // base class for all channelz entities
 class BaseNode : public RefCounted<BaseNode> {
  public:
@@ -103,14 +110,14 @@ class BaseNode : public RefCounted<BaseNode> {
   std::string RenderJsonString();
 
   EntityType type() const { return type_; }
-  intptr_t uuid() const { return uuid_; }
+  uuid_t uuid() const { return uuid_; }
   const std::string& name() const { return name_; }
 
  private:
   // to allow the ChannelzRegistry to set uuid_ under its lock.
   friend class ChannelzRegistry;
   const EntityType type_;
-  intptr_t uuid_;
+  uuid_t uuid_;
   std::string name_;
 };
 
@@ -209,13 +216,13 @@ class ChannelNode : public BaseNode {
 
   // TODO(roth): take in a RefCountedPtr to the child channel so we can retrieve
   // the human-readable name.
-  void AddChildChannel(intptr_t child_uuid);
-  void RemoveChildChannel(intptr_t child_uuid);
+  void AddChildChannel(uuid_t child_uuid);
+  void RemoveChildChannel(uuid_t child_uuid);
 
   // TODO(roth): take in a RefCountedPtr to the child subchannel so we can
   // retrieve the human-readable name.
-  void AddChildSubchannel(intptr_t child_uuid);
-  void RemoveChildSubchannel(intptr_t child_uuid);
+  void AddChildSubchannel(uuid_t child_uuid);
+  void RemoveChildSubchannel(uuid_t child_uuid);
 
  private:
   // Allows the channel trace test to access trace_.
@@ -232,8 +239,8 @@ class ChannelNode : public BaseNode {
   std::atomic<int> connectivity_state_{0};
 
   Mutex child_mu_;  // Guards sets below.
-  std::set<intptr_t> child_channels_;
-  std::set<intptr_t> child_subchannels_;
+  std::set<uuid_t> child_channels_;
+  std::set<uuid_t> child_subchannels_;
 };
 
 // Handles channelz bookkeeping for servers
@@ -245,16 +252,15 @@ class ServerNode : public BaseNode {
 
   Json RenderJson() override;
 
-  std::string RenderServerSockets(intptr_t start_socket_id,
-                                  intptr_t max_results);
+  std::string RenderServerSockets(uuid_t start_socket_id, size_t max_results);
 
   void AddChildSocket(RefCountedPtr<SocketNode> node);
 
-  void RemoveChildSocket(intptr_t child_uuid);
+  void RemoveChildSocket(uuid_t child_uuid);
 
   void AddChildListenSocket(RefCountedPtr<ListenSocketNode> node);
 
-  void RemoveChildListenSocket(intptr_t child_uuid);
+  void RemoveChildListenSocket(uuid_t child_uuid);
 
   // proxy methods to composed classes.
   void AddTraceEvent(ChannelTrace::Severity severity, const grpc_slice& data) {
@@ -274,8 +280,8 @@ class ServerNode : public BaseNode {
   CallCountingHelper call_counter_;
   ChannelTrace trace_;
   Mutex child_mu_;  // Guards child maps below.
-  std::map<intptr_t, RefCountedPtr<SocketNode>> child_sockets_;
-  std::map<intptr_t, RefCountedPtr<ListenSocketNode>> child_listen_sockets_;
+  std::map<uuid_t, RefCountedPtr<SocketNode>> child_sockets_;
+  std::map<uuid_t, RefCountedPtr<ListenSocketNode>> child_listen_sockets_;
 };
 
 #define GRPC_ARG_CHANNELZ_SECURITY "grpc.internal.channelz_security"
