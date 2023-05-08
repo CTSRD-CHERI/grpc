@@ -70,7 +70,7 @@ class RefCount {
     const Value prior = value_.fetch_add(n, std::memory_order_relaxed);
     if (trace_ != nullptr) {
       gpr_log(GPR_INFO, "%s:%p ref %" PRIdPTR " -> %" PRIdPTR, trace_, this,
-              prior, prior + n);
+              prior, prior + (ptraddr_t)n);
     }
 #else
     value_.fetch_add(n, std::memory_order_relaxed);
@@ -81,8 +81,8 @@ class RefCount {
     const Value prior = value_.fetch_add(n, std::memory_order_relaxed);
     if (trace_ != nullptr) {
       gpr_log(GPR_INFO, "%s:%p %s:%d ref %" PRIdPTR " -> %" PRIdPTR " %s",
-              trace_, this, location.file(), location.line(), prior, prior + n,
-              reason);
+              trace_, this, location.file(), location.line(), prior,
+              prior + (ptraddr_t)n, reason);
     }
 #else
     // Use conditionally-important parameters
