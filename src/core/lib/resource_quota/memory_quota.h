@@ -351,7 +351,11 @@ class BasicMemoryQuota final
     std::array<Shard, 16> shards;
   };
 
+#if defined(__CHERI_PURE_CAPABILITY__)
+  static constexpr ssize_t kInitialSize = std::numeric_limits<ssize_t>::max();
+#else
   static constexpr intptr_t kInitialSize = std::numeric_limits<intptr_t>::max();
+#endif
 
   // Move allocator from big bucket to small bucket.
   void MaybeMoveAllocatorBigToSmall(GrpcMemoryAllocatorImpl* allocator);
@@ -361,7 +365,11 @@ class BasicMemoryQuota final
   // The amount of memory that's free in this quota.
   // We use intptr_t as a reasonable proxy for ssize_t that's portable.
   // We allow arbitrary overcommit and so this must allow negative values.
+#if defined(__CHERI_PURE_CAPABILITY__)
+  std::atomic<ssize_t> free_bytes_{kInitialSize};
+#else
   std::atomic<intptr_t> free_bytes_{kInitialSize};
+#endif
   // The total number of bytes in this quota.
   std::atomic<size_t> quota_size_{kInitialSize};
 
