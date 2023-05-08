@@ -211,7 +211,7 @@ Json* JsonReader::CreateAndLinkValue() {
           truncated_errors_ = true;
         } else {
           errors_.push_back(GRPC_ERROR_CREATE_FROM_CPP_STRING(
-              absl::StrFormat("duplicate key \"%s\" at index %" PRIuPTR, key_,
+              absl::StrFormat("duplicate key \"%s\" at index %" PRIuMAX, key_,
                               CurrentIndex())));
         }
       }
@@ -231,7 +231,7 @@ bool JsonReader::StartContainer(Json::Type type) {
       truncated_errors_ = true;
     } else {
       errors_.push_back(GRPC_ERROR_CREATE_FROM_CPP_STRING(
-          absl::StrFormat("exceeded max stack depth (%d) at index %" PRIuPTR,
+          absl::StrFormat("exceeded max stack depth (%d) at index %" PRIuMAX,
                           GRPC_JSON_MAX_DEPTH, CurrentIndex())));
     }
     return false;

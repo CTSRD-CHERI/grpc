@@ -49,8 +49,8 @@ std::string HandshakerArgsString(HandshakerArgs* args) {
   size_t read_buffer_length =
       args->read_buffer != nullptr ? args->read_buffer->length : 0;
   return absl::StrFormat(
-      "{endpoint=%p, args=%p {size=%" PRIuPTR
-      ": %s}, read_buffer=%p (length=%" PRIuPTR "), exit_early=%d}",
+      "{endpoint=%p, args=%p {size=%" PRIuMAX
+      ": %s}, read_buffer=%p (length=%" PRIuMAX "), exit_early=%d}",
       args->endpoint, args->args, num_args,
       grpc_channel_args_string(args->args), args->read_buffer,
       read_buffer_length, args->exit_early);
