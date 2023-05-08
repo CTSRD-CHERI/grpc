@@ -99,7 +99,7 @@ struct IntptrTrait {
     return out;
   }
   static std::string DisplayValue(intptr_t value) {
-    return std::to_string(value);
+    return std::to_string(static_cast<ptraddr_t>(value));
   }
   static std::string DisplayMemento(MementoType memento) {
     return DisplayValue(memento);
