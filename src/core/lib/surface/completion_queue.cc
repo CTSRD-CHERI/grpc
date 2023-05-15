@@ -802,7 +802,8 @@ static void cq_end_op_for_pluck(
   /* Add to the list of completions */
   cqd->things_queued_ever.fetch_add(1, std::memory_order_relaxed);
   cqd->completed_tail->next =
-      reinterpret_cast<uintptr_t>(storage) | (1u & cqd->completed_tail->next);
+      reinterpret_cast<uintptr_t>(storage) |
+      (static_cast<ptraddr_t>(cqd->completed_tail->next) & 1u);
   cqd->completed_tail = storage;
 
   if (cqd->pending_events.fetch_sub(1, std::memory_order_acq_rel) == 1) {
@@ -1185,8 +1186,8 @@ class ExecCtxPluck : public grpc_core::ExecCtx {
                   prev->next & ~static_cast<uintptr_t>(1))) !=
              &cqd->completed_head) {
         if (c->tag == a->tag) {
-          prev->next = (prev->next & static_cast<uintptr_t>(1)) |
-                       (c->next & ~static_cast<uintptr_t>(1));
+          prev->next = (c->next & ~static_cast<uintptr_t>(1)) |
+                       (static_cast<ptraddr_t>(prev->next) & 1u);
           if (c == cqd->completed_tail) {
             cqd->completed_tail = prev;
           }
@@ -1258,8 +1259,8 @@ static grpc_event cq_pluck(grpc_completion_queue* cq, void* tag,
                 prev->next & ~static_cast<uintptr_t>(1))) !=
            &cqd->completed_head) {
       if (c->tag == tag) {
-        prev->next = (prev->next & static_cast<uintptr_t>(1)) |
-                     (c->next & ~static_cast<uintptr_t>(1));
+        prev->next = (c->next & ~static_cast<uintptr_t>(1)) |
+                     (static_cast<ptraddr_t>(prev->next) & 1u);
         if (c == cqd->completed_tail) {
           cqd->completed_tail = prev;
         }
