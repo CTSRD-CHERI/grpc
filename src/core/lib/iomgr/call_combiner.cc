@@ -35,7 +35,11 @@ DebugOnlyTraceFlag grpc_call_combiner_trace(false, "call_combiner");
 namespace {
 
 // grpc_error LSB can be used
+#if defined(__CHERI_PURE_CAPABILITY__)
+constexpr ptraddr_t kErrorBit = 1;
+#else
 constexpr intptr_t kErrorBit = 1;
+#endif
 
 grpc_error_handle DecodeCancelStateError(gpr_atm cancel_state) {
   if (cancel_state & kErrorBit) {
@@ -231,7 +235,7 @@ void CallCombiner::SetNotifyOnCancel(grpc_closure* closure) {
 
 void CallCombiner::Cancel(grpc_error_handle error) {
   intptr_t status_ptr = internal::StatusAllocHeapPtr(error);
-  gpr_atm new_state = kErrorBit | status_ptr;
+  gpr_atm new_state = status_ptr | kErrorBit;
   while (true) {
     gpr_atm original_state = gpr_atm_acq_load(&cancel_state_);
     grpc_error_handle original_error = DecodeCancelStateError(original_state);
