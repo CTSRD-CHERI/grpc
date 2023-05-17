@@ -264,7 +264,11 @@ TEST(GrpcSliceTest, MovedStringSlice) {
   grpc_slice_unref_internal(small);
 
   // Large string should be move the reference.
+#if defined(__CHERI_PURE_CAPABILITY__)
+  constexpr char kSLargeStr[] = "hello123456789123456789123456789123456789";
+#else
   constexpr char kSLargeStr[] = "hello123456789123456789123456789";
+#endif
   char* large_ptr = strdup(kSLargeStr);
   grpc_slice large =
       grpc_slice_from_moved_string(grpc_core::UniquePtr<char>(large_ptr));
