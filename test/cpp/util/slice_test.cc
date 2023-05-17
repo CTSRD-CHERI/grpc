@@ -29,7 +29,11 @@ namespace grpc {
 
 namespace {
 
+#if defined(__CHERI_PURE_CAPABILITY__)
+const char* kContent = "hello xxxxxxxxxxxxxxxxxxxxxxxxxxxx world";
+#else
 const char* kContent = "hello xxxxxxxxxxxxxxxxxxxx world";
+#endif
 
 class SliceTest : public ::testing::Test {
  protected:

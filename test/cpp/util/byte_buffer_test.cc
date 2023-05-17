@@ -33,8 +33,13 @@ namespace grpc {
 
 namespace {
 
+#if defined(__CHERI_PURE_CAPABILITY__)
+const char* kContent1 = "hello xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+const char* kContent2 = "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy world";
+#else
 const char* kContent1 = "hello xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 const char* kContent2 = "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy world";
+#endif
 
 class ByteBufferTest : public ::testing::Test {
  protected:
