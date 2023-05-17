@@ -68,8 +68,11 @@ std::string GetNextSendMessage() {
     len = dis(gen);
   }
   tmp_s.reserve(len);
-  for (int i = 0; i < len; ++i) {
-    tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
+  {
+    grpc_core::MutexLock lock(&g_mu);
+    for (int i = 0; i < len; ++i) {
+      tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
   }
   return tmp_s;
 }
