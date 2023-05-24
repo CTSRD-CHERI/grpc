@@ -295,6 +295,8 @@ class CLanguage(object):
                 # disable boringssl asm optimizations when on x86
                 # see https://github.com/grpc/grpc/blob/b5b8578b3f8b4a9ce61ed6677e19d546e43c5c68/tools/run_tests/artifacts/artifact_targets.py#L253
                 self._cmake_configure_extra_args.append('-DOPENSSL_NO_ASM=ON')
+            if "morello" in os.uname()[3].lower():
+                self._cmake_configure_extra_args.append('-DgRPC_SSL_PROVIDER=package')
 
     def test_specs(self):
         out = []
