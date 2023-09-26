@@ -231,7 +231,7 @@ class CqEventQueue {
 
   /* Note: The counter is not incremented/decremented atomically with push/pop.
    * The count is only eventually consistent */
-  intptr_t num_items() const {
+  ssize_t num_items() const {
     return num_queue_items_.load(std::memory_order_relaxed);
   }
 
@@ -247,7 +247,7 @@ class CqEventQueue {
   /* A lazy counter of number of items in the queue. This is NOT atomically
      incremented/decremented along with push/pop operations and hence is only
      eventually consistent */
-  std::atomic<intptr_t> num_queue_items_{0};
+  std::atomic<ssize_t> num_queue_items_{0};
 };
 
 struct cq_next_data {
@@ -265,11 +265,11 @@ struct cq_next_data {
 
   /** Counter of how many things have ever been queued on this completion queue
       useful for avoiding locks to check the queue */
-  std::atomic<intptr_t> things_queued_ever{0};
+  std::atomic<ssize_t> things_queued_ever{0};
 
   /** Number of outstanding events (+1 if not shut down)
       Initial count is dropped by grpc_completion_queue_shutdown */
-  std::atomic<intptr_t> pending_events{1};
+  std::atomic<ssize_t> pending_events{1};
 
   /** 0 initially. 1 once we initiated shutdown */
   bool shutdown_called = false;
@@ -297,11 +297,11 @@ struct cq_pluck_data {
 
   /** Number of pending events (+1 if we're not shutdown).
       Initial count is dropped by grpc_completion_queue_shutdown. */
-  std::atomic<intptr_t> pending_events{1};
+  std::atomic<ssize_t> pending_events{1};
 
   /** Counter of how many things have ever been queued on this completion queue
       useful for avoiding locks to check the queue */
-  std::atomic<intptr_t> things_queued_ever{0};
+  std::atomic<ssize_t> things_queued_ever{0};
 
   /** 0 initially. 1 once we completed shutting */
   /* TODO: (sreek) This is not needed since (shutdown == 1) if and only if
@@ -332,7 +332,7 @@ struct cq_callback_data {
 
   /** Number of pending events (+1 if we're not shutdown).
       Initial count is dropped by grpc_completion_queue_shutdown. */
-  std::atomic<intptr_t> pending_events{1};
+  std::atomic<ssize_t> pending_events{1};
 
   /** 0 initially. 1 once we initiated shutdown */
   bool shutdown_called = false;
@@ -920,7 +920,7 @@ class ExecCtxNext : public grpc_core::ExecCtx {
     cq_next_data* cqd = static_cast<cq_next_data*> DATA_FROM_CQ(cq);
     GPR_ASSERT(a->stolen_completion == nullptr);
 
-    intptr_t current_last_seen_things_queued_ever =
+    ssize_t current_last_seen_things_queued_ever =
         cqd->things_queued_ever.load(std::memory_order_relaxed);
 
     if (current_last_seen_things_queued_ever !=
