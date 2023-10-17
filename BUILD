@@ -1050,6 +1050,7 @@ grpc_cc_library(
         "//src/core:default_event_engine",
         "//src/core:iomgr_fwd",
         "//src/core:iomgr_port",
+        "//src/core:notification",
         "//src/core:slice",
         "//src/core:slice_refcount",
         "//src/core:status_helper",
@@ -1761,6 +1762,7 @@ grpc_cc_library(
     visibility = ["@grpc:tsi_interface"],
     deps = [
         "gpr",
+        "grpc_public_hdrs",
         "grpc_trace",
     ],
 )
