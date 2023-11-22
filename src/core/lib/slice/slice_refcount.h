@@ -52,15 +52,18 @@ struct grpc_slice_refcount {
     auto prev_refs = ref_.fetch_add(1, std::memory_order_relaxed);
     if (grpc_slice_refcount_trace.enabled()) {
       gpr_log(location.file(), location.line(), GPR_LOG_SEVERITY_INFO,
-              "REF %p %" PRIdPTR "->%" PRIdPTR, this, prev_refs, prev_refs + 1);
+              "REF %p %" PRIdMAX "->%" PRIdMAX, this,
+              static_cast<std::intmax_t>(prev_refs),
+              static_cast<std::intmax_t>(prev_refs) + 1);
     }
   }
   void Unref(grpc_core::DebugLocation location) {
     auto prev_refs = ref_.fetch_sub(1, std::memory_order_acq_rel);
     if (grpc_slice_refcount_trace.enabled()) {
       gpr_log(location.file(), location.line(), GPR_LOG_SEVERITY_INFO,
-              "UNREF %p %" PRIdPTR "->%" PRIdPTR, this, prev_refs,
-              prev_refs - 1);
+              "UNREF %p %" PRIdMAX "->%" PRIdMAX, this,
+              static_cast<std::intmax_t>(prev_refs),
+              static_cast<std::intmax_t>(prev_refs) - 1);
     }
     if (prev_refs == 1) {
       destroyer_fn_(this);
