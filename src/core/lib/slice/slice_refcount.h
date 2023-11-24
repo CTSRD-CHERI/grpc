@@ -53,8 +53,8 @@ struct grpc_slice_refcount {
     if (grpc_slice_refcount_trace.enabled()) {
       gpr_log(location.file(), location.line(), GPR_LOG_SEVERITY_INFO,
               "REF %p %" PRIdMAX "->%" PRIdMAX, this,
-              static_cast<std::intmax_t>(prev_refs),
-              static_cast<std::intmax_t>(prev_refs) + 1);
+              static_cast<intmax_t>(prev_refs),
+              static_cast<intmax_t>(prev_refs) + 1);
     }
   }
   void Unref(grpc_core::DebugLocation location) {
@@ -62,8 +62,8 @@ struct grpc_slice_refcount {
     if (grpc_slice_refcount_trace.enabled()) {
       gpr_log(location.file(), location.line(), GPR_LOG_SEVERITY_INFO,
               "UNREF %p %" PRIdMAX "->%" PRIdMAX, this,
-              static_cast<std::intmax_t>(prev_refs),
-              static_cast<std::intmax_t>(prev_refs) - 1);
+              static_cast<intmax_t>(prev_refs),
+              static_cast<intmax_t>(prev_refs) - 1);
     }
     if (prev_refs == 1) {
       destroyer_fn_(this);
