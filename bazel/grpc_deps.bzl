@@ -387,7 +387,7 @@ def grpc_deps():
             sha256 = "c859968aef34ad68ec26905a83f9203a6cde95dc5bee08d972a2d5455a1b9d61",
             strip_prefix = "upb-upb-grpc-1.54.2-cheri",
             urls = [
-                 "https://github.com/CTSRD-CHERI/upb/archive/refs/heads/upg-grpc-1.54.2-cheri.tar.gz",
+                 "https://github.com/CTSRD-CHERI/upb/archive/refs/heads/upb-grpc-1.54.2-cheri.tar.gz",
             ],
         )
 

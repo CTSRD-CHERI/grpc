@@ -17,8 +17,8 @@ build:android --noenable_platform_specific_config
 build:ios --noenable_platform_specific_config
 
 build --client_env=CC=clang
-build --copt=-DGRPC_BAZEL_BUILD
-build --host_copt=-DGRPC_BAZEL_BUILD
+build --copt=-DGRPC_BAZEL_BUILD --copt=-DUPB_CHERI_SUPPORT
+build --host_copt=-DGRPC_BAZEL_BUILD --copt=-DUPB_CHERI_SUPPORT
 build --action_env=GRPC_BAZEL_RUNTIME=1
 build --define=use_fast_cpp_protos=true
 
