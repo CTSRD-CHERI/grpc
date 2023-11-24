@@ -976,7 +976,7 @@ static grpc_error_handle pollset_work(grpc_pollset* pollset,
         watchers = watcher_space;
       } else {
         // Allocate one buffer to hold both pfds and watchers arrays
-        const size_t pfd_size = gpr_round_up(
+        const size_t pfd_size = GPR_ROUND_UP(
             sizeof(*pfds) * (pollset->fd_count + 2), sizeof(void*));
         const size_t watch_size = sizeof(*watchers) * (pollset->fd_count + 2);
         void* buf = gpr_malloc(pfd_size + watch_size);

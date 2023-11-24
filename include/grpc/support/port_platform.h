@@ -787,4 +787,20 @@ extern void gpr_unreachable_code(const char* reason, const char* file,
 #endif
 #endif
 
+#ifndef ptraddr_t
+#if GPR_HAS_FEATURE(capabilities)
+typedef unsigned long ptraddr_t;
+#else
+typedef uintptr_t ptraddr_t;
+#endif
+#endif
+
+#ifndef GPR_ROUND_UP
+#if __has_builtin(__builtin_align_up)
+#define GPR_ROUND_UP(x, y) __builtin_align_up((x), (y))
+#else
+#define GPR_ROUND_UP(x, y) (((x) + ((y) - 1)) & (~((y) - 1)))
+#endif
+#endif
+
 #endif /* GRPC_SUPPORT_PORT_PLATFORM_H */

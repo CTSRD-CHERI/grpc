@@ -24,10 +24,4 @@
 /// TODO(chengyuc): Remove this file after solving compatibility.
 #include <grpc/support/port_platform.h>
 
-#if __has_builtin(__builtin_align_up)
-#define gpr_round_up(x, size) __builtin_align_up(x, size)
-#else
-#define gpr_round_up(x, size) (((x) + ((size) - 1)) & (~((size) - 1)))
-#endif
-
 #endif /* GRPC_IMPL_CODEGEN_PORT_PLATFORM_H */
