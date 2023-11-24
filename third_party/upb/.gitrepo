@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/CTSRD-CHERI/upb.git
+	branch = upb-grpc-1.54.2-cheri
+	commit = fde55576dcd116b47ced1d3f2b149854e39419fd
+	parent = 3bfec2a9252d98c3a1e6d0e6184e3a1f95db2e48
+	method = merge
+	cmdver = 0.4.3

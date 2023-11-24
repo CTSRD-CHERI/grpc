@@ -40,12 +40,21 @@ static const char _upb_CTypeo_sizelg2[12] = {
     2,              /* kUpb_CType_Int32 */
     2,              /* kUpb_CType_UInt32 */
     2,              /* kUpb_CType_Enum */
+#if defined(UPB_CHERI_SUPPORT)
+    UPB_SIZE(2, 3, 4), /* kUpb_CType_Message */
+#else
     UPB_SIZE(2, 3), /* kUpb_CType_Message */
+#endif
     3,              /* kUpb_CType_Double */
     3,              /* kUpb_CType_Int64 */
     3,              /* kUpb_CType_UInt64 */
+#if defined(UPB_CHERI_SUPPORT)
+    UPB_SIZE(3, 4, 5), /* kUpb_CType_String */
+    UPB_SIZE(3, 4, 5), /* kUpb_CType_Bytes */
+#else
     UPB_SIZE(3, 4), /* kUpb_CType_String */
     UPB_SIZE(3, 4), /* kUpb_CType_Bytes */
+#endif
 };
 
 upb_Array* upb_Array_New(upb_Arena* a, upb_CType type) {

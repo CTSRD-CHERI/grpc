@@ -65,13 +65,13 @@
 #else
 #define UPB_SIZE(size32, size64, size_cheri) size64
 #endif
-#else /* !__CHERI_PURE_CAPABILITY__ */
+#else /* !UPB_CHERI_SUPPORT */
 #if __SIZEOF_LONG__ == 4
 #define UPB_SIZE(size32, size64) size32
 #else
 #define UPB_SIZE(size32, size64) size64
 #endif
-#endif /* !__CHERI_PURE_CAPABILITY__ */
+#endif /* !UPB_CHERI_SUPPOERT */
 
 /* If we always read/write as a consistent type to each address, this shouldn't
  * violate aliasing.
@@ -98,6 +98,11 @@
 #define UPB_INLINE static
 #endif
 
+#if __has_feature(capabilities)
+#define UPB_MALLOC_ALIGN sizeof(void * __capability)
+#else
+#define UPB_MALLOC_ALIGN 8
+#endif
 #if __has_builtin(__builtin_align_up)
 #define UPB_ALIGN_UP(size, align) __builtin_align_up(size, align)
 #else
@@ -108,7 +113,7 @@
 #else
 #define UPB_ALIGN_DOWN(size, align) ((size) / (align) * (align))
 #endif
-#define UPB_ALIGN_MALLOC(size) UPB_ALIGN_UP(size, 16)
+#define UPB_ALIGN_MALLOC(size) UPB_ALIGN_UP(size, UPB_MALLOC_ALIGN)
 #define UPB_ALIGN_OF(type) offsetof (struct { char c; type member; }, member)
 
 /* Hints to the compiler about likely/unlikely branches. */

@@ -192,6 +192,9 @@ class BuildFileFunctions(object):
   def map_dep(self, arg):
     return arg
 
+  def package_group(self, **kwargs):
+    pass
+
 
 class WorkspaceFileFunctions(object):
   def __init__(self, converter):
@@ -234,6 +237,12 @@ class WorkspaceFileFunctions(object):
   def register_toolchains(self, toolchain):
     pass
 
+  def python_source_archive(self, **kwargs):
+    pass
+
+  def python_nuget_package(self, **kwargs):
+    pass
+
 
 class Converter(object):
   def __init__(self):
@@ -262,6 +271,11 @@ class Converter(object):
     cmake_policy(SET CMP0048 NEW)
 
     %(prelude)s
+
+    option(UPB_ENABLE_CHERI "Build with CHERI support" ON)
+    if (UPB_ENABLE_CHERI)
+      add_definitions("-DUPB_CHERI_SUPPORT")
+    endif()
 
     # Prevent CMake from setting -rdynamic on Linux (!!).
     SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")

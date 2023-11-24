@@ -70,10 +70,17 @@ int upb_MiniTable_Field_CTypeLg2Size(const upb_MiniTable_Field* f) {
       3,              /* FIXED64 */
       2,              /* FIXED32 */
       0,              /* BOOL */
+#if defined(UPB_CHERI_SUPPORT)
+      UPB_SIZE(3, 4, 5), /* STRING */
+      UPB_SIZE(2, 3, 4), /* GROUP */
+      UPB_SIZE(2, 3, 4), /* MESSAGE */
+      UPB_SIZE(3, 4, 5), /* BYTES */
+#else
       UPB_SIZE(3, 4), /* STRING */
       UPB_SIZE(2, 3), /* GROUP */
       UPB_SIZE(2, 3), /* MESSAGE */
       UPB_SIZE(3, 4), /* BYTES */
+#endif
       2,              /* UINT32 */
       2,              /* ENUM */
       2,              /* SFIXED32 */

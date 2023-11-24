@@ -61,15 +61,25 @@ extern "C" {
 
 /* upb_value ******************************************************************/
 
+#if defined(UPB_CHERI_SUPPORT)
+typedef struct {
+  uintptr_t val;
+} upb_value;
+#else
 typedef struct {
   uint64_t val;
 } upb_value;
+#endif
 
 /* Variant that works with a length-delimited rather than NULL-delimited string,
  * as supported by strtable. */
 char* upb_strdup2(const char* s, size_t len, upb_Arena* a);
 
-UPB_INLINE void _upb_value_setval(upb_value* v, uint64_t val) { v->val = val; }
+#if defined(UPB_CHERI_SUPPORT)
+  UPB_INLINE void _upb_value_setval(upb_value* v, uintptr_t val) { v->val = val; }
+#else
+  UPB_INLINE void _upb_value_setval(upb_value* v, uint64_t val) { v->val = val; }
+#endif
 
 /* For each value ctype, define the following set of functions:
  *
@@ -152,9 +162,15 @@ UPB_INLINE upb_StringView upb_tabstrview(upb_tabkey key) {
 
 /* upb_tabval *****************************************************************/
 
+#if defined(UPB_CHERI_SUPPORT)
+typedef struct upb_tabval {
+  uintptr_t val;
+} upb_tabval;
+#else
 typedef struct upb_tabval {
   uint64_t val;
 } upb_tabval;
+#endif
 
 #define UPB_TABVALUE_EMPTY_INIT \
   { -1 }
