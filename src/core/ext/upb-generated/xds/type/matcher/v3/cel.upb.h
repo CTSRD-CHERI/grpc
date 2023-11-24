@@ -67,15 +67,15 @@ UPB_INLINE bool xds_type_matcher_v3_CelMatcher_has_expr_match(const xds_type_mat
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void xds_type_matcher_v3_CelMatcher_clear_expr_match(const xds_type_matcher_v3_CelMatcher* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct xds_type_v3_CelExpression* xds_type_matcher_v3_CelMatcher_expr_match(const xds_type_matcher_v3_CelMatcher* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct xds_type_v3_CelExpression*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct xds_type_v3_CelExpression*);
 }
 
 UPB_INLINE void xds_type_matcher_v3_CelMatcher_set_expr_match(xds_type_matcher_v3_CelMatcher *msg, struct xds_type_v3_CelExpression* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct xds_type_v3_CelExpression*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct xds_type_v3_CelExpression*) = value;
 }
 UPB_INLINE struct xds_type_v3_CelExpression* xds_type_matcher_v3_CelMatcher_mutable_expr_match(xds_type_matcher_v3_CelMatcher* msg, upb_Arena* arena) {
   struct xds_type_v3_CelExpression* sub = (struct xds_type_v3_CelExpression*)xds_type_matcher_v3_CelMatcher_expr_match(msg);

@@ -68,29 +68,29 @@ typedef enum {
   envoy_type_matcher_v3_FilterStateMatcher_matcher_NOT_SET = 0
 } envoy_type_matcher_v3_FilterStateMatcher_matcher_oneofcases;
 UPB_INLINE envoy_type_matcher_v3_FilterStateMatcher_matcher_oneofcases envoy_type_matcher_v3_FilterStateMatcher_matcher_case(const envoy_type_matcher_v3_FilterStateMatcher* msg) {
-  return (envoy_type_matcher_v3_FilterStateMatcher_matcher_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return (envoy_type_matcher_v3_FilterStateMatcher_matcher_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE void envoy_type_matcher_v3_FilterStateMatcher_clear_key(const envoy_type_matcher_v3_FilterStateMatcher* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_type_matcher_v3_FilterStateMatcher_key(const envoy_type_matcher_v3_FilterStateMatcher* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 UPB_INLINE bool envoy_type_matcher_v3_FilterStateMatcher_has_string_match(const envoy_type_matcher_v3_FilterStateMatcher* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 2;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 2;
 }
 UPB_INLINE void envoy_type_matcher_v3_FilterStateMatcher_clear_string_match(const envoy_type_matcher_v3_FilterStateMatcher* msg) {
-  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(12, 24), 0, UPB_SIZE(0, 0), envoy_type_matcher_v3_FilterStateMatcher_matcher_NOT_SET);
+  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(12, 24, 48), 0, UPB_SIZE(0, 0, 0), envoy_type_matcher_v3_FilterStateMatcher_matcher_NOT_SET);
 }
 UPB_INLINE const struct envoy_type_matcher_v3_StringMatcher* envoy_type_matcher_v3_FilterStateMatcher_string_match(const envoy_type_matcher_v3_FilterStateMatcher* msg) {
-  return UPB_READ_ONEOF(msg, const struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(12, 24), UPB_SIZE(0, 0), 2, NULL);
+  return UPB_READ_ONEOF(msg, const struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(12, 24, 48), UPB_SIZE(0, 0, 0), 2, NULL);
 }
 
 UPB_INLINE void envoy_type_matcher_v3_FilterStateMatcher_set_key(envoy_type_matcher_v3_FilterStateMatcher *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void envoy_type_matcher_v3_FilterStateMatcher_set_string_match(envoy_type_matcher_v3_FilterStateMatcher *msg, struct envoy_type_matcher_v3_StringMatcher* value) {
-  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(12, 24), value, UPB_SIZE(0, 0), 2);
+  UPB_WRITE_ONEOF(msg, struct envoy_type_matcher_v3_StringMatcher*, UPB_SIZE(12, 24, 48), value, UPB_SIZE(0, 0, 0), 2);
 }
 UPB_INLINE struct envoy_type_matcher_v3_StringMatcher* envoy_type_matcher_v3_FilterStateMatcher_mutable_string_match(envoy_type_matcher_v3_FilterStateMatcher* msg, upb_Arena* arena) {
   struct envoy_type_matcher_v3_StringMatcher* sub = (struct envoy_type_matcher_v3_StringMatcher*)envoy_type_matcher_v3_FilterStateMatcher_string_match(msg);

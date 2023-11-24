@@ -11,7 +11,6 @@
 #include "xds/service/orca/v3/orca.upb.h"
 #include "xds/data/orca/v3/orca_load_report.upb.h"
 #include "google/protobuf/duration.upb.h"
-#include "validate/validate.upb.h"
 
 #include "upb/port_def.inc"
 
@@ -27,7 +26,7 @@ static const upb_MiniTable_Field xds_service_orca_v3_OrcaLoadReportRequest__fiel
 const upb_MiniTable xds_service_orca_v3_OrcaLoadReportRequest_msginit = {
   &xds_service_orca_v3_OrcaLoadReportRequest_submsgs[0],
   &xds_service_orca_v3_OrcaLoadReportRequest__fields[0],
-  UPB_SIZE(12, 24, 48), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(16, 24, 48), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[1] = {

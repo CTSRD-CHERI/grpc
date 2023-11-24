@@ -20,13 +20,13 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_Int64RangeMatcher_submsgs[1] 
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_Int64RangeMatcher__fields[1] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_Int64RangeMatcher_msginit = {
   &xds_type_matcher_v3_Int64RangeMatcher_submsgs[0],
   &xds_type_matcher_v3_Int64RangeMatcher__fields[0],
-  UPB_SIZE(8, 8), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_submsgs[2] = {
@@ -35,14 +35,14 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_Int64RangeMatcher_RangeMatche
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher__fields[2] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(8, 16), UPB_SIZE(1, 1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(8, 16, 32), UPB_SIZE(1, 1, 1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_msginit = {
   &xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_submsgs[0],
   &xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher__fields[0],
-  UPB_SIZE(16, 24), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(16, 24, 48), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable_Sub xds_type_matcher_v3_Int32RangeMatcher_submsgs[1] = {
@@ -50,13 +50,13 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_Int32RangeMatcher_submsgs[1] 
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_Int32RangeMatcher__fields[1] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_Int32RangeMatcher_msginit = {
   &xds_type_matcher_v3_Int32RangeMatcher_submsgs[0],
   &xds_type_matcher_v3_Int32RangeMatcher__fields[0],
-  UPB_SIZE(8, 8), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_submsgs[2] = {
@@ -65,14 +65,14 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_Int32RangeMatcher_RangeMatche
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher__fields[2] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(8, 16), UPB_SIZE(1, 1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(8, 16, 32), UPB_SIZE(1, 1, 1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_msginit = {
   &xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_submsgs[0],
   &xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher__fields[0],
-  UPB_SIZE(16, 24), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(16, 24, 48), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable_Sub xds_type_matcher_v3_DoubleRangeMatcher_submsgs[1] = {
@@ -80,13 +80,13 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_DoubleRangeMatcher_submsgs[1]
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_DoubleRangeMatcher__fields[1] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_DoubleRangeMatcher_msginit = {
   &xds_type_matcher_v3_DoubleRangeMatcher_submsgs[0],
   &xds_type_matcher_v3_DoubleRangeMatcher__fields[0],
-  UPB_SIZE(8, 8), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_submsgs[2] = {
@@ -95,14 +95,14 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_DoubleRangeMatcher_RangeMatch
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher__fields[2] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(8, 16), UPB_SIZE(1, 1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(8, 16, 32), UPB_SIZE(1, 1, 1), 1, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_msginit = {
   &xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_submsgs[0],
   &xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher__fields[0],
-  UPB_SIZE(16, 24), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(16, 24, 48), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[6] = {

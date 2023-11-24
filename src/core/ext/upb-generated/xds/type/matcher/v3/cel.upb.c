@@ -20,13 +20,13 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_CelMatcher_submsgs[1] = {
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_CelMatcher__fields[1] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(1, 1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_CelMatcher_msginit = {
   &xds_type_matcher_v3_CelMatcher_submsgs[0],
   &xds_type_matcher_v3_CelMatcher__fields[0],
-  UPB_SIZE(8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 16, 32), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[1] = {

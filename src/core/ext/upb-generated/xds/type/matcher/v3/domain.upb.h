@@ -67,24 +67,24 @@ UPB_INLINE char* xds_type_matcher_v3_ServerNameMatcher_serialize_ex(const xds_ty
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_ServerNameMatcher_has_domain_matchers(const xds_type_matcher_v3_ServerNameMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE void xds_type_matcher_v3_ServerNameMatcher_clear_domain_matchers(const xds_type_matcher_v3_ServerNameMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(0, 0));
+  _upb_array_detach(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* const* xds_type_matcher_v3_ServerNameMatcher_domain_matchers(const xds_type_matcher_v3_ServerNameMatcher* msg, size_t* len) {
-  return (const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0), len);
+  return (const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 
 UPB_INLINE xds_type_matcher_v3_ServerNameMatcher_DomainMatcher** xds_type_matcher_v3_ServerNameMatcher_mutable_domain_matchers(xds_type_matcher_v3_ServerNameMatcher* msg, size_t* len) {
-  return (xds_type_matcher_v3_ServerNameMatcher_DomainMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0), len);
+  return (xds_type_matcher_v3_ServerNameMatcher_DomainMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 UPB_INLINE xds_type_matcher_v3_ServerNameMatcher_DomainMatcher** xds_type_matcher_v3_ServerNameMatcher_resize_domain_matchers(xds_type_matcher_v3_ServerNameMatcher* msg, size_t len, upb_Arena* arena) {
-  return (xds_type_matcher_v3_ServerNameMatcher_DomainMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0), len, UPB_SIZE(2, 3), arena);
+  return (xds_type_matcher_v3_ServerNameMatcher_DomainMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0, 0), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* xds_type_matcher_v3_ServerNameMatcher_add_domain_matchers(xds_type_matcher_v3_ServerNameMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* sub = (struct xds_type_matcher_v3_ServerNameMatcher_DomainMatcher*)_upb_Message_New(&xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0, 0), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
@@ -125,33 +125,33 @@ UPB_INLINE char* xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_serialize_e
   return ptr;
 }
 UPB_INLINE void xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_clear_domains(const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(4, 8));
+  _upb_array_detach(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE upb_StringView const* xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_domains(const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg, size_t* len) {
-  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(4, 8), len);
+  return (upb_StringView const*)_upb_array_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE bool xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_has_on_match(const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_clear_on_match(const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_on_match(const xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const struct xds_type_matcher_v3_Matcher_OnMatch*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const struct xds_type_matcher_v3_Matcher_OnMatch*);
 }
 
 UPB_INLINE upb_StringView* xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_mutable_domains(xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg, size_t* len) {
-  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8), len);
+  return (upb_StringView*)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE upb_StringView* xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_resize_domains(xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg, size_t len, upb_Arena* arena) {
-  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8), len, UPB_SIZE(3, 4), arena);
+  return (upb_StringView*)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8, 16), len, UPB_SIZE(3, 4, 5), arena);
 }
 UPB_INLINE bool xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_add_domains(xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg, upb_StringView val, upb_Arena* arena) {
-  return _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8), UPB_SIZE(3, 4), &val, arena);
+  return _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8, 16), UPB_SIZE(3, 4, 5), &val, arena);
 }
 UPB_INLINE void xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_set_on_match(xds_type_matcher_v3_ServerNameMatcher_DomainMatcher *msg, struct xds_type_matcher_v3_Matcher_OnMatch* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
 }
 UPB_INLINE struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_mutable_on_match(xds_type_matcher_v3_ServerNameMatcher_DomainMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_Matcher_OnMatch* sub = (struct xds_type_matcher_v3_Matcher_OnMatch*)xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_on_match(msg);

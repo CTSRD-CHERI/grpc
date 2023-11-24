@@ -24,8 +24,10 @@ struct envoy_extensions_filters_http_router_v3_Router;
 typedef struct envoy_extensions_filters_http_router_v3_Router envoy_extensions_filters_http_router_v3_Router;
 extern const upb_MiniTable envoy_extensions_filters_http_router_v3_Router_msginit;
 struct envoy_config_accesslog_v3_AccessLog;
+struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter;
 struct google_protobuf_BoolValue;
 extern const upb_MiniTable envoy_config_accesslog_v3_AccessLog_msginit;
+extern const upb_MiniTable envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter_msginit;
 extern const upb_MiniTable google_protobuf_BoolValue_msginit;
 
 
@@ -55,11 +57,15 @@ UPB_INLINE envoy_extensions_filters_http_router_v3_Router* envoy_extensions_filt
   return ret;
 }
 UPB_INLINE char* envoy_extensions_filters_http_router_v3_Router_serialize(const envoy_extensions_filters_http_router_v3_Router* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_extensions_filters_http_router_v3_Router_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_extensions_filters_http_router_v3_Router_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_extensions_filters_http_router_v3_Router_serialize_ex(const envoy_extensions_filters_http_router_v3_Router* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_extensions_filters_http_router_v3_Router_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_extensions_filters_http_router_v3_Router_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE bool envoy_extensions_filters_http_router_v3_Router_has_dynamic_stats(const envoy_extensions_filters_http_router_v3_Router* msg) {
   return _upb_hasbit(msg, 1);
@@ -109,6 +115,15 @@ UPB_INLINE void envoy_extensions_filters_http_router_v3_Router_clear_suppress_gr
 UPB_INLINE bool envoy_extensions_filters_http_router_v3_Router_suppress_grpc_request_failure_code_stats(const envoy_extensions_filters_http_router_v3_Router* msg) {
   return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), bool);
 }
+UPB_INLINE bool envoy_extensions_filters_http_router_v3_Router_has_upstream_http_filters(const envoy_extensions_filters_http_router_v3_Router* msg) {
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(20, 32, 64));
+}
+UPB_INLINE void envoy_extensions_filters_http_router_v3_Router_clear_upstream_http_filters(const envoy_extensions_filters_http_router_v3_Router* msg) {
+  _upb_array_detach(msg, UPB_SIZE(20, 32, 64));
+}
+UPB_INLINE const struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter* const* envoy_extensions_filters_http_router_v3_Router_upstream_http_filters(const envoy_extensions_filters_http_router_v3_Router* msg, size_t* len) {
+  return (const struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter* const*)_upb_array_accessor(msg, UPB_SIZE(20, 32, 64), len);
+}
 
 UPB_INLINE void envoy_extensions_filters_http_router_v3_Router_set_dynamic_stats(envoy_extensions_filters_http_router_v3_Router *msg, struct google_protobuf_BoolValue* value) {
   _upb_sethas(msg, 1);
@@ -155,6 +170,18 @@ UPB_INLINE void envoy_extensions_filters_http_router_v3_Router_set_respect_expec
 }
 UPB_INLINE void envoy_extensions_filters_http_router_v3_Router_set_suppress_grpc_request_failure_code_stats(envoy_extensions_filters_http_router_v3_Router *msg, bool value) {
   *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), bool) = value;
+}
+UPB_INLINE struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter** envoy_extensions_filters_http_router_v3_Router_mutable_upstream_http_filters(envoy_extensions_filters_http_router_v3_Router* msg, size_t* len) {
+  return (struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter**)_upb_array_mutable_accessor(msg, UPB_SIZE(20, 32, 64), len);
+}
+UPB_INLINE struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter** envoy_extensions_filters_http_router_v3_Router_resize_upstream_http_filters(envoy_extensions_filters_http_router_v3_Router* msg, size_t len, upb_Arena* arena) {
+  return (struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(20, 32, 64), len, UPB_SIZE(2, 3, 4), arena);
+}
+UPB_INLINE struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter* envoy_extensions_filters_http_router_v3_Router_add_upstream_http_filters(envoy_extensions_filters_http_router_v3_Router* msg, upb_Arena* arena) {
+  struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter* sub = (struct envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter*)_upb_Message_New(&envoy_extensions_filters_network_http_connection_manager_v3_HttpFilter_msginit, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(20, 32, 64), UPB_SIZE(2, 3, 4), &sub, arena);
+  if (!ok) return NULL;
+  return sub;
 }
 
 extern const upb_MiniTable_File envoy_extensions_filters_http_router_v3_router_proto_upb_file_layout;

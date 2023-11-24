@@ -16,13 +16,13 @@
 const upb_MiniTable envoy_type_matcher_v3_HttpResponseStatusCodeMatchInput_msginit = {
   NULL,
   NULL,
-  UPB_SIZE(0, 0), 0, kUpb_ExtMode_NonExtendable, 0, 255, 0,
+  UPB_SIZE(0, 0, 0), 0, kUpb_ExtMode_NonExtendable, 0, 255, 0,
 };
 
 const upb_MiniTable envoy_type_matcher_v3_HttpResponseStatusCodeClassMatchInput_msginit = {
   NULL,
   NULL,
-  UPB_SIZE(0, 0), 0, kUpb_ExtMode_NonExtendable, 0, 255, 0,
+  UPB_SIZE(0, 0, 0), 0, kUpb_ExtMode_NonExtendable, 0, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[2] = {

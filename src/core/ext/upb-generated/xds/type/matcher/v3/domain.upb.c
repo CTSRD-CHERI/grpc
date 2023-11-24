@@ -20,13 +20,13 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_ServerNameMatcher_submsgs[1] 
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_ServerNameMatcher__fields[1] = {
-  {1, UPB_SIZE(0, 0), UPB_SIZE(0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(0, 0, 0), UPB_SIZE(0, 0, 0), 0, 11, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_ServerNameMatcher_msginit = {
   &xds_type_matcher_v3_ServerNameMatcher_submsgs[0],
   &xds_type_matcher_v3_ServerNameMatcher__fields[0],
-  UPB_SIZE(8, 8), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_submsgs[1] = {
@@ -34,14 +34,14 @@ static const upb_MiniTable_Sub xds_type_matcher_v3_ServerNameMatcher_DomainMatch
 };
 
 static const upb_MiniTable_Field xds_type_matcher_v3_ServerNameMatcher_DomainMatcher__fields[2] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(0, 0), kUpb_NoSub, 9, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(8, 16), UPB_SIZE(1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), kUpb_NoSub, 9, kUpb_FieldMode_Array | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(8, 16, 32), UPB_SIZE(1, 1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_msginit = {
   &xds_type_matcher_v3_ServerNameMatcher_DomainMatcher_submsgs[0],
   &xds_type_matcher_v3_ServerNameMatcher_DomainMatcher__fields[0],
-  UPB_SIZE(16, 24), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(16, 24, 48), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[2] = {

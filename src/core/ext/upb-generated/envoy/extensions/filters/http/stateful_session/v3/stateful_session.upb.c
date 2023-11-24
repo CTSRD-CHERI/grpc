@@ -20,13 +20,13 @@ static const upb_MiniTable_Sub envoy_extensions_filters_http_stateful_session_v3
 };
 
 static const upb_MiniTable_Field envoy_extensions_filters_http_stateful_session_v3_StatefulSession__fields[1] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(1, 1, 1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_extensions_filters_http_stateful_session_v3_StatefulSession_msginit = {
   &envoy_extensions_filters_http_stateful_session_v3_StatefulSession_submsgs[0],
   &envoy_extensions_filters_http_stateful_session_v3_StatefulSession__fields[0],
-  UPB_SIZE(8, 16), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
+  UPB_SIZE(8, 16, 32), 1, kUpb_ExtMode_NonExtendable, 1, 255, 0,
 };
 
 static const upb_MiniTable_Sub envoy_extensions_filters_http_stateful_session_v3_StatefulSessionPerRoute_submsgs[1] = {
@@ -34,14 +34,14 @@ static const upb_MiniTable_Sub envoy_extensions_filters_http_stateful_session_v3
 };
 
 static const upb_MiniTable_Field envoy_extensions_filters_http_stateful_session_v3_StatefulSessionPerRoute__fields[2] = {
-  {1, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), kUpb_NoSub, 8, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
-  {2, UPB_SIZE(4, 8), UPB_SIZE(-1, -1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
+  {1, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), kUpb_NoSub, 8, kUpb_FieldMode_Scalar | (kUpb_FieldRep_1Byte << kUpb_FieldRep_Shift)},
+  {2, UPB_SIZE(4, 8, 16), UPB_SIZE(-1, -1, -1), 0, 11, kUpb_FieldMode_Scalar | (kUpb_FieldRep_Pointer << kUpb_FieldRep_Shift)},
 };
 
 const upb_MiniTable envoy_extensions_filters_http_stateful_session_v3_StatefulSessionPerRoute_msginit = {
   &envoy_extensions_filters_http_stateful_session_v3_StatefulSessionPerRoute_submsgs[0],
   &envoy_extensions_filters_http_stateful_session_v3_StatefulSessionPerRoute__fields[0],
-  UPB_SIZE(8, 16), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
+  UPB_SIZE(8, 16, 32), 2, kUpb_ExtMode_NonExtendable, 2, 255, 0,
 };
 
 static const upb_MiniTable *messages_layout[2] = {

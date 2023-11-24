@@ -85,24 +85,24 @@ UPB_INLINE char* xds_type_matcher_v3_Int64RangeMatcher_serialize_ex(const xds_ty
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_Int64RangeMatcher_has_range_matchers(const xds_type_matcher_v3_Int64RangeMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE void xds_type_matcher_v3_Int64RangeMatcher_clear_range_matchers(const xds_type_matcher_v3_Int64RangeMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(0, 0));
+  _upb_array_detach(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* const* xds_type_matcher_v3_Int64RangeMatcher_range_matchers(const xds_type_matcher_v3_Int64RangeMatcher* msg, size_t* len) {
-  return (const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0), len);
+  return (const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 
 UPB_INLINE xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher** xds_type_matcher_v3_Int64RangeMatcher_mutable_range_matchers(xds_type_matcher_v3_Int64RangeMatcher* msg, size_t* len) {
-  return (xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0), len);
+  return (xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 UPB_INLINE xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher** xds_type_matcher_v3_Int64RangeMatcher_resize_range_matchers(xds_type_matcher_v3_Int64RangeMatcher* msg, size_t len, upb_Arena* arena) {
-  return (xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0), len, UPB_SIZE(2, 3), arena);
+  return (xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0, 0), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* xds_type_matcher_v3_Int64RangeMatcher_add_range_matchers(xds_type_matcher_v3_Int64RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* sub = (struct xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher*)_upb_Message_New(&xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0, 0), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
@@ -143,39 +143,39 @@ UPB_INLINE char* xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_serialize_ex
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_has_ranges(const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE void xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_clear_ranges(const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(4, 8));
+  _upb_array_detach(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE const struct xds_type_v3_Int64Range* const* xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_ranges(const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg, size_t* len) {
-  return (const struct xds_type_v3_Int64Range* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8), len);
+  return (const struct xds_type_v3_Int64Range* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE bool xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_has_on_match(const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_clear_on_match(const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_on_match(const xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const struct xds_type_matcher_v3_Matcher_OnMatch*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const struct xds_type_matcher_v3_Matcher_OnMatch*);
 }
 
 UPB_INLINE struct xds_type_v3_Int64Range** xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_mutable_ranges(xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg, size_t* len) {
-  return (struct xds_type_v3_Int64Range**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8), len);
+  return (struct xds_type_v3_Int64Range**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE struct xds_type_v3_Int64Range** xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_resize_ranges(xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg, size_t len, upb_Arena* arena) {
-  return (struct xds_type_v3_Int64Range**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8), len, UPB_SIZE(2, 3), arena);
+  return (struct xds_type_v3_Int64Range**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8, 16), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_v3_Int64Range* xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_add_ranges(xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_v3_Int64Range* sub = (struct xds_type_v3_Int64Range*)_upb_Message_New(&xds_type_v3_Int64Range_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8, 16), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
 UPB_INLINE void xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_set_on_match(xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher *msg, struct xds_type_matcher_v3_Matcher_OnMatch* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
 }
 UPB_INLINE struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_mutable_on_match(xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_Matcher_OnMatch* sub = (struct xds_type_matcher_v3_Matcher_OnMatch*)xds_type_matcher_v3_Int64RangeMatcher_RangeMatcher_on_match(msg);
@@ -223,24 +223,24 @@ UPB_INLINE char* xds_type_matcher_v3_Int32RangeMatcher_serialize_ex(const xds_ty
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_Int32RangeMatcher_has_range_matchers(const xds_type_matcher_v3_Int32RangeMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE void xds_type_matcher_v3_Int32RangeMatcher_clear_range_matchers(const xds_type_matcher_v3_Int32RangeMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(0, 0));
+  _upb_array_detach(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* const* xds_type_matcher_v3_Int32RangeMatcher_range_matchers(const xds_type_matcher_v3_Int32RangeMatcher* msg, size_t* len) {
-  return (const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0), len);
+  return (const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 
 UPB_INLINE xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher** xds_type_matcher_v3_Int32RangeMatcher_mutable_range_matchers(xds_type_matcher_v3_Int32RangeMatcher* msg, size_t* len) {
-  return (xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0), len);
+  return (xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 UPB_INLINE xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher** xds_type_matcher_v3_Int32RangeMatcher_resize_range_matchers(xds_type_matcher_v3_Int32RangeMatcher* msg, size_t len, upb_Arena* arena) {
-  return (xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0), len, UPB_SIZE(2, 3), arena);
+  return (xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0, 0), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* xds_type_matcher_v3_Int32RangeMatcher_add_range_matchers(xds_type_matcher_v3_Int32RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* sub = (struct xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher*)_upb_Message_New(&xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0, 0), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
@@ -281,39 +281,39 @@ UPB_INLINE char* xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_serialize_ex
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_has_ranges(const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE void xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_clear_ranges(const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(4, 8));
+  _upb_array_detach(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE const struct xds_type_v3_Int32Range* const* xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_ranges(const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg, size_t* len) {
-  return (const struct xds_type_v3_Int32Range* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8), len);
+  return (const struct xds_type_v3_Int32Range* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE bool xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_has_on_match(const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_clear_on_match(const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_on_match(const xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const struct xds_type_matcher_v3_Matcher_OnMatch*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const struct xds_type_matcher_v3_Matcher_OnMatch*);
 }
 
 UPB_INLINE struct xds_type_v3_Int32Range** xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_mutable_ranges(xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg, size_t* len) {
-  return (struct xds_type_v3_Int32Range**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8), len);
+  return (struct xds_type_v3_Int32Range**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE struct xds_type_v3_Int32Range** xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_resize_ranges(xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg, size_t len, upb_Arena* arena) {
-  return (struct xds_type_v3_Int32Range**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8), len, UPB_SIZE(2, 3), arena);
+  return (struct xds_type_v3_Int32Range**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8, 16), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_v3_Int32Range* xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_add_ranges(xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_v3_Int32Range* sub = (struct xds_type_v3_Int32Range*)_upb_Message_New(&xds_type_v3_Int32Range_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8, 16), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
 UPB_INLINE void xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_set_on_match(xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher *msg, struct xds_type_matcher_v3_Matcher_OnMatch* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
 }
 UPB_INLINE struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_mutable_on_match(xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_Matcher_OnMatch* sub = (struct xds_type_matcher_v3_Matcher_OnMatch*)xds_type_matcher_v3_Int32RangeMatcher_RangeMatcher_on_match(msg);
@@ -361,24 +361,24 @@ UPB_INLINE char* xds_type_matcher_v3_DoubleRangeMatcher_serialize_ex(const xds_t
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_DoubleRangeMatcher_has_range_matchers(const xds_type_matcher_v3_DoubleRangeMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE void xds_type_matcher_v3_DoubleRangeMatcher_clear_range_matchers(const xds_type_matcher_v3_DoubleRangeMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(0, 0));
+  _upb_array_detach(msg, UPB_SIZE(0, 0, 0));
 }
 UPB_INLINE const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* const* xds_type_matcher_v3_DoubleRangeMatcher_range_matchers(const xds_type_matcher_v3_DoubleRangeMatcher* msg, size_t* len) {
-  return (const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0), len);
+  return (const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* const*)_upb_array_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 
 UPB_INLINE xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher** xds_type_matcher_v3_DoubleRangeMatcher_mutable_range_matchers(xds_type_matcher_v3_DoubleRangeMatcher* msg, size_t* len) {
-  return (xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0), len);
+  return (xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher**)_upb_array_mutable_accessor(msg, UPB_SIZE(0, 0, 0), len);
 }
 UPB_INLINE xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher** xds_type_matcher_v3_DoubleRangeMatcher_resize_range_matchers(xds_type_matcher_v3_DoubleRangeMatcher* msg, size_t len, upb_Arena* arena) {
-  return (xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0), len, UPB_SIZE(2, 3), arena);
+  return (xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(0, 0, 0), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* xds_type_matcher_v3_DoubleRangeMatcher_add_range_matchers(xds_type_matcher_v3_DoubleRangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* sub = (struct xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher*)_upb_Message_New(&xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(0, 0, 0), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
@@ -419,39 +419,39 @@ UPB_INLINE char* xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_serialize_e
   return ptr;
 }
 UPB_INLINE bool xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_has_ranges(const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg) {
-  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8));
+  return _upb_has_submsg_nohasbit(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE void xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_clear_ranges(const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg) {
-  _upb_array_detach(msg, UPB_SIZE(4, 8));
+  _upb_array_detach(msg, UPB_SIZE(4, 8, 16));
 }
 UPB_INLINE const struct xds_type_v3_DoubleRange* const* xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_ranges(const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg, size_t* len) {
-  return (const struct xds_type_v3_DoubleRange* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8), len);
+  return (const struct xds_type_v3_DoubleRange* const*)_upb_array_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE bool xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_has_on_match(const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_clear_on_match(const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_on_match(const xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16), const struct xds_type_matcher_v3_Matcher_OnMatch*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), const struct xds_type_matcher_v3_Matcher_OnMatch*);
 }
 
 UPB_INLINE struct xds_type_v3_DoubleRange** xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_mutable_ranges(xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg, size_t* len) {
-  return (struct xds_type_v3_DoubleRange**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8), len);
+  return (struct xds_type_v3_DoubleRange**)_upb_array_mutable_accessor(msg, UPB_SIZE(4, 8, 16), len);
 }
 UPB_INLINE struct xds_type_v3_DoubleRange** xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_resize_ranges(xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg, size_t len, upb_Arena* arena) {
-  return (struct xds_type_v3_DoubleRange**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8), len, UPB_SIZE(2, 3), arena);
+  return (struct xds_type_v3_DoubleRange**)_upb_Array_Resize_accessor2(msg, UPB_SIZE(4, 8, 16), len, UPB_SIZE(2, 3, 4), arena);
 }
 UPB_INLINE struct xds_type_v3_DoubleRange* xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_add_ranges(xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_v3_DoubleRange* sub = (struct xds_type_v3_DoubleRange*)_upb_Message_New(&xds_type_v3_DoubleRange_msginit, arena);
-  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8), UPB_SIZE(2, 3), &sub, arena);
+  bool ok = _upb_Array_Append_accessor2(msg, UPB_SIZE(4, 8, 16), UPB_SIZE(2, 3, 4), &sub, arena);
   if (!ok) return NULL;
   return sub;
 }
 UPB_INLINE void xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_set_on_match(xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher *msg, struct xds_type_matcher_v3_Matcher_OnMatch* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 16), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 16, 32), struct xds_type_matcher_v3_Matcher_OnMatch*) = value;
 }
 UPB_INLINE struct xds_type_matcher_v3_Matcher_OnMatch* xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_mutable_on_match(xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher* msg, upb_Arena* arena) {
   struct xds_type_matcher_v3_Matcher_OnMatch* sub = (struct xds_type_matcher_v3_Matcher_OnMatch*)xds_type_matcher_v3_DoubleRangeMatcher_RangeMatcher_on_match(msg);

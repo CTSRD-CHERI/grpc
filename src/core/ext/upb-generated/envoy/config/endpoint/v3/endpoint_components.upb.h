@@ -76,11 +76,15 @@ UPB_INLINE envoy_config_endpoint_v3_Endpoint* envoy_config_endpoint_v3_Endpoint_
   return ret;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_Endpoint_serialize(const envoy_config_endpoint_v3_Endpoint* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_Endpoint_serialize_ex(const envoy_config_endpoint_v3_Endpoint* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE bool envoy_config_endpoint_v3_Endpoint_has_address(const envoy_config_endpoint_v3_Endpoint* msg) {
   return _upb_hasbit(msg, 1);
@@ -162,30 +166,65 @@ UPB_INLINE envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* envoy_config_end
   return ret;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_serialize(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_serialize_ex(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_clear_port_value(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = 0;
 }
 UPB_INLINE uint32_t envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_port_value(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t);
 }
 UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_clear_hostname(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 16, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_hostname(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 16, 16), upb_StringView);
+}
+UPB_INLINE bool envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_has_address(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
+  return _upb_hasbit(msg, 1);
+}
+UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_clear_address(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
+  *UPB_PTR_AT(msg, UPB_SIZE(20, 32, 48), const upb_Message*) = NULL;
+}
+UPB_INLINE const struct envoy_config_core_v3_Address* envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_address(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
+  return *UPB_PTR_AT(msg, UPB_SIZE(20, 32, 48), const struct envoy_config_core_v3_Address*);
+}
+UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_clear_disable_active_health_check(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), bool) = 0;
+}
+UPB_INLINE bool envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_disable_active_health_check(const envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg) {
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), bool);
 }
 
 UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_set_port_value(envoy_config_endpoint_v3_Endpoint_HealthCheckConfig *msg, uint32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), uint32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 4, 4), uint32_t) = value;
 }
 UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_set_hostname(envoy_config_endpoint_v3_Endpoint_HealthCheckConfig *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 16, 16), upb_StringView) = value;
+}
+UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_set_address(envoy_config_endpoint_v3_Endpoint_HealthCheckConfig *msg, struct envoy_config_core_v3_Address* value) {
+  _upb_sethas(msg, 1);
+  *UPB_PTR_AT(msg, UPB_SIZE(20, 32, 48), struct envoy_config_core_v3_Address*) = value;
+}
+UPB_INLINE struct envoy_config_core_v3_Address* envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_mutable_address(envoy_config_endpoint_v3_Endpoint_HealthCheckConfig* msg, upb_Arena* arena) {
+  struct envoy_config_core_v3_Address* sub = (struct envoy_config_core_v3_Address*)envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_address(msg);
+  if (sub == NULL) {
+    sub = (struct envoy_config_core_v3_Address*)_upb_Message_New(&envoy_config_core_v3_Address_msginit, arena);
+    if (!sub) return NULL;
+    envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_set_address(msg, sub);
+  }
+  return sub;
+}
+UPB_INLINE void envoy_config_endpoint_v3_Endpoint_HealthCheckConfig_set_disable_active_health_check(envoy_config_endpoint_v3_Endpoint_HealthCheckConfig *msg, bool value) {
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), bool) = value;
 }
 
 /* envoy.config.endpoint.v3.LbEndpoint */
@@ -213,11 +252,15 @@ UPB_INLINE envoy_config_endpoint_v3_LbEndpoint* envoy_config_endpoint_v3_LbEndpo
   return ret;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LbEndpoint_serialize(const envoy_config_endpoint_v3_LbEndpoint* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LbEndpoint_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LbEndpoint_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LbEndpoint_serialize_ex(const envoy_config_endpoint_v3_LbEndpoint* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LbEndpoint_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LbEndpoint_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 typedef enum {
   envoy_config_endpoint_v3_LbEndpoint_host_identifier_endpoint = 1,
@@ -340,11 +383,15 @@ UPB_INLINE envoy_config_endpoint_v3_LedsClusterLocalityConfig* envoy_config_endp
   return ret;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LedsClusterLocalityConfig_serialize(const envoy_config_endpoint_v3_LedsClusterLocalityConfig* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LedsClusterLocalityConfig_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LedsClusterLocalityConfig_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LedsClusterLocalityConfig_serialize_ex(const envoy_config_endpoint_v3_LedsClusterLocalityConfig* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LedsClusterLocalityConfig_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LedsClusterLocalityConfig_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE bool envoy_config_endpoint_v3_LedsClusterLocalityConfig_has_leds_config(const envoy_config_endpoint_v3_LedsClusterLocalityConfig* msg) {
   return _upb_hasbit(msg, 1);
@@ -404,11 +451,15 @@ UPB_INLINE envoy_config_endpoint_v3_LocalityLbEndpoints* envoy_config_endpoint_v
   return ret;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LocalityLbEndpoints_serialize(const envoy_config_endpoint_v3_LocalityLbEndpoints* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LocalityLbEndpoints_serialize_ex(const envoy_config_endpoint_v3_LocalityLbEndpoints* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 typedef enum {
   envoy_config_endpoint_v3_LocalityLbEndpoints_lb_config_load_balancer_endpoints = 7,
@@ -583,11 +634,15 @@ UPB_INLINE envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList* envoy_co
   return ret;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_serialize(const envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList* msg, upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_msginit, 0, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_msginit, 0, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE char* envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_serialize_ex(const envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList* msg, int options,
                                  upb_Arena* arena, size_t* len) {
-  return upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_msginit, options, arena, len);
+  char* ptr;
+  (void)upb_Encode(msg, &envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_msginit, options, arena, &ptr, len);
+  return ptr;
 }
 UPB_INLINE bool envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList_has_lb_endpoints(const envoy_config_endpoint_v3_LocalityLbEndpoints_LbEndpointList* msg) {
   return _upb_has_submsg_nohasbit(msg, UPB_SIZE(0, 0, 0));

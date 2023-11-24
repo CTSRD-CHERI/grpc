@@ -64,27 +64,27 @@ UPB_INLINE char* xds_core_v3_CidrRange_serialize_ex(const xds_core_v3_CidrRange*
   return ptr;
 }
 UPB_INLINE void xds_core_v3_CidrRange_clear_address_prefix(const xds_core_v3_CidrRange* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = upb_StringView_FromDataAndSize(NULL, 0);
 }
 UPB_INLINE upb_StringView xds_core_v3_CidrRange_address_prefix(const xds_core_v3_CidrRange* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView);
 }
 UPB_INLINE bool xds_core_v3_CidrRange_has_prefix_len(const xds_core_v3_CidrRange* msg) {
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void xds_core_v3_CidrRange_clear_prefix_len(const xds_core_v3_CidrRange* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct google_protobuf_UInt32Value* xds_core_v3_CidrRange_prefix_len(const xds_core_v3_CidrRange* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24), const struct google_protobuf_UInt32Value*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), const struct google_protobuf_UInt32Value*);
 }
 
 UPB_INLINE void xds_core_v3_CidrRange_set_address_prefix(xds_core_v3_CidrRange *msg, upb_StringView value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), upb_StringView) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), upb_StringView) = value;
 }
 UPB_INLINE void xds_core_v3_CidrRange_set_prefix_len(xds_core_v3_CidrRange *msg, struct google_protobuf_UInt32Value* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(12, 24), struct google_protobuf_UInt32Value*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(12, 24, 48), struct google_protobuf_UInt32Value*) = value;
 }
 UPB_INLINE struct google_protobuf_UInt32Value* xds_core_v3_CidrRange_mutable_prefix_len(xds_core_v3_CidrRange* msg, upb_Arena* arena) {
   struct google_protobuf_UInt32Value* sub = (struct google_protobuf_UInt32Value*)xds_core_v3_CidrRange_prefix_len(msg);

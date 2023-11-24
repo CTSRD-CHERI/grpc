@@ -78,41 +78,41 @@ typedef enum {
   envoy_type_v3_RateLimitStrategy_strategy_NOT_SET = 0
 } envoy_type_v3_RateLimitStrategy_strategy_oneofcases;
 UPB_INLINE envoy_type_v3_RateLimitStrategy_strategy_oneofcases envoy_type_v3_RateLimitStrategy_strategy_case(const envoy_type_v3_RateLimitStrategy* msg) {
-  return (envoy_type_v3_RateLimitStrategy_strategy_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return (envoy_type_v3_RateLimitStrategy_strategy_oneofcases)*UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 UPB_INLINE bool envoy_type_v3_RateLimitStrategy_has_blanket_rule(const envoy_type_v3_RateLimitStrategy* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 1;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 1;
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_clear_blanket_rule(const envoy_type_v3_RateLimitStrategy* msg) {
-  UPB_WRITE_ONEOF(msg, int32_t, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), envoy_type_v3_RateLimitStrategy_strategy_NOT_SET);
+  UPB_WRITE_ONEOF(msg, int32_t, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), envoy_type_v3_RateLimitStrategy_strategy_NOT_SET);
 }
 UPB_INLINE int32_t envoy_type_v3_RateLimitStrategy_blanket_rule(const envoy_type_v3_RateLimitStrategy* msg) {
-  return UPB_READ_ONEOF(msg, int32_t, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 1, 0);
+  return UPB_READ_ONEOF(msg, int32_t, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 1, 0);
 }
 UPB_INLINE bool envoy_type_v3_RateLimitStrategy_has_requests_per_time_unit(const envoy_type_v3_RateLimitStrategy* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 2;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 2;
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_clear_requests_per_time_unit(const envoy_type_v3_RateLimitStrategy* msg) {
-  UPB_WRITE_ONEOF(msg, envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), envoy_type_v3_RateLimitStrategy_strategy_NOT_SET);
+  UPB_WRITE_ONEOF(msg, envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), envoy_type_v3_RateLimitStrategy_strategy_NOT_SET);
 }
 UPB_INLINE const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* envoy_type_v3_RateLimitStrategy_requests_per_time_unit(const envoy_type_v3_RateLimitStrategy* msg) {
-  return UPB_READ_ONEOF(msg, const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 2, NULL);
+  return UPB_READ_ONEOF(msg, const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 2, NULL);
 }
 UPB_INLINE bool envoy_type_v3_RateLimitStrategy_has_token_bucket(const envoy_type_v3_RateLimitStrategy* msg) {
-  return _upb_getoneofcase(msg, UPB_SIZE(0, 0)) == 3;
+  return _upb_getoneofcase(msg, UPB_SIZE(0, 0, 0)) == 3;
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_clear_token_bucket(const envoy_type_v3_RateLimitStrategy* msg) {
-  UPB_WRITE_ONEOF(msg, struct envoy_type_v3_TokenBucket*, UPB_SIZE(4, 8), 0, UPB_SIZE(0, 0), envoy_type_v3_RateLimitStrategy_strategy_NOT_SET);
+  UPB_WRITE_ONEOF(msg, struct envoy_type_v3_TokenBucket*, UPB_SIZE(4, 8, 16), 0, UPB_SIZE(0, 0, 0), envoy_type_v3_RateLimitStrategy_strategy_NOT_SET);
 }
 UPB_INLINE const struct envoy_type_v3_TokenBucket* envoy_type_v3_RateLimitStrategy_token_bucket(const envoy_type_v3_RateLimitStrategy* msg) {
-  return UPB_READ_ONEOF(msg, const struct envoy_type_v3_TokenBucket*, UPB_SIZE(4, 8), UPB_SIZE(0, 0), 3, NULL);
+  return UPB_READ_ONEOF(msg, const struct envoy_type_v3_TokenBucket*, UPB_SIZE(4, 8, 16), UPB_SIZE(0, 0, 0), 3, NULL);
 }
 
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_set_blanket_rule(envoy_type_v3_RateLimitStrategy *msg, int32_t value) {
-  UPB_WRITE_ONEOF(msg, int32_t, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 1);
+  UPB_WRITE_ONEOF(msg, int32_t, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 1);
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_set_requests_per_time_unit(envoy_type_v3_RateLimitStrategy *msg, envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* value) {
-  UPB_WRITE_ONEOF(msg, envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 2);
+  UPB_WRITE_ONEOF(msg, envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 2);
 }
 UPB_INLINE struct envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* envoy_type_v3_RateLimitStrategy_mutable_requests_per_time_unit(envoy_type_v3_RateLimitStrategy* msg, upb_Arena* arena) {
   struct envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* sub = (struct envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit*)envoy_type_v3_RateLimitStrategy_requests_per_time_unit(msg);
@@ -124,7 +124,7 @@ UPB_INLINE struct envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* envoy_typ
   return sub;
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_set_token_bucket(envoy_type_v3_RateLimitStrategy *msg, struct envoy_type_v3_TokenBucket* value) {
-  UPB_WRITE_ONEOF(msg, struct envoy_type_v3_TokenBucket*, UPB_SIZE(4, 8), value, UPB_SIZE(0, 0), 3);
+  UPB_WRITE_ONEOF(msg, struct envoy_type_v3_TokenBucket*, UPB_SIZE(4, 8, 16), value, UPB_SIZE(0, 0, 0), 3);
 }
 UPB_INLINE struct envoy_type_v3_TokenBucket* envoy_type_v3_RateLimitStrategy_mutable_token_bucket(envoy_type_v3_RateLimitStrategy* msg, upb_Arena* arena) {
   struct envoy_type_v3_TokenBucket* sub = (struct envoy_type_v3_TokenBucket*)envoy_type_v3_RateLimitStrategy_token_bucket(msg);
@@ -172,23 +172,23 @@ UPB_INLINE char* envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_serialize_e
   return ptr;
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_clear_requests_per_time_unit(const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint64_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint64_t) = 0;
 }
 UPB_INLINE uint64_t envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_requests_per_time_unit(const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint64_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint64_t);
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_clear_time_unit(const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = 0;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = 0;
 }
 UPB_INLINE int32_t envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_time_unit(const envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t);
+  return *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t);
 }
 
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_set_requests_per_time_unit(envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit *msg, uint64_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(8, 8), uint64_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(8, 8, 8), uint64_t) = value;
 }
 UPB_INLINE void envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit_set_time_unit(envoy_type_v3_RateLimitStrategy_RequestsPerTimeUnit *msg, int32_t value) {
-  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0, 0), int32_t) = value;
 }
 
 extern const upb_MiniTable_File envoy_type_v3_ratelimit_strategy_proto_upb_file_layout;

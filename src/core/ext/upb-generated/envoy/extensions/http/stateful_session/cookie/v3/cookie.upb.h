@@ -67,15 +67,15 @@ UPB_INLINE bool envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSess
   return _upb_hasbit(msg, 1);
 }
 UPB_INLINE void envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState_clear_cookie(const envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState* msg) {
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const upb_Message*) = NULL;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const upb_Message*) = NULL;
 }
 UPB_INLINE const struct envoy_type_http_v3_Cookie* envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState_cookie(const envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState* msg) {
-  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8), const struct envoy_type_http_v3_Cookie*);
+  return *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), const struct envoy_type_http_v3_Cookie*);
 }
 
 UPB_INLINE void envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState_set_cookie(envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState *msg, struct envoy_type_http_v3_Cookie* value) {
   _upb_sethas(msg, 1);
-  *UPB_PTR_AT(msg, UPB_SIZE(4, 8), struct envoy_type_http_v3_Cookie*) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(4, 8, 16), struct envoy_type_http_v3_Cookie*) = value;
 }
 UPB_INLINE struct envoy_type_http_v3_Cookie* envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState_mutable_cookie(envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState* msg, upb_Arena* arena) {
   struct envoy_type_http_v3_Cookie* sub = (struct envoy_type_http_v3_Cookie*)envoy_extensions_http_stateful_session_cookie_v3_CookieBasedSessionState_cookie(msg);
