@@ -318,7 +318,7 @@ class Client {
           &client_->start_requests_,
           gpr_time_add(gpr_now(GPR_CLOCK_REALTIME),
                        gpr_time_from_seconds(20, GPR_TIMESPAN)))) {
-        gpr_log(GPR_INFO, "%" PRIdPTR ": Waiting for benchmark to start (%d)",
+        gpr_log(GPR_INFO, "%" PRIdMAX ": Waiting for benchmark to start (%d)",
                 idx_, wait_loop);
         wait_loop++;
       }

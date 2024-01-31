@@ -430,7 +430,7 @@ std::unique_ptr<ScenarioResult> RunScenario(
   ChannelArguments channel_args;
 
   for (size_t i = 0; i < num_servers; i++) {
-    gpr_log(GPR_INFO, "Starting server on %s (worker #%" PRIuPTR ")",
+    gpr_log(GPR_INFO, "Starting server on %s (worker #%" PRIuMAX ")",
             workers[i].c_str(), i);
     if (!run_inproc) {
       servers[i].stub = WorkerService::NewStub(grpc::CreateTestChannel(
@@ -487,7 +487,7 @@ std::unique_ptr<ScenarioResult> RunScenario(
   size_t channels_allocated = 0;
   for (size_t i = 0; i < num_clients; i++) {
     const auto& worker = workers[i + num_servers];
-    gpr_log(GPR_INFO, "Starting client on %s (worker #%" PRIuPTR ")",
+    gpr_log(GPR_INFO, "Starting client on %s (worker #%" PRIuMAX ")",
             worker.c_str(), i + num_servers);
     if (!run_inproc) {
       clients[i].stub = WorkerService::NewStub(grpc::CreateTestChannel(
@@ -510,7 +510,7 @@ std::unique_ptr<ScenarioResult> RunScenario(
         (client_config.client_channels() - channels_allocated) /
         (num_clients - i);
     channels_allocated += num_channels;
-    gpr_log(GPR_DEBUG, "Client %" PRIdPTR " gets %" PRIdPTR " channels", i,
+    gpr_log(GPR_DEBUG, "Client %" PRIdMAX " gets %" PRIdMAX " channels", i,
             num_channels);
     per_client_config.set_client_channels(num_channels);
 
