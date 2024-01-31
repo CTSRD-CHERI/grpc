@@ -284,12 +284,20 @@ class AsyncClient : public ClientImpl<StubType, RequestType> {
           shutdown_mu->unlock();
         },
         &got_tag, &ok, gpr_inf_future(GPR_CLOCK_REALTIME))) {
+      auto has_value = entry.value_used();
       t->UpdateHistogram(entry_ptr);
       entry = HistogramEntry();
+
       shutdown_mu->lock();
+      if (has_value && this->CheckClientMessageLimit()) {
+        // Force shutdown due to message limit being reached
+        cli_cqs_[cq_[thread_idx]]->Shutdown();
+        shutdown_state_[thread_idx]->shutdown = true;
+      }
       ctx = ProcessTag(thread_idx, got_tag);
       if (ctx == nullptr) {
         shutdown_mu->unlock();
+        this->AwaitClientMessageLimitSync();
         return;
       }
     }

@@ -210,7 +210,8 @@ class WorkerServiceImpl final : public WorkerService::Service {
         gpr_log(GPR_INFO, "RunClientBody: Message is not a mark!");
         return Status(StatusCode::INVALID_ARGUMENT, "Invalid mark");
       }
-      *status.mutable_stats() = client->Mark(args.mark().reset());
+      *status.mutable_stats() = client->Mark(args.mark().reset(),
+                                             args.mark().message_limit());
       if (!stream->Write(status)) {
         return Status(StatusCode::UNKNOWN, "Client couldn't respond to mark");
       }

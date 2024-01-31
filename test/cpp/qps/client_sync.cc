@@ -71,8 +71,12 @@ class SynchronousClient
     for (;;) {
       // run the loop body
       HistogramEntry entry;
-      const bool thread_still_ok = ThreadFuncImpl(&entry, thread_idx);
+      bool thread_still_ok = ThreadFuncImpl(&entry, thread_idx);
       t->UpdateHistogram(&entry);
+      if (entry.value_used() && this->CheckClientMessageLimit()) {
+        thread_still_ok = false;
+        this->AwaitClientMessageLimitSync();
+      }
       if (!thread_still_ok || ThreadCompleted()) {
         return;
       }

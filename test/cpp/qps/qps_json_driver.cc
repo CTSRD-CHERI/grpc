@@ -130,6 +130,7 @@ static std::unique_ptr<ScenarioResult> RunAndReport(
       scenario.warmup_seconds(), scenario.benchmark_seconds(),
       !absl::GetFlag(FLAGS_run_inproc) ? scenario.spawn_local_worker_count()
                                        : -2,
+      scenario.message_limit(),
       absl::GetFlag(FLAGS_qps_server_target_override),
       absl::GetFlag(FLAGS_credential_type), per_worker_credential_types,
       absl::GetFlag(FLAGS_run_inproc),

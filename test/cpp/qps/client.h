@@ -160,17 +160,35 @@ class Client {
       : timer_(new UsageTimer),
         interarrival_timer_(),
         started_requests_(false),
-        last_reset_poll_count_(0) {
+        last_reset_poll_count_(0),
+        total_messages_issued_(0),
+        client_message_limit_(0) {
     gpr_event_init(&start_requests_);
   }
   virtual ~Client() {}
 
-  ClientStats Mark(bool reset) {
+  ClientStats Mark(bool reset, uint64_t message_limit) {
     Histogram latencies;
     StatusHistogram statuses;
     UsageTimer::Result timer_result;
 
     MaybeStartRequests();
+
+    // check if a previous mark already set the message limit
+    // if so, we need to wait for it to be reached.
+    // XXX-AM: Hack: we assume that the threads will self-shutdown
+    // after reaching the limit, so it is not possible to send
+    // other marks after this.
+    uint64_t prev_message_limit = client_message_limit_.load();
+    if (prev_message_limit != 0) {
+      gpr_log(GPR_INFO, "Wait for message limit %lu to be reached",
+              prev_message_limit);
+      // Now wait for all threads to park after draining the completion queues.
+      std::unique_lock<std::mutex> g(message_limit_sync_mu_);
+      while (message_limit_unparked_threads_ != 0) {
+        message_limit_sync_.wait(g);
+      }
+    }
 
     int cur_poll_count = GetPollCount();
     int poll_count = cur_poll_count - last_reset_poll_count_;
@@ -189,12 +207,22 @@ class Client {
       }
       timer_result = timer->Mark();
       last_reset_poll_count_ = cur_poll_count;
+
+      total_messages_issued_.store(0);
+      client_message_limit_.store(message_limit);
     } else {
       // merge snapshots of each thread histogram
       for (size_t i = 0; i < threads_.size(); i++) {
         threads_[i]->MergeStatsInto(&latencies, &statuses);
       }
       timer_result = timer_->Mark();
+    }
+
+    if (prev_message_limit != 0) {
+      // Proceed to complete the thread shutdown
+      std::lock_guard<std::mutex> g(message_limit_sync_mu_);
+      message_limit_continue_shutdown_ = true;
+      message_limit_sync_.notify_all();
     }
 
     // Print the median latency per interval for one thread.
@@ -348,6 +376,7 @@ class Client {
   void StartThreads(size_t num_threads) {
     gpr_atm_rel_store(&thread_pool_done_, static_cast<gpr_atm>(false));
     threads_remaining_ = num_threads;
+    message_limit_unparked_threads_ = num_threads;
     for (size_t i = 0; i < num_threads; i++) {
       threads_.emplace_back(new Thread(this, i));
     }
@@ -415,6 +444,13 @@ class Client {
 
   int last_reset_poll_count_;
 
+  std::atomic<uint64_t> total_messages_issued_;
+  std::atomic<uint64_t> client_message_limit_;
+  std::mutex message_limit_sync_mu_;
+  size_t message_limit_unparked_threads_;
+  bool message_limit_continue_shutdown_;
+  std::condition_variable message_limit_sync_;
+
   void MaybeStartRequests() {
     if (!started_requests_) {
       started_requests_ = true;
@@ -427,6 +463,25 @@ class Client {
     threads_remaining_--;
     if (threads_remaining_ == 0) {
       threads_complete_.notify_all();
+    }
+  }
+
+  bool CheckClientMessageLimit() {
+    auto limit = client_message_limit_.load(std::memory_order_relaxed);
+    auto issued = total_messages_issued_.fetch_add(1, std::memory_order_relaxed) + 1;
+    if (limit > 0 && limit <= issued) {
+      gpr_log(GPR_INFO, "Reached client message limit %" PRIu64, issued);
+      return true;
+    }
+    return false;
+  }
+
+  void AwaitClientMessageLimitSync() {
+    std::unique_lock<std::mutex> g(message_limit_sync_mu_);
+    message_limit_unparked_threads_--;
+    message_limit_sync_.notify_all();
+    while (!message_limit_continue_shutdown_) {
+      message_limit_sync_.wait(g);
     }
   }
 };

@@ -146,8 +146,12 @@ static void postprocess_scenario_result(ScenarioResult* result) {
   // all clients
   double qps = 0;
   double client_system_cpu_load = 0, client_user_cpu_load = 0;
+  double nsamples = 0;
+  double abs_time = 0;
   for (int i = 0; i < result->client_stats_size(); i++) {
     auto client_stat = result->client_stats(i);
+    nsamples += client_stat.latencies().count();
+    abs_time += client_stat.time_elapsed();
     qps += client_stat.latencies().count() / client_stat.time_elapsed();
     client_system_cpu_load +=
         client_stat.time_system() / client_stat.time_elapsed();
@@ -165,6 +169,8 @@ static void postprocess_scenario_result(ScenarioResult* result) {
         server_stat.time_user() / server_stat.time_elapsed();
   }
   result->mutable_summary()->set_qps(qps);
+  result->mutable_summary()->set_message_count(nsamples);
+  result->mutable_summary()->set_elapsed_time(abs_time);
   // Populate the percentage of cpu load to result summary.
   result->mutable_summary()->set_server_system_time(100 *
                                                     server_system_cpu_load);
@@ -356,6 +362,7 @@ std::unique_ptr<ScenarioResult> RunScenario(
     const ClientConfig& initial_client_config, size_t num_clients,
     const ServerConfig& initial_server_config, size_t num_servers,
     int warmup_seconds, int benchmark_seconds, int spawn_local_worker_count,
+    uint64_t benchmark_message_limit,
     const std::string& qps_server_target_override,
     const std::string& credential_type,
     const std::map<std::string, std::string>& per_worker_credential_types,
@@ -562,6 +569,11 @@ std::unique_ptr<ScenarioResult> RunScenario(
 
   // Start a run
   gpr_log(GPR_INFO, "Starting");
+  if (benchmark_message_limit) {
+    gpr_log(GPR_INFO, "Fixed workload of %" PRIu64 " messages",
+            benchmark_message_limit);
+    client_mark.mutable_mark()->set_message_limit(benchmark_message_limit);
+  }
 
   auto start_time = time(nullptr);
 
@@ -594,11 +606,15 @@ std::unique_ptr<ScenarioResult> RunScenario(
 
   // Wait some time
   gpr_log(GPR_INFO, "Running");
-  // Use gpr_sleep_until rather than this_thread::sleep_until to support
-  // compilers that don't work with this_thread
-  gpr_sleep_until(gpr_time_add(
-      start,
-      gpr_time_from_seconds(warmup_seconds + benchmark_seconds, GPR_TIMESPAN)));
+  client_mark.mutable_mark()->clear_message_limit();
+
+  if (benchmark_message_limit == 0) {
+    // Use gpr_sleep_until rather than this_thread::sleep_until to support
+    // compilers that don't work with this_thread
+    gpr_sleep_until(gpr_time_add(
+        start,
+        gpr_time_from_seconds(warmup_seconds + benchmark_seconds, GPR_TIMESPAN)));
+  }
 
   // Finish a run
   std::unique_ptr<ScenarioResult> result(new ScenarioResult);

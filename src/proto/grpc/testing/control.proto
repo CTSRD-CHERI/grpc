@@ -129,6 +129,9 @@ message ClientStatus { ClientStats stats = 1; }
 message Mark {
   // if true, the stats will be reset after taking their snapshot.
   bool reset = 1;
+  // Set the message limit after taking the stats snapshot.
+  // The next mark will only return statistics if the message limit is reached.
+  int64 message_limit = 2;
 }
 
 message ClientArgs {
@@ -216,6 +219,8 @@ message Scenario {
   int32 benchmark_seconds = 7;
   // Number of workers to spawn locally (usually zero)
   int32 spawn_local_worker_count = 8;
+  // Fixed workload for the benchmark phase, number of messages
+  int64 message_limit = 9;
 }
 
 // A set of scenarios to be run with qps_json_driver
@@ -270,7 +275,12 @@ message ScenarioResultSummary
 
   // Start and end time for the test scenario
   google.protobuf.Timestamp start_time = 19;
-  google.protobuf.Timestamp end_time =20;
+  google.protobuf.Timestamp end_time = 20;
+
+  // Number of samples used to produce the qps metric
+  double message_count = 21;
+  // Total elapsed time, as measured by the client workers.
+  double elapsed_time = 22;
 }
 
 // Results of a single benchmark scenario.
