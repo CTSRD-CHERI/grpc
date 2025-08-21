@@ -1,12 +1,22 @@
 # Background
 
-This software is an experimental Morello port of gRPC 1.48.1
+This software is an experimental CHERI port of gRPC
+
+Currently, this has been tested on Morello, CHERI RISC-V experimental and
+RV64Y ISA versions.
 
 ## Build instructions
+
+There are two ways to build gRPC and the associated QPS benchmark.
+ - [cheribuild](https://github.com/CTSRD-CHERI/cheribuild) supports
+   cross-building grpc for CheriBSD.
+ - Natively using cmake. Note that cross compilation is more involved
+   and cheribuild is recommended.
 
 gRPC is build with CMake and Bazel. The bazel build is unsupported,
 this has limitations for the test infrastructure.
 
+### Native build (Morello)
 First, install the build and test dependencies:
 
 `$ sudo pkg64 install cmake ninja python`
@@ -59,9 +69,41 @@ $ cmake -B out -G Ninja
 $ ninja -C out
 ```
 
+### Cheribuild build
+Cheribuild supports building gRPC and the QPS benchmark for both RISC-V and
+Morello targets.
+
+First build the native gRPC binaries. This is necessary because the cross
+build requires protoc and the protoc gRPC plugin with a compatible version.
+The following command will build the necessary dependencies in the cherisdk/bin
+directory.
+
+```
+cheribuild.py grpc-native -d
+```
+
+The next step is to cross build for the target CHERI architecture.
+In order to build the RV64Y version of the benchmark, add the
+`--riscv-cheri-isa std` option to the cheribuild command line.
+
+```
+# Build for cheri-riscv ISAv9
+cheribuild.py grpc-riscv64-purecap -d
+
+# Build for cheri-riscv RV64Y
+cheribuild.py grpc-riscv64-purecap -d --riscv-cheri-isa std
+
+# Build for morello
+cheribuild.py grpc-morello-purecap -d
+```
+
 ## Library compartmentalization
 
-When using Library compartmentalisation gRPC and its dependencies must be build with the
+Cheribuild should use the correct ABI flags for all target architectures.
+If building natively, the compiler wrapper in Morello should also set the
+correct flags.
+Otherwise, make sure that when using library compartmentalisation gRPC and
+its dependencies must be build with the
 following flags: `-Xclang -morello-bounded-memargs=caller-only`.
 This can be done by adding the following line to your `/etc/make.conf`
 
@@ -81,6 +123,25 @@ $ patchelf --set-interpreter /libexec/ld-elf-c18n.so.1  path/to/binary
 ```
 
 The change of runtime linker can be verified with `readelf -l`.
+
+## Running the QPS benchmark
+
+Cheribuild places the resulting binareis in the sdk rootfs for the target, at
+/usr/local/riscv64-purecap.
+It is possible to build MFS kernels or disk images that include the binaries
+using the cheribuild `disk-image` targets.
+
+In order to run the qps benchmark we need two workers and the driver program,
+along with a scenario file that describes the benchmark parameters.
+
+```
+qps_worker --server_port 10001 --driver_port 10000 &
+qps_worker --server_port 20001 --driver_port 20000 &
+env QPS_WORKERS=localhost:10000,localhost:20000 qps_json_driver --scenarios_file path/to/scenario.json
+```
+
+Note that the first worker listed in `QPS_WORKERS` will be used consistently as the gRPC server.
+CPU pinning can be done using the `cpuset` FreeBSD utility.
 
 ## Testing
 
