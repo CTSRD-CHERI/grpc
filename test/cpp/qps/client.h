@@ -477,6 +477,10 @@ class Client {
   }
 
   void AwaitClientMessageLimitSync() {
+    if (client_message_limit_.load(std::memory_order_relaxed) == 0) {
+      // No message limit, skip shutdown synchronisation
+      return;
+    }
     std::unique_lock<std::mutex> g(message_limit_sync_mu_);
     message_limit_unparked_threads_--;
     message_limit_sync_.notify_all();
